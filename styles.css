@@ -1,0 +1,298 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    background-color: #121212;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Container: Flex layout for Left and Right sections */
+.container {
+    display: flex;
+    flex-direction: row; /* Default layout: Side-by-side */
+    height: 100vh;
+    flex-wrap: nowrap; /* Prevent wrapping by default */
+}
+
+/* Left Side: Intro and Contact */
+.left-side {
+    width: 60%; /* Default width for landscape view */
+    background-color: #1a1a1a;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* Right Side: Skills and Projects */
+.right-side {
+    width: 40%; /* Default width for landscape view */
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* Hero Section */
+#hero {
+    height: auto; /* Allow it to adjust height dynamically */
+    min-height: 20vh; /* Prevent it from collapsing */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: transparent; /* No background for the "Hi" section */
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+/* About Section */
+#about {
+    background: linear-gradient(to right, #333, #000); /* Gradient background for About section */
+    padding: 2rem;
+    margin-top: 20px;
+}
+
+#about h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#about p {
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: left; /* Left-align text in About */
+}
+
+/* Contact Section */
+#contact {
+    padding: 2rem 0;
+}
+#contact h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 1.5rem; /* Space between icons */
+}
+
+.social-links a {
+    font-size: 2rem;
+    color: #fff;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #3498db; /* Change color on hover */
+    transform: translateY(-10px); /* Lift the icon */
+}
+
+/* Skills Section */
+#skills {
+    padding-bottom: 2rem;
+}
+#skills h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center; /* Center the heading */
+}
+
+/* Mosaic Grid Layout for Skills */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Auto columns based on available space */
+    gap: 1rem; /* Space between skill cards */
+    grid-template-rows: auto; /* Allow rows to adjust based on content */
+    padding: 1rem;
+}
+
+.skill {
+    background-color: #333;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Add transition for smooth effect */
+    cursor: pointer;
+    color: #fff; /* Ensure text is visible */
+}
+
+.skill:hover {
+    transform: translateY(-10px); /* Lift the skill card */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a stronger shadow */
+    background-color: #444; /* Slightly darker background on hover */
+}
+
+.skill h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Adjusting Skill Card Size in Mosaic Layout */
+.skill:nth-child(1) {
+    grid-column: span 2; /* First card spans two columns */
+    grid-row: span 2; /* First card spans two rows */
+}
+
+.skill:nth-child(2) {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.skill:nth-child(3) {
+    grid-column: span 1;
+    grid-row: span 2; /* Third card spans two rows */
+}
+
+.skill:nth-child(4) {
+    grid-column: span 2; /* Fourth card spans two columns */
+    grid-row: span 1;
+}
+
+.skill:nth-child(5) {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.skill:nth-child(6) {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.skill:nth-child(7) {
+    grid-column: span 2; /* Seventh card spans two columns */
+    grid-row: span 1;
+}
+
+.skill:nth-child(8) {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+/* Media Queries for Responsive Layout */
+@media screen and (max-width: 1024px) {
+    .skills-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust for smaller screens */
+    }
+
+    .skill:nth-child(1), .skill:nth-child(4) {
+        grid-column: span 1; /* Reset larger spans for smaller screens */
+        grid-row: span 1;
+    }
+}
+
+/* Projects Section */
+#projects {
+    padding: 2rem 0;
+}
+#projects h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Interactive Heading with Arrow */
+.interactive-heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.interactive-heading:hover {
+    color: #3498db; /* Change color on hover */
+}
+
+.arrow {
+    margin-left: 10px;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease; /* Smooth transform for arrow */
+}
+
+/* Rotate the arrow to point top-right */
+.interactive-heading:hover .arrow {
+    transform: translateX(5px) rotate(-45deg); /* Move right and rotate the arrow */
+}
+
+/* Project Card Link Styling */
+.project-card {
+    background-color: #333;
+    padding: 2rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    width: 100%; /* Adjust to take full width */
+    max-width: 400px;
+    display: inline-block;
+    text-decoration: none; /* Remove underline from links */
+    color: #fff; /* Ensure text remains white */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover Effect for Project Card */
+.project-card:hover {
+    transform: translateY(-10px); /* Lift the card up */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a stronger shadow */
+}
+
+/* Text and Link Inside Card */
+.project-card h3, .project-card p {
+    color: #fff; /* Retain white color for headings and text */
+}
+
+/* Media Queries for Responsive Layout */
+@media screen and (max-width: 1024px) {
+    .container {
+        flex-direction: column; /* Stack elements vertically */
+        height: auto; /* Allow container height to adjust dynamically */
+    }
+
+    .left-side {
+        order: 1; /* Hero and Contact come first */
+        width: 100%;
+    }
+
+    .right-side {
+        order: 2; /* Skills and Projects come next */
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    #skills {
+        order: 2;
+        width: 100%;
+    }
+
+    #projects {
+        order: 3;
+        width: 100%;
+    }
+
+    #contact {
+        order: 4;
+        width: 100%;
+    }
+
+    .skills-container, .project-card {
+        display: block; /* Ensure items stack vertically */
+        margin: 1rem auto; /* Center-align skills and projects */
+    }
+
+    .skill {
+        width: auto; /* Allow skills to adjust dynamically */
+        margin: 1rem auto;
+    }
+
+    .project-card {
+        width: auto; /* Allow projects to adjust dynamically */
+        margin: 1rem auto;
+    }
+}
