@@ -71,6 +71,7 @@ body {
     line-height: 1.5;
     text-align: left; /* Left-align text in About */
     color: #e0b0ff; /* Light purple */
+    cursor: default;
 }
 
 /* Social Links */
@@ -322,6 +323,7 @@ body {
 #projects h2 {
     font-family: 'Creepster', cursive;
     font-weight: 400;
+    cursor: default;
 }
 
 /* Prevent pointer cursor on headings My Projects and My Skills */
