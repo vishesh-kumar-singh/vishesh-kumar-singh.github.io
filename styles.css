@@ -6,7 +6,7 @@
     font-family: 'Poppins', sans-serif;
 }
 body {
-    background-color: #121212;
+    background-color: #1e1e2e; /* Dark purple background */
     color: #fff;
     overflow-x: hidden;
 }
@@ -22,7 +22,7 @@ body {
 /* Left Side: Intro and Contact */
 .left-side {
     width: 60%; /* Default width for landscape view */
-    background-color: #1a1a1a;
+    background-color: #121212; /* Black background */
     padding: 2rem;
     overflow-y: auto;
 }
@@ -32,7 +32,9 @@ body {
     width: 40%; /* Default width for landscape view */
     padding: 2rem;
     overflow-y: auto;
+    position: relative; /* Make the right side container the reference point for absolute positioning */
 }
+
 
 /* Hero Section */
 #hero {
@@ -42,17 +44,18 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: transparent; /* No background for the "Hi" section */
+    background-color: transparent;
 }
 
 .hero-content h1 {
     font-size: 2.5rem;
     font-weight: 600;
+    color: #e9daf4; /* Light purple */
 }
 
 /* About Section */
 #about {
-    background: linear-gradient(to right, #333, #000); /* Gradient background for About section */
+    background: linear-gradient(to right, #540175, #000004); /* Gradient dark purple */
     padding: 2rem;
     margin-top: 20px;
 }
@@ -60,21 +63,14 @@ body {
 #about h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
+    color: #e0b0ff; /* Light purple */
 }
 
 #about p {
     font-size: 1rem;
     line-height: 1.5;
     text-align: left; /* Left-align text in About */
-}
-
-/* Contact Section */
-#contact {
-    padding: 2rem 0;
-}
-#contact h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    color: #e0b0ff; /* Light purple */
 }
 
 /* Social Links */
@@ -83,16 +79,17 @@ body {
     justify-content: left;
     align-items: center;
     gap: 1.5rem; /* Space between icons */
+    margin-top: 2rem; /* Added margin to push social links lower */
 }
 
 .social-links a {
     font-size: 2rem;
-    color: #fff;
+    color: #e0b0ff; /* Light purple */
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .social-links a:hover {
-    color: #3498db; /* Change color on hover */
+    color: #bb86fc; /* Light purple on hover */
     transform: translateY(-10px); /* Lift the icon */
 }
 
@@ -104,6 +101,7 @@ body {
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center; /* Center the heading */
+    color: #e9daf4; /* Light purple */
 }
 
 /* Mosaic Grid Layout for Skills */
@@ -116,19 +114,19 @@ body {
 }
 
 .skill {
-    background-color: #333;
+    background-color: #521a68; /* Dark purple */
     padding: 1.5rem;
     border-radius: 8px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Add transition for smooth effect */
-    cursor: pointer;
-    color: #fff; /* Ensure text is visible */
+    cursor: default;
+    color: #ffffff;
 }
 
 .skill:hover {
     transform: translateY(-10px); /* Lift the skill card */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a stronger shadow */
-    background-color: #444; /* Slightly darker background on hover */
+    background-color: #280847; /* Slightly darker purple on hover */
 }
 
 .skill h3 {
@@ -190,12 +188,36 @@ body {
 }
 
 /* Projects Section */
-#projects {
-    padding: 2rem 0;
+/* Project Card Styling */
+.project-card {
+    background-color: #521a68; /* Same dark purple as skill cards */
+    padding: 2rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    width: 100%; /* Adjust to take full width */
+    max-width: 400px;
+    display: inline-block;
+    text-decoration: none; /* Remove underline from links */
+    color: #e9daf4; /* Light purple for text initially */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
-#projects h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+
+/* Hover Effect for Project Card */
+.project-card:hover {
+    background-color: #280847; /* Slightly darker purple on hover */
+    transform: translateY(-10px); /* Lift the card up */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a stronger shadow */
+}
+
+/* Text and Link Inside Card */
+.project-card h3, .project-card p {
+    color: #e0b0ff; /* Light purple for headings and text initially */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Hover Effect for Text */
+.project-card:hover h3, .project-card:hover p {
+    color: #fff; /* Change text color to white on hover */
 }
 
 /* Interactive Heading with Arrow */
@@ -205,11 +227,7 @@ body {
     display: flex;
     align-items: center;
     cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
-}
-
-.interactive-heading:hover {
-    color: #3498db; /* Change color on hover */
+    color: #e9daf4;
 }
 
 .arrow {
@@ -219,13 +237,13 @@ body {
 }
 
 /* Rotate the arrow to point top-right */
-.interactive-heading:hover .arrow {
+.project-card:hover .arrow {
     transform: translateX(5px) rotate(-45deg); /* Move right and rotate the arrow */
 }
 
 /* Project Card Link Styling */
 .project-card {
-    background-color: #333;
+    background-color: #521a68; /* Dark purple */
     padding: 2rem;
     margin: 1rem 0;
     border-radius: 8px;
@@ -233,12 +251,12 @@ body {
     max-width: 400px;
     display: inline-block;
     text-decoration: none; /* Remove underline from links */
-    color: #fff; /* Ensure text remains white */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+    color:#fff;
 }
 
 /* Hover Effect for Project Card */
 .project-card:hover {
+    color: #3498db;
     transform: translateY(-10px); /* Lift the card up */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a stronger shadow */
 }
@@ -296,3 +314,22 @@ body {
         margin: 1rem auto;
     }
 }
+
+/* Apply Creepster font to specific headings */
+#hero h1, 
+#about h2, 
+#skills h2, 
+#projects h2 {
+    font-family: 'Creepster', cursive;
+    font-weight: 400;
+}
+
+/* Prevent pointer cursor on headings My Projects and My Skills */
+
+/* About Section Hover Effect: Rise Up */
+#about:hover {
+    transform: translateY(-10px); /* Lift the About section */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+    background-color: #2e0e68; /* Darker background */
+}
+
