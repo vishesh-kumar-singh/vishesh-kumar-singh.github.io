@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vishesh Kumar Singh</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <!-- Font Awesome for Social Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
@@ -15,7 +15,7 @@
         <section class="left-side">
             <section id="hero">
                 <div class="hero-content">
-                    <h1>Hi, I'm Vishesh Kumar Singh</h1>
+                    <h1>Hi, I'm<br>Vishesh Kumar Singh</h1>
                 </div>
             </section>
 
@@ -25,6 +25,15 @@
                     As a fresher undergraduate at the Department of <b>Mathematics and Scientific Computing</b> at the prestigious <b>Indian Institute of Technology Kanpur</b>, I am passionately delving into the expansive and intriguing world of <b>Artificial Intelligence (AI)</b> and related emerging tech fields.
                     <br>
                 </p>
+            </section>
+
+            <section id="skills">
+                <h2 class="interactive-heading">Adept at</h2>
+                <div class="skills-container">
+                    <div class="skill">Computer Vision</div>
+                    <div class="skill">Machine Learning</div>
+                    <div class="skill">Deep Learning</div>
+                </div>
             </section>
 
             <section id="contact">
@@ -44,27 +53,35 @@
 
         <!-- Right Side: Skills and Projects -->
         <section class="right-side">
-            <section id="skills">
-                <h2 class="interactive-heading">My Skills</h2>
-                <div class="skills-container">
-                    <div class="skill">Python</div>
-                    <div class="skill">Machine Learning</div>
-                    <div class="skill">Deep Learning</div>
-                </div>
-            </section>
+            
 
             <section id="projects">
                 <h2 class="interactive-heading">
                     My Projects
                 </h2>
-                <!-- In the projects section -->
-                <a href="https://github.com/vishesh-kumar-singh/Gender-Detection-using-CNN" target="_blank" class="project-card">
-                    <h3 class="interactive-heading">Gender Detection Model using CNN <span class="arrow">&#8594;</span></h3>
-                    <p>Built a model using <b>Convolutional Neural Network</b> to classify faces on the basis of their gender.<br>
-                        Tested it over 1000 test images resulting in <b>accuracy of 95.499%</b> and <b>Binary-Crossentropy Loss of 0.120</b>
-                    </p>
-                </a>
-            </section>
+                <!-- Mosaic Grid Container -->
+                <div class="projects-container">
+                    <a href="https://github.com/vishesh-kumar-singh/Gender-Detection-using-CNN" target="_blank" class="project-card project-large">
+                        <h3 class="interactive-heading">Gender Detection Model using CNN↗</h3>
+                        <i>December 2024</i>
+                        <p>Built a model using <b>Convolutional Neural Network</b> to classify faces on the basis of their gender.<br>
+                            Tested it over 1000 test images resulting in <b>accuracy of 95.499%</b> and <b>Binary-Crossentropy Loss of 0.120</b>
+                        </p>
+                    </a>
+                    <a href="https://github.com/vishesh-kumar-singh/Machine-Learning-Algorithms" target="_blank" class="project-card project-small">
+                        <h3 class="interactive-heading">Custom Implementation of ML Algorithms↗</h3>
+                        <i>November 2024-December 2024</i>
+                        <p><b>Implemented</b> core <b>ML Algorithms from scratch</b> without depending on the libraries like scikit-learn.<br>
+                            Achieved <b>results comparable to ML libraries</b>.
+                        </p>
+                    </a>
+                    <a href="https://github.com/vishesh-kumar-singh/J.A.R.V.I.S." target="_blank" class="project-card project-medium">
+                        <h3 class="interactive-heading">J.A.R.V.I.S.↗</h3>
+                        <i>November 2024</i>
+                        <p>A voice-enabled personal assistant with functionalities like <b>text-to-speech, note-taking</b>, file handling, and interactive games.</p>
+                    </a>
+                </div>
+            </section>            
         </section>
     </div>
     <script src="script.js"></script>

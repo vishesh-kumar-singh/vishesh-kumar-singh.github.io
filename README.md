@@ -1,10 +1,10 @@
 # Portfolio Website
-Welcome to my portfolio website! This is a simple, interactive portfolio **created entirely with the help of AI tools**, specifically ChatGPT. As someone with limited experience in web development, I chose to explore the capabilities of AI to assist in building a professional online presence.
+Welcome to my portfolio website! This is a simple, interactive portfolio **created entirely with the help of ChatGPT**. As someone with limited experience in web development, I chose to explore the capabilities of AI to assist in building a portfolio website for me.
 
 ## Features
 Responsive Design: The website adjusts to various screen sizes for both desktop and mobile views.
 Interactive Elements: Integrated interactive features, guided and implemented with ChatGPT’s assistance.
-Personalized Layout: The structure and design reflect my learning journey and current projects in machine learning, AI, and web development.
+Personalized Layout: The structure and design reflect my learning journey, skills and current projects.
 
 ## Technologies Used
 **ChatGPT** (for almost everything)

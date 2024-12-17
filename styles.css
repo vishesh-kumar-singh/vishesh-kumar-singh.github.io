@@ -15,13 +15,13 @@ body {
 .container {
     display: flex;
     flex-direction: row; /* Default layout: Side-by-side */
-    height: 100vh;
+    height: 115vh;
     flex-wrap: nowrap; /* Prevent wrapping by default */
 }
 
 /* Left Side: Intro and Contact */
 .left-side {
-    width: 60%; /* Default width for landscape view */
+    width: 68%; /* Default width for landscape view */
     background-color: #121212; /* Black background */
     padding: 2rem;
     overflow-y: auto;
@@ -29,7 +29,7 @@ body {
 
 /* Right Side: Skills and Projects */
 .right-side {
-    width: 40%; /* Default width for landscape view */
+    width: 32%; /* Default width for landscape view */
     padding: 2rem;
     overflow-y: auto;
     position: relative; /* Make the right side container the reference point for absolute positioning */
@@ -63,7 +63,7 @@ body {
 #about h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: #e0b0ff; /* Light purple */
+    color: #e9daf4; /* Light purple */
 }
 
 #about p {
@@ -80,7 +80,6 @@ body {
     justify-content: left;
     align-items: center;
     gap: 1.5rem; /* Space between icons */
-    margin-top: 2rem; /* Added margin to push social links lower */
 }
 
 .social-links a {
@@ -97,6 +96,8 @@ body {
 /* Skills Section */
 #skills {
     padding-bottom: 2rem;
+    margin-top: 2rem; /* Added margin to push lower */
+
 }
 #skills h2 {
     font-size: 2rem;
@@ -124,10 +125,10 @@ body {
     color: #ffffff;
 }
 
+
 .skill:hover {
     transform: translateY(-10px); /* Lift the skill card */
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a stronger shadow */
-    background-color: #280847; /* Slightly darker purple on hover */
 }
 
 .skill h3 {
@@ -242,25 +243,6 @@ body {
     transform: translateX(5px) rotate(-45deg); /* Move right and rotate the arrow */
 }
 
-/* Project Card Link Styling */
-.project-card {
-    background-color: #521a68; /* Dark purple */
-    padding: 2rem;
-    margin: 1rem 0;
-    border-radius: 8px;
-    width: 100%; /* Adjust to take full width */
-    max-width: 400px;
-    display: inline-block;
-    text-decoration: none; /* Remove underline from links */
-    color:#fff;
-}
-
-/* Hover Effect for Project Card */
-.project-card:hover {
-    color: #3498db;
-    transform: translateY(-10px); /* Lift the card up */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add a stronger shadow */
-}
 
 /* Text and Link Inside Card */
 .project-card h3, .project-card p {
@@ -321,8 +303,7 @@ body {
 #about h2, 
 #skills h2, 
 #projects h2 {
-    font-family: 'Creepster', cursive;
-    font-weight: 400;
+    font-weight: 600;
     cursor: default;
 }
 
