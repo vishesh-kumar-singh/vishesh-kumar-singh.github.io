@@ -15,13 +15,13 @@ body {
 .container {
     display: flex;
     flex-direction: row; /* Default layout: Side-by-side */
-    height: 115vh;
+    height: 170vh;
     flex-wrap: nowrap; /* Prevent wrapping by default */
 }
 
 /* Left Side: Intro and Contact */
 .left-side {
-    width: 68%; /* Default width for landscape view */
+    width: 60%; /* Default width for landscape view */
     background-color: #121212; /* Black background */
     padding: 2rem;
     overflow-y: auto;
@@ -29,7 +29,7 @@ body {
 
 /* Right Side: Skills and Projects */
 .right-side {
-    width: 32%; /* Default width for landscape view */
+    width: 40%; /* Default width for landscape view */
     padding: 2rem;
     overflow-y: auto;
     position: relative; /* Make the right side container the reference point for absolute positioning */
@@ -80,6 +80,7 @@ body {
     justify-content: left;
     align-items: center;
     gap: 1.5rem; /* Space between icons */
+    margin-top: 80px;
 }
 
 .social-links a {
@@ -95,7 +96,6 @@ body {
 
 /* Skills Section */
 #skills {
-    padding-bottom: 2rem;
     margin-top: 2rem; /* Added margin to push lower */
 
 }
@@ -197,7 +197,6 @@ body {
     margin: 1rem 0;
     border-radius: 8px;
     width: 100%; /* Adjust to take full width */
-    max-width: 400px;
     display: inline-block;
     text-decoration: none; /* Remove underline from links */
     color: #e9daf4; /* Light purple for text initially */
