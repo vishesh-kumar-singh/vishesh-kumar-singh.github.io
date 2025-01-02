@@ -15,7 +15,7 @@ body {
 .container {
     display: flex;
     flex-direction: row; /* Default layout: Side-by-side */
-    height: 170vh;
+    height: 200vh;
     flex-wrap: nowrap; /* Prevent wrapping by default */
 }
 
@@ -48,16 +48,16 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 600;
     color: #e9daf4; /* Light purple */
 }
 
 /* About Section */
 #about {
-    background: linear-gradient(to right, #540175, #000004); /* Gradient dark purple */
+    background: linear-gradient(to right, #540175, #000004);
     padding: 2rem;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 #about h2 {
@@ -297,7 +297,7 @@ body {
     }
 }
 
-/* Apply Creepster font to specific headings */
+
 #hero h1, 
 #about h2, 
 #skills h2, 
@@ -306,12 +306,53 @@ body {
     cursor: default;
 }
 
-/* Prevent pointer cursor on headings My Projects and My Skills */
+/* Achievements Section */
+#achievements {
+    text-align: center;
+    padding: 2rem;
 
-/* About Section Hover Effect: Rise Up */
-#about:hover {
-    transform: translateY(-10px); /* Lift the About section */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
-    background-color: #2e0e68; /* Darker background */
 }
 
+
+/* Hexagon Container */
+.hexagon-container {
+    color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 2rem; /* Space between hexagons */
+
+}
+
+/* Hexagon Style */
+/* Hexagon Style */
+/* Hexagon Style */
+.hexagon {
+    position: relative;
+    width: 120px;
+    height: 100px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    transition: transform 0.3s, background 0.3s;
+    cursor: default;
+
+    /* 3D effect using shadow */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5), /* Outer shadow */
+                inset 0px -3px 5px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+}
+
+
+
+/* Text Inside Hexagon */
+.hexagon span {
+    position: absolute;
+    width: 80%; /* Limit text width */
+    white-space: normal; /* Allow text wrapping */
+    line-height: 1.2;
+}
