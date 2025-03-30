@@ -326,8 +326,7 @@ body {
 
 }
 
-/* Hexagon Style */
-/* Hexagon Style */
+
 /* Hexagon Style */
 .hexagon {
     position: relative;
@@ -343,13 +342,10 @@ body {
     text-align: center;
     cursor: default;
     transition: 300ms;
-
     /* 3D effect using shadow */
-    /* box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5), /* Outer shadow */
-                /* inset 0px -3px 5px rgba(0, 0, 0, 0.3); Inner shadow for depth */ */
+    /* box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5), 
+                inset 0px -3px 5px rgba(0, 0, 0, 0.3); */
 }
-
-
 
 /* Text Inside Hexagon */
 .hexagon span {
