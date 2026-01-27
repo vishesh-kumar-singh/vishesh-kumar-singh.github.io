@@ -63,7 +63,8 @@
             </p>
             <div style="margin-top: 1.5rem;">
                 <ul>
-                    <li><strong>Computational Neuroscience:</strong> Implemented SNNs for DQN.</li>
+                    <li><strong>Computational Neuroscience:</strong> Proposed a Biologically inspired framework to
+                        simulate Memory in SNNs, Implemented SNNs for DQN.</li>
                     <li><strong>Multi-Agent Systems:</strong> Worked on InterIIT-Techmeet-14.0 Problem Statement
                         provided by Observe AI.</li>
                     <li><strong>Multi-Agent RL:</strong> Mentoring a winter project on Multi-Agent RL based on Self
@@ -73,6 +74,24 @@
                 </ul>
             </div>
 
+            <h2>Key Achievements</h2>
+            <div style="margin-top: 1.5rem;"></div>
+            <ul>
+                <li>IITK contingent member in <strong>InterIIT-Techmeet-14.0</strong>, where IITK contingent secured <strong>overall second position</strong>.</li>
+                <li>Scored <strong>AIR 786 at JEE Advanced 2024</strong> amongst 1.9lakh+ shortlisted candidates
+                    becoming 3rd city topper.</li>
+                <li><strong>AIR 1904 at JEE Mains 2024</strong> amongst almost 14 lakh students with a perfect score of
+                    100\%ile in Physics.</li>
+                <li><strong>National Top 1% students at NSEC 2023</strong> and were a part of <strong>531</strong>
+                    selected candidates
+                    <strong>out of 44363</strong> for INChO 2024.</strong>
+                </li>
+                <li><strong>State Top 1% students at NSEP 2023</strong> and were a part of <strong>305</strong>
+                    selected candidates
+                    <strong>out of 49460</strong> for INPhO 2024.
+                </li>
+            </ul>
+            </div>
 
 
             <div class="contact-section" style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">
@@ -86,6 +105,43 @@
 
         <section id="currently-working" class="tab-content">
             <h2>Currently Working On</h2>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">Mimicking Biological Memory Consolidation in SNNs</span>
+                    <span class="project-meta">Preparing for Publication</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/vishesh-kumar-singh/Mimicking-Biological-Memory-Consolidation-in-SNNs"
+                        target="_blank"><i class="fab fa-github"></i> Code</a>
+                </div>
+                <div style="margin-top: 1rem; text-align: justify;">
+                    <p>
+                        Spiking Neural Networks (SNNs) offer a promising paradigm for energy-efficient neuromorphic
+                        computing, yet maintaining knowledge across sequential tasks remains a significant challenge.
+                        This work explores a biologically grounded method for long-term memory preservation through
+                        <strong>synaptic consolidation</strong>. We introduce a <strong>Potentiation-Factor
+                            (P-Factor)</strong> to identify neural patterns responsible for predictions, enabling
+                        selective memory preservation during new task learning.
+                    </p>
+                    <p style="margin-top: 0.75rem;">
+                        <strong>Dual-Phase Learning:</strong>
+                    </p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li><strong>Synaptic Locking:</strong> Freezing of identified expert neurons to preserve learned
+                            representations</li>
+                        <li><strong>Homeostatic Reset:</strong> Recycling of redundant novice neurons to maintain
+                            plasticity for new tasks</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;">
+                        <strong>Results:</strong> Evaluated on Split-MNIST, the P-Factor successfully identifies key
+                        neurons, achieving <strong>83.46% retention</strong> on prior tasks while maintaining
+                        <strong>90.63% accuracy</strong> on new tasks. These results suggest that mimicking structural
+                        dynamics of the brain offers a pathway to lifelong learning in SNNs without global gradients or
+                        past data buffers.
+                    </p>
+                </div>
+            </div>
+
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Beyond Vectors: Why External Memory is Not All You Need</span>
@@ -116,7 +172,32 @@
         </section>
 
         <section id="projects" class="tab-content">
-            <h2>Projects</h2>
+            <h2>Key Projects</h2>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">Mimicking Biological Memory Consolidation in SNNs</span>
+                    <span class="project-meta">Secretary Tenure Project | BCS Club IITK</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/vishesh-kumar-singh/Mimicking-Biological-Memory-Consolidation-in-SNNs"
+                        target="_blank"><i class="fab fa-github"></i> Code</a>
+                </div>
+                <ul>
+                    <li>Proposed <strong>P-Factor Consolidation</strong>, a biologically-grounded framework for
+                        <strong>lifelong learning</strong> in Spiking Neural Networks without global gradients or replay
+                        buffers.
+                    </li>
+                    <li>Introduced a <strong>Potentiation-Factor (P-Factor)</strong> to identify neural engrams via
+                        local LTP/LTD signals, enabling selective <strong>Synaptic Locking</strong> of expert neurons
+                        and <strong>Homeostatic Reset</strong> of novice neurons.</li>
+                    <li>Achieved <strong>83.46% retention</strong> on prior tasks while maintaining <strong>90.63%
+                            accuracy</strong> on new tasks beating 0% retention via simple training on the Split-MNIST
+                        benchmark.</li>
+                    <li>Ablation study confirmed a <strong>~22% performance gap</strong> over random/fixed freezing
+                        baselines, validating that P-Factor successfully localizes memory engrams.</li>
+                </ul>
+            </div>
 
             <div class="project-card">
                 <div class="project-header">
@@ -187,23 +268,6 @@
 
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-title">Deux Machina</span>
-                    <span class="project-meta">Project Mentor | Freshers Am</span>
-                </div>
-                <!-- <div class="project-links">
-                    <a href="https://github.com/vishesh-kumar-singh/Google-Agent" target="_blank"><i
-                            class="fab fa-github"></i> Code</a>
-                </div> -->
-                <ul>
-                    <li>Mentored 45 students, teaching them about RL, Deep RL and advancements, followed by a final assignment for a self-play algorithm.</li>
-                    <li>A <strong>Multi-Agent RL</strong> pipeline was developed using <strong>Iterative Self-Play</strong>, creating an auto-curriculum where the agent learns by competing against frozen past versions of itself.</li>
-                    <li><strong>Double Q-Learning</strong> was used to minimise value overestimation and ensure stability.</li>
-                    <li>A distributed training loop via <strong>Python Multiprocessing</strong> was used to parallelize data collection across concurrent <strong>PettingZoo</strong> environments.</li>
-                </ul>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
                     <span class="project-title">Google Suite Agent</span>
                     <span class="project-meta">Self Project</span>
                 </div>
@@ -220,6 +284,31 @@
                     </li>
                     <li>Integrated <strong>Gemini</strong> API with custom tools and <strong>Mem0</strong> for
                         conversational intelligence and user memory handling.</li>
+                </ul>
+            </div>
+
+
+            <h2>Mentored Projects</h2>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">Deux Machina</span>
+                    <span class="project-meta">Project Mentor | Freshers Amateur Project 2025 | BCS Club IITK</span>
+                </div>
+                <!-- <div class="project-links">
+                    <a href="https://github.com/vishesh-kumar-singh/Google-Agent" target="_blank"><i
+                            class="fab fa-github"></i> Code</a>
+                </div> -->
+                <ul>
+                    <li>Mentored 45 students, teaching them about RL, Deep RL and advancements, followed by a final
+                        assignment for a self-play algorithm.</li>
+                    <li>A <strong>Multi-Agent RL</strong> pipeline was developed using <strong>Iterative
+                            Self-Play</strong>, creating an auto-curriculum where the agent learns by competing against
+                        frozen past versions of itself.</li>
+                    <li><strong>Double Q-Learning</strong> was used to minimise value overestimation and ensure
+                        stability.</li>
+                    <li>A distributed training loop via <strong>Python Multiprocessing</strong> was used to parallelize
+                        data collection across concurrent <strong>PettingZoo</strong> environments.</li>
                 </ul>
             </div>
 
@@ -253,12 +342,13 @@
                     </p>
                 </a>
             </div>
-            
+
             <div class="blog-card">
                 <a href="https://medium.com/@thevishesh16/the-multi-armed-bandits-problem-major-strategies-9a4f2b43e049"
                     target="_blank" class="blog-link">
                     <div class="blog-title">The Multi-Armed Bandits Problem: Major Strategies</div>
-                    <p>An coincise explaination of Multi-Armed BAndits and the major strategies like Epsilon Greedy, Upper Confidence Bound, and Thompson Samplng.
+                    <p>An coincise explaination of Multi-Armed Bandits and the major strategies like Epsilon Greedy,
+                        Upper Confidence Bound, and Thompson Samplng.
                     </p>
                 </a>
             </div>
