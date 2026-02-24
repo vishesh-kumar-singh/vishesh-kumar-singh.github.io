@@ -32,13 +32,17 @@
             </a>
         </div>
 
-        <nav class="main-nav">
-            <button class="nav-btn active" data-target="about">About</button>
-            <button class="nav-btn" data-target="projects">Projects</button>
-            <button class="nav-btn" data-target="publications">Publications</button>
-            <button class="nav-btn" data-target="currently-working">Currently Working</button>
-            <button class="nav-btn" data-target="blogs">Blogs</button>
-        </nav>
+        <div class="nav-wrapper">
+            <button class="nav-arrow nav-arrow--left hidden" aria-label="Scroll left">&#8249;</button>
+            <nav class="main-nav">
+                <button class="nav-btn active" data-target="about">About</button>
+                <button class="nav-btn" data-target="projects">Projects</button>
+                <button class="nav-btn" data-target="publications">Publications</button>
+                <!-- <button class="nav-btn" data-target="currently-working">Currently Working</button> -->
+                <button class="nav-btn" data-target="blogs">Blogs</button>
+            </nav>
+            <button class="nav-arrow nav-arrow--right" aria-label="Scroll right">&#8250;</button>
+        </div>
     </header>
 
     <main>
@@ -84,7 +88,7 @@
                 <li>Scored <strong>AIR 786 at JEE Advanced 2024</strong> amongst 1.9lakh+ shortlisted candidates
                     becoming 3rd city topper.</li>
                 <li><strong>AIR 1904 at JEE Mains 2024</strong> amongst almost 14 lakh students with a perfect score of
-                    100\%ile in Physics.</li>
+                    100%ile in Physics.</li>
                 <li><strong>National Top 1% students at NSEC 2023</strong> and were a part of <strong>531</strong>
                     selected candidates <strong>out of 44363</strong> for INChO 2024.</li>
                 <li><strong>State Top 1% students at NSEP 2023</strong> and were a part of <strong>305</strong> selected
@@ -102,36 +106,36 @@
             </div>
         </section>
 
-        <section id="currently-working" class="tab-content">
+        <!-- <section id="currently-working" class="tab-content">
             <h2>Currently Working On</h2>
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Beyond Vectors: Why External Memory is Not All You Need</span>
                     <span class="project-meta">Ongoing</span>
                 </div>
-                <!-- <div class="project-links">
+                <div class="project-links">
                     <a href="#" target="_blank"><i class="fab fa-github"></i> Code</a>
-                </div> -->
-                <div style="margin-top: 1rem; text-align: justify;">
-                    <p>
-                        Memory-augmented language models aim to compensate for the stateless nature of transformers by
-                        storing and retrieving information across interactions. Current memory systems rely almost
-                        entirely on embedding similarity and heuristic update rules. These methods fail when dealing
-                        with multi-step reasoning, temporal tracking, contradiction resolution, identity unification and
-                        many more. The current memory systems are not fit in many aspects which a memory should ideally
-                        have. This limits the capability of LLMs to respond accurately and precisely, as well as
-                        restricts them to learn after training is over. Therefore innovation in the aspect of memory
-                        management in LLMs is a necessary step towards AGI.
-                    </p>
-                    <p style="margin-top: 0.5rem;">
-                        The aim of this study is to formally define what an ideal memory in LLMs should be, as well as a
-                        benchmarking method to compare them. It not only shows that the current methods are weak but
-                        also it has been shown that why current idea of using an external memory frameworks is bound to
-                        fail.
-                    </p>
                 </div>
-            </div>
-        </section>
+         <div style="margin-top: 1rem; text-align: justify;">
+            <p>
+                Memory-augmented language models aim to compensate for the stateless nature of transformers by
+                storing and retrieving information across interactions. Current memory systems rely almost
+                entirely on embedding similarity and heuristic update rules. These methods fail when dealing
+                with multi-step reasoning, temporal tracking, contradiction resolution, identity unification and
+                many more. The current memory systems are not fit in many aspects which a memory should ideally
+                have. This limits the capability of LLMs to respond accurately and precisely, as well as
+                restricts them to learn after training is over. Therefore innovation in the aspect of memory
+                management in LLMs is a necessary step towards AGI.
+            </p>
+            <p style="margin-top: 0.5rem;">
+                The aim of this study is to formally define what an ideal memory in LLMs should be, as well as a
+                benchmarking method to compare them. It not only shows that the current methods are weak but
+                also it has been shown that why current idea of using an external memory frameworks is bound to
+                fail.
+            </p>
+        </div>
+        </div>
+        </section> -->
 
         <section id="publications" class="tab-content">
             <h2>Preprints</h2>
@@ -279,7 +283,8 @@
                             class="fab fa-github"></i> Code</a>
                 </div> -->
                 <ul>
-                    <li>Mentored 45 students, teaching them about RL, Deep RL and advancements, followed by a final
+                    <li>Mentored a group of students, teaching them about RL, Deep RL and advancements, followed by a
+                        final
                         assignment for a self-play algorithm.</li>
                     <li>A <strong>Multi-Agent RL</strong> pipeline was developed using <strong>Iterative
                             Self-Play</strong>, creating an auto-curriculum where the agent learns by competing against

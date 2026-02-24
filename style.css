@@ -26,7 +26,7 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: var(--primary-color);
 }
 
@@ -37,8 +37,8 @@ header p {
 }
 
 .profile-img {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 1rem;
@@ -62,12 +62,20 @@ header p {
 }
 
 /* Navigation Styles */
-.main-nav {
+.nav-wrapper {
+    position: relative;
     margin-top: 2rem;
+}
+
+.main-nav {
     display: flex;
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+}
+
+.nav-arrow {
+    display: none;
 }
 
 .nav-btn {
@@ -214,5 +222,61 @@ footer {
 
     .project-header {
         flex-direction: column;
+    }
+
+    .nav-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .main-nav {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 0 0.5rem;
+    }
+
+    .main-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .nav-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 32px;
+        z-index: 2;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: rgba(0, 0, 0, 0.4);
+        transition: opacity 0.3s;
+    }
+
+    .nav-arrow--left {
+        left: 0;
+        background: linear-gradient(to right, var(--card-bg) 40%, transparent);
+    }
+
+    .nav-arrow--right {
+        right: 0;
+        background: linear-gradient(to left, var(--card-bg) 40%, transparent);
+    }
+
+    .nav-arrow.hidden {
+        opacity: 0;
+        pointer-events: none;
     }
 }
