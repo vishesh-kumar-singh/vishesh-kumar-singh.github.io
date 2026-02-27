@@ -150,6 +150,7 @@ h2 {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     margin-bottom: 1.5rem;
+    border-left: 4px solid var(--secondary-color);
     transition: transform 0.2s;
 }
 
@@ -206,6 +207,167 @@ li {
     font-weight: 600;
     color: var(--link-color);
     margin-bottom: 0.5rem;
+}
+
+/* Education Section */
+.education-timeline {
+    position: relative;
+}
+
+.education-card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--secondary-color);
+    transition: transform 0.2s;
+}
+
+.education-card:hover {
+    transform: translateY(-2px);
+}
+
+.card-subsection {
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.card-subsection>h4 {
+    margin: 0 0 0.75rem 0;
+    color: var(--secondary-color);
+    font-size: 1.05rem;
+}
+
+.card-subsection>h4 i {
+    margin-right: 0.4rem;
+}
+
+.card-subsection>ul {
+    column-count: 2;
+    column-gap: 2rem;
+}
+
+.education-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.4rem;
+}
+
+.education-degree {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.education-year {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.education-institution {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.education-institution i {
+    color: var(--secondary-color);
+    margin-right: 0.4rem;
+}
+
+.education-field {
+    font-size: 0.95rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Clubs & Positions */
+.club-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.club-name i {
+    color: var(--secondary-color);
+    margin-right: 0.4rem;
+}
+
+/* Role Timeline */
+.role-timeline {
+    margin-top: 0.75rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--secondary-color);
+}
+
+.role-entry {
+    position: relative;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.role-entry::before {
+    content: '';
+    position: absolute;
+    left: -1.35rem;
+    top: 0.45rem;
+    width: 10px;
+    height: 10px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+}
+
+.role-entry:last-child {
+    margin-bottom: 0;
+}
+
+.role-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+}
+
+.role-period {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Key Courses Grid */
+.courses-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.course-category h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--secondary-color);
+    font-size: 1.05rem;
+}
+
+.course-category h4 i {
+    margin-right: 0.4rem;
+}
+
+.course-category ul {
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 600px) {
+    .education-header {
+        flex-direction: column;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 footer {
