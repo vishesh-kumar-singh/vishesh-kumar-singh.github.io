@@ -8,6 +8,154 @@
     --font-main: 'Inter', sans-serif;
 }
 
+[data-theme="dark"] {
+    --primary-color: #e8e8e8;
+    --secondary-color: #e05550;
+    --text-color: #d0d0d0;
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --link-color: #6db3f2;
+}
+
+[data-theme="dark"] header {
+    background-color: #1a1a1a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] header p {
+    color: #999;
+}
+
+[data-theme="dark"] h2 {
+    border-bottom-color: var(--secondary-color);
+}
+
+[data-theme="dark"] .project-links a,
+[data-theme="dark"] .social-links a {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .achievement-item .achievement-detail {
+    color: #999;
+}
+
+[data-theme="dark"] .education-field {
+    color: #999;
+}
+
+[data-theme="dark"] .education-year,
+[data-theme="dark"] .project-meta,
+[data-theme="dark"] .role-period {
+    color: #999;
+}
+
+[data-theme="dark"] .nav-btn {
+    color: #999;
+}
+
+[data-theme="dark"] .nav-btn:hover {
+    color: var(--primary-color);
+}
+
+[data-theme="dark"] footer {
+    color: #666;
+}
+
+[data-theme="dark"] .contact-section {
+    border-top-color: #333 !important;
+}
+
+/* Theme Switch */
+.theme-switch-wrapper {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--secondary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider .fas {
+    color: #f39c12;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease;
+    font-size: 14px;
+    z-index: 1;
+}
+
+.slider .fa-sun {
+    left: 8px;
+    opacity: 0;
+}
+
+.slider .fa-moon {
+    right: 8px;
+    color: #f1c40f;
+}
+
+input:checked + .slider .fa-sun {
+    opacity: 1;
+    color: #fff;
+}
+
+input:checked + .slider .fa-moon {
+    opacity: 0;
+}
+
+
+/* Smooth transitions for theme switching */
+body, header, .project-card, .blog-card, .education-card,
+.achievement-item, .nav-btn, footer, .social-links a,
+.project-links a {
+    transition: background-color 0.3s ease, color 0.3s ease,
+                border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
 body {
     font-family: var(--font-main);
     background-color: var(--bg-color);
@@ -22,6 +170,7 @@ header {
     padding: 2rem 1rem;
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 header h1 {
@@ -369,6 +518,61 @@ li {
         grid-template-columns: 1fr;
     }
 }
+
+/* Achievements Timeline */
+.achievements-timeline {
+    position: relative;
+    padding-left: 0;
+    margin-top: 1rem;
+}
+
+.achievement-year-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.achievement-year-label {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--card-bg);
+    background: var(--secondary-color);
+    border-radius: 12px;
+    padding: 0.15rem 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.achievement-item {
+    position: relative;
+    background: var(--card-bg);
+    padding: 0.85rem 1.1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0.75rem;
+    border-left: 3px solid var(--secondary-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.achievement-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.achievement-item .achievement-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.achievement-item .achievement-detail {
+    font-size: 0.92rem;
+    color: #555;
+    margin-top: 0.2rem;
+}
+
+
 
 footer {
     text-align: center;

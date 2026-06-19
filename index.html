@@ -32,6 +32,16 @@
             </a>
         </div>
 
+        <div class="theme-switch-wrapper" title="Toggle dark mode">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </label>
+        </div>
+
         <div class="nav-wrapper">
             <button class="nav-arrow nav-arrow--left hidden" aria-label="Scroll left">&#8249;</button>
             <nav class="main-nav">
@@ -52,16 +62,16 @@
         <section id="about" class="tab-content active">
             <h2>About Me</h2>
             <p>
-                I am a sophomore at the Indian Institute of Technology, Kanpur, pursuing a B.S. in
+                I am a third-year undergraduate at the Indian Institute of Technology, Kanpur, pursuing a B.S. in
                 Mathematics and Scientific Computing.
                 Currently I am working on
             </p>
 
             <div style="margin-top: 1.5rem;">
                 <ul>
-                    <li>Machine Learning & Natural Language Processing</li>
-                    <li>Reinforcement Learning</li>
-                    <li>Computational Neuroscience</li>
+                    <li>Test-time Alignment of LLMs (SURGE 2026)</li>
+                    <li>Reinforcement Learning for Robotics (Wadhwani School, IIT Kanpur)</li>
+                    <li>Causal Feature Pruning in Deep RL</li>
                 </ul>
             </div>
 
@@ -72,30 +82,88 @@
                 <ul>
                     <li><strong>Computational Neuroscience:</strong> Proposed a Biologically inspired framework to
                         simulate Memory in SNNs, Implemented SNNs for DQN.</li>
+                    <li><strong>Test-time LLM Alignment:</strong> Best-of-N strategies, ONA metric, MBR Reward Weighted Self Consistency.</li>
+                    <li><strong>Robotics Competitions:</strong> LeHome Challenge ICRA 2026, Samsung EnnovateX AX Hackathon.</li>
+                    <li><strong>Distractor Pruning in Deep RL:</strong> EMA-Tree SAC for dynamic noise filtering in continuous control.</li>
                     <li><strong>Multi-Agent Systems:</strong> Worked on InterIIT-Techmeet-14.0 Problem Statement
                         provided by Observe AI.</li>
-                    <li><strong>Multi-Agent RL:</strong> Mentored a winter project on Multi-Agent RL based on Iterative Self
-                        Play.</li>
                     <li><strong>Audio ML:</strong> Developed a complete pipeline for speaker diarization and
-                        transcription</li>
+                        transcription.</li>
                 </ul>
             </div>
 
-            <h2>Key Achievements</h2>
-            <div style="margin-top: 1.5rem;"></div>
-            <ul>
-                <li>IITK contingent member in <strong>InterIIT-Techmeet-14.0</strong>, where IITK contingent secured
-                    <strong>overall second position</strong>.
-                </li>
-                <li>Scored <strong>AIR 786 at JEE Advanced 2024</strong> amongst 1.9lakh+ shortlisted candidates
-                    becoming 3rd city topper.</li>
-                <li><strong>AIR 1904 at JEE Mains 2024</strong> amongst almost 14 lakh students with a perfect score of
-                    100%ile in Physics.</li>
-                <li><strong>National Top 1% students at NSEC 2023</strong> and were a part of <strong>531</strong>
-                    selected candidates <strong>out of 44363</strong> for INChO 2024.</li>
-                <li><strong>State Top 1% students at NSEP 2023</strong> and were a part of <strong>305</strong> selected
-                    candidates <strong>out of 49460</strong> for INPhO 2024.</li>
-            </ul>
+            <h2>Achievements</h2>
+            <div class="achievements-timeline">
+
+                <!-- 2026 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2026</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">Samsung EnnovateX AX Hackathon</div>
+                        <div class="achievement-detail">Top 50 teams across 11 problem statements (phase-2)</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-title">Build with Opus4.7 Hackathon</div>
+                        <div class="achievement-detail">Top 500 out of 20K applicants worldwide (round 2)</div>
+                    </div>
+                </div>
+
+                <!-- 2025 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2025</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">Iranian Combinatorics Olympiad</div>
+                        <div class="achievement-detail">1 of 2 Indian &amp; 37 international teams qualified for phase 2</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-title">InterIIT Techmeet 14.0</div>
+                        <div class="achievement-detail">Contingent member; IITK secured overall 2nd position</div>
+                    </div>
+                </div>
+
+                <!-- 2024 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2024</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">AIR 786 at JEE Advanced</div>
+                        <div class="achievement-detail">3rd in city, among 1.9 lakh shortlisted candidates</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-title">AIR 1904 at JEE Mains</div>
+                        <div class="achievement-detail">100%ile in Physics among 14 lakh students</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-title">INSPIRE Scholarship</div>
+                        <div class="achievement-detail">INR 60K/year by Government of India for 2 consecutive years</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-title">CBSE Class XII &mdash; 88.2%</div>
+                        <div class="achievement-detail">Aryan International School, Varanasi</div>
+                    </div>
+                </div>
+
+                <!-- 2023 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2023</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">National Top 1% at NSEP</div>
+                        <div class="achievement-detail">305 selected for INPhO out of 49,460 candidates</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-title">National Top 1% at NSEC</div>
+                        <div class="achievement-detail">531 selected for INChO out of 44,363 candidates</div>
+                    </div>
+                </div>
+
+                <!-- 2022 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2022</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">CBSE Class X &mdash; 92.8%</div>
+                        <div class="achievement-detail">Guru Nanak English School, Varanasi</div>
+                    </div>
+                </div>
+
             </div>
 
 
@@ -114,14 +182,31 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Research Intern</span>
-                    <span class="project-meta">May 2026 – Present</span>
+                    <span class="project-meta">SURGE 2026 &bull; May'26 – Jul'26</span>
                 </div>
                 <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
-                    <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Indian Institute of Technology (IIT) Kanpur
+                    <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Prof. Sayak Ray Chowdhury &bull; Dept. of CSE, IIT Kanpur
                 </div>
                 <ul>
-                    <li>Ongoing research intern under <strong>Prof. Sayak Ray Chowdhury</strong>.</li>
-                    <li>Research Topic: <strong>Fairness in Multiarmed bandits</strong>.</li>
+                    <li>Explored <strong>Best-of-N (BoN)</strong> strategies for <strong>test-time alignment in LLMs</strong> as an alternative to traditional <strong>RLHF</strong> pipelines.</li>
+                    <li>Used <strong>GMS8K</strong> and <strong>MATH500</strong> datasets to test different methodologies, along with building and testing original hypotheses.</li>
+                    <li>Engineered an <strong>ONA metric</strong> to strictly <strong>decouple LLM generation limits from reward model selection capabilities</strong>.</li>
+                    <li>Invented <strong>Min. Bayes Risk Reward Weighted Self Consistency</strong> surpassing individual models by <strong>5% on MATH500</strong>.</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">RL Researcher Intern</span>
+                    <span class="project-meta">Jun'26 – Present</span>
+                </div>
+                <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
+                    <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Wadhwani School of AI &amp; Intelligent Systems, IIT Kanpur
+                </div>
+                <ul>
+                    <li>Working on training and testing <strong>Reinforcement Learning policies for robotics</strong>, based on the latest publications in the literature.</li>
+                    <li>Setup simulation environments like <strong>MuJoCo</strong> and <strong>NVIDIA ISAAC Sim</strong> for simulation-based training and testing of robot policies.</li>
+                    <li>Presented and implemented the idea of real-world robot policy steering via <strong>Bottleneck Latent Reinforcement Learning</strong>.</li>
                 </ul>
             </div>
         </section>
@@ -158,11 +243,11 @@
         </section> -->
 
         <section id="publications" class="tab-content">
-            <h2>Preprints</h2>
+            <h2>Publications</h2>
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-title">Mimicking Biological Memory Consolidation in SNNs</span>
-                    <span class="project-meta">Paper under Review</span>
+                    <span class="project-title">Biological Memory Consolidation in SNNs</span>
+                    <span class="project-meta">Under Revision for Elsevier Neurocomputing</span>
                 </div>
                 <div class="project-links">
                     <a href="https://github.com/vishesh-kumar-singh/Mimicking-Biological-Memory-Consolidation-in-SNNs"
@@ -189,18 +274,80 @@
                             plasticity for new tasks</li>
                     </ul>
                     <p style="margin-top: 0.75rem;">
-                        <strong>Results:</strong> Evaluated on Split-MNIST, the P-Factor successfully identifies key
-                        neurons, achieving <strong>83.46% retention</strong> on prior tasks while maintaining
-                        <strong>90.63% accuracy</strong> on new tasks. These results suggest that mimicking structural
-                        dynamics of the brain offers a pathway to lifelong learning in SNNs without global gradients or
-                        past data buffers.
+                        <strong>Results:</strong> Benchmarked on <strong>Split-MNIST, Split-N-MNIST &amp; 5-Split-Fashion-MNIST</strong>. <strong>Superior performance</strong> over all traditional methods (EWC, SI, PackNet) adapted for SNNs, <strong>surpassing by more than 30%</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">Dynamic Distractor Pruning in Deep RL (EMA-Tree SAC)</span>
+                    <span class="project-meta">Under Review for TMLR</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/vishesh-kumar-singh/Distractor-Pruning-in-Deep-RL"
+                        target="_blank"><i class="fab fa-github"></i> Code</a>
+                </div>
+                <div style="margin-top: 1rem; text-align: justify;">
+                    <p>
+                        Stabilize continuous control RL agents by <strong>dynamically filtering high-variance noise</strong> and spurious distractors.
+                    </p>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>Developed <strong>EMA-Tree SAC</strong>, leveraging <strong>Random Forests</strong> to extract predictive importance from Q-values.</li>
+                        <li>Stabilized selection via <strong>Exponential Moving Average (EMA)</strong> to create a <strong>dynamic binary hard-mask</strong>.</li>
+                        <li>Engineered an adversarial <strong>Distracting Control Suite</strong> injecting Gaussian noise and coupled spurious states.</li>
+                        <li>Outperformed <strong>L1</strong> and <strong>Group-Lasso regularised SAC</strong>, proving hard-masking beats standard weight-decay.</li>
+                    </ul>
+                    <p style="margin-top: 0.75rem;">
+                        <strong>Impact:</strong> <strong>Eliminated destructive noise on-the-fly</strong>, yielding up to a <strong>51% return improvement</strong> over standard SAC.
                     </p>
                 </div>
             </div>
         </section>
 
         <section id="projects" class="tab-content">
-            <h2>Projects</h2>
+            <h2>Major Competitions</h2>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">LeHome Challenge ICRA 2026</span>
+                    <span class="project-meta">Team ERA IITK &bull; Apr'26</span>
+                </div>
+                <ul>
+                    <li>Trained <strong>smolVLA</strong> for garment folding with 2 LeRobots and applied <strong>Residual-RL</strong> correction layer to improve performance.</li>
+                    <li>Used <strong>ISAAC-Sim for simulation</strong>-based training of residual RL and other RL-based policies.</li>
+                    <li>Also experimented with <strong>RL-based finetuning</strong> and <strong>Residual PPO over ACT policy</strong>.</li>
+                    <li><strong>Results:</strong> Total: <strong>46.13%</strong> | Long-Sleeved Tops: 43.5% | Short-Sleeved Tops: 24.5% | Long Pants: 50.5% | Shorts: 66.0%</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">Samsung EnnovateX AX Hackathon</span>
+                    <span class="project-meta">Natural Language Robotic Manipulation &bull; May'26 &ndash; Jun'26</span>
+                </div>
+                <ul>
+                    <li>Coupled a fine-tuned <strong>&pi;<sub>0</sub>-FAST</strong> action policy with a deterministic <strong>spatial grounder</strong> and a <strong>symbolic planner</strong>.</li>
+                    <li><strong>Segmented LIBERO demonstrations into subgoal phases</strong> directly from gripper open/close transitions.</li>
+                    <li><strong>Fine-tuned &pi;<sub>0</sub>-FAST with LoRA</strong> to follow subgoals, giving symbolic planner control over low-level policy.</li>
+                    <li><strong>Results:</strong> Achieved <strong>92% and 82% on LIBERO Spatial and Long</strong> respectively, vs. OpenPI&rsquo;s 70% and 60%.</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">Inter IIT Techmeet 14.0</span>
+                    <span class="project-meta">Observe AI &bull; Nov'25 &ndash; Dec'25</span>
+                </div>
+                <ul>
+                    <li>Causal analysis from data of <strong>20,000 call-center transcripts</strong> on Business Events based on natural language queries.</li>
+                    <li>Designed a novel <strong>causal-graph-driven, agentic RAG framework</strong> for causal analysis of business events.</li>
+                    <li>Developed <strong>multi-agent query generation</strong> and evaluation pipelines with <strong>human-feedback-based</strong> filtering.</li>
+                    <li>Integrated <strong>MCP</strong> powered <strong>SQL database</strong> for statistical backing and graph of thought to reduce inconsistency.</li>
+                </ul>
+            </div>
+
+            <h2>Key Projects</h2>
 
             <div class="project-card">
                 <div class="project-header">
@@ -228,24 +375,6 @@
                         <strong>4</strong> | <strong>SNN Performance:</strong> Mean Score=<strong>1.13</strong>, Max
                         Score= <strong>11</strong>
                     </li>
-                </ul>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-title">ReFLECT</span>
-                    <span class="project-meta">Observe AI | Inter IIT Techmeet 14.0</span>
-                </div>
-                <ul>
-                    <li>The problem statement demanded <strong>causal analysis</strong> for a given <strong>corpus of
-                            20,000</strong> call center transcripts, based on natural language queries.</li>
-                    <li>Integrated <strong>causal graphs</strong> with semantic retrieval, along with <strong>dynamic
-                            re-ranking</strong> based on query and derived features of transcripts for causal analysis.
-                    </li>
-                    <li>Integrated <strong>MCP</strong> powered <strong>SQL database</strong> for statistical backing of
-                        the analysis.</li>
-                    <li>Implemented an <strong>agentic orchestration</strong> using <strong>Langgraph</strong> for
-                        analysis and providing necessary plans and solutions for business improvements.</li>
                 </ul>
             </div>
 
@@ -387,9 +516,13 @@
                                         <span class="role-period">April 2026 – Present</span>
                                     </div>
                                     <ul>
-                                        <li>At the highest position of the club, managing all the club activities.</li>
-                                        <li>Mentoring projects and managing team of secretaries for Machine Learning and Neuroscience activities in campus.</li>
-
+                                        <li>Spearheading a 2-tier <strong>team of 30 secretaries</strong> across 2 verticals — Machine Learning and Neuroscience.</li>
+                                        <li>Managing a budget of <strong>INR 1,50,000</strong> to fund neuroscientific equipment and essential club resources.</li>
+                                        <li>Leading a team of secretaries for participation in <strong>ISRO Bhartiya Antariksha Hackathon 2026</strong>.</li>
+                                        <li>Built a <strong>Reinforcement Learning Roadmap</strong>, empowering <strong>200K+ freshers</strong> to master concepts of RL.</li>
+                                        <li><strong>Mentoring 25+ students</strong> along with 3 co-mentors for the summer project Recall-E offered by the club.</li>
+                                        <li>Assisted <strong>500+ users</strong> in learning and accelerating projects through NLP, CV &amp; Neuroscience roadmaps.</li>
+                                        <li>Achieved <strong>2x increase in club outreach</strong> affecting 120+ freshers &amp; 10+ mentors across 4 Summer projects.</li>
                                     </ul>
                                 </div>
                                 <div class="role-entry">
@@ -430,16 +563,18 @@
                     <div class="card-subsection">
                         <h4><i class="fas fa-book"></i> Key Courses</h4>
                         <ul>
-                            <li>Fundamentals of Computing (Grade: A*)</li>
-                            <li>Multi Variable Calculus</li>
+                            <li>Fundamentals of Computing-I (Grade: A*) &amp; II</li>
+                            <li>Single Variable Calculus (Grade: A)</li>
+                            <li>Multivariable Calculus</li>
                             <li>Linear Algebra</li>
                             <li>Probability Theory</li>
-                            <li>Abstract Algebra(Ongoing)</li>
-                            <li>Single Variable Calculus (Grade: A)</li>
+                            <li>Abstract Algebra</li>
                             <li>Set Theory and Logic</li>
+                            <li>Real Analysis</li>
                             <li>Ordinary Differential Equations</li>
-                            <li>Real Analysis (Ongoing)</li>
-                            <li>Numerical Analysis and Sci. Computing (Ongoing)</li>
+                            <li>Numerical Analysis &amp; Sci. Computing</li>
+                            <li>Quantum Physics</li>
+                            <li>Introduction to Electronics</li>
                         </ul>
                     </div>
                 </div>
