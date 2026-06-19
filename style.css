@@ -9,60 +9,143 @@
 }
 
 [data-theme="dark"] {
-    --primary-color: #e8e8e8;
-    --secondary-color: #e05550;
-    --text-color: #d0d0d0;
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --link-color: #6db3f2;
+    /* Cyberpunk Theme Overrides */
+    --primary-color: #00ffff; /* Neon Cyan */
+    --secondary-color: #ff00ff; /* Hot Pink */
+    --text-color: #e0e0e0; /* Light grey for readability */
+    --bg-color: #050508; /* Pitch black with slight blue/purple tint */
+    --card-bg: #100818; /* Very dark purple */
+    --link-color: #00ffff;
+    --font-main: 'Courier New', Courier, monospace; /* Terminal font */
+}
+
+[data-theme="dark"] body {
+    font-family: var(--font-main);
+    background: radial-gradient(circle at center, #1a0b2e 0%, #050508 100%);
+    color: var(--text-color);
 }
 
 [data-theme="dark"] header {
-    background-color: #1a1a1a;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: rgba(10, 5, 20, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--secondary-color);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+}
+
+[data-theme="dark"] .profile-img {
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+    filter: contrast(1.2) saturate(1.2);
+}
+
+[data-theme="dark"] header h1 {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--primary-color);
 }
 
 [data-theme="dark"] header p {
-    color: #999;
+    color: #00ffcc;
+    text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
 }
 
 [data-theme="dark"] h2 {
     border-bottom-color: var(--secondary-color);
+    text-transform: uppercase;
+    text-shadow: 0 0 8px var(--primary-color);
+    letter-spacing: 1px;
 }
 
 [data-theme="dark"] .project-links a,
 [data-theme="dark"] .social-links a {
-    color: var(--text-color);
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--primary-color);
 }
 
-[data-theme="dark"] .achievement-item .achievement-detail {
-    color: #999;
+[data-theme="dark"] .social-links a:hover {
+    color: var(--secondary-color);
+    text-shadow: 0 0 10px var(--secondary-color);
 }
 
-[data-theme="dark"] .education-field {
-    color: #999;
+/* Cyberpunk Cards */
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .education-card,
+[data-theme="dark"] .achievement-item,
+[data-theme="dark"] .blog-card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] .project-card:hover,
+[data-theme="dark"] .education-card:hover,
+[data-theme="dark"] .achievement-item:hover,
+[data-theme="dark"] .blog-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .achievement-item {
+    border-left: 3px solid var(--secondary-color);
+}
+
+[data-theme="dark"] .achievement-item::before {
+    background: var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+    border-color: var(--bg-color);
+}
+
+[data-theme="dark"] .achievement-year-label {
+    background: var(--secondary-color);
+    color: #fff;
+    box-shadow: 0 0 10px var(--secondary-color);
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+
+[data-theme="dark"] .education-field,
+[data-theme="dark"] .achievement-detail {
+    color: #aaa;
 }
 
 [data-theme="dark"] .education-year,
 [data-theme="dark"] .project-meta,
 [data-theme="dark"] .role-period {
-    color: #999;
+    color: var(--secondary-color);
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.4);
 }
 
 [data-theme="dark"] .nav-btn {
-    color: #999;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+[data-theme="dark"] .nav-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
 }
 
 [data-theme="dark"] .nav-btn:hover {
-    color: var(--primary-color);
+    color: var(--secondary-color);
+    text-shadow: 0 0 10px var(--secondary-color);
 }
 
 [data-theme="dark"] footer {
     color: #666;
+    border-top: 1px dashed var(--secondary-color);
 }
 
 [data-theme="dark"] .contact-section {
-    border-top-color: #333 !important;
+    border-top: 1px dashed var(--primary-color) !important;
+}
+
+[data-theme="dark"] strong {
+    color: var(--primary-color);
 }
 
 /* Theme Switch */
