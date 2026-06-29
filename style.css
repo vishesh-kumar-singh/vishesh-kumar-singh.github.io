@@ -106,8 +106,8 @@
 }
 
 [data-theme="dark"] .education-field,
-[data-theme="dark"] .achievement-detail {
-    color: #aaa;
+[data-theme="dark"] .achievement-item .achievement-detail {
+    color: #ffffff;
 }
 
 [data-theme="dark"] .education-year,
@@ -655,7 +655,44 @@ li {
     margin-top: 0.2rem;
 }
 
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: transparent;
+}
 
+.contact-link:hover {
+    border-color: var(--primary-color);
+    background: rgba(0, 0, 0, 0.02);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.contact-link i {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+
+[data-theme="dark"] .contact-link {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .contact-link:hover {
+    background: rgba(0, 255, 255, 0.05);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
 
 footer {
     text-align: center;

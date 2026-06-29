@@ -52,6 +52,7 @@
                 <button class="nav-btn" data-target="projects">Projects</button>
                 <!-- <button class="nav-btn" data-target="currently-working">Currently Working</button> -->
                 <button class="nav-btn" data-target="blogs">Blogs</button>
+                <button class="nav-btn" data-target="contact">Contact</button>
             </nav>
             <button class="nav-arrow nav-arrow--right" aria-label="Scroll right">&#8250;</button>
         </div>
@@ -62,35 +63,23 @@
         <section id="about" class="tab-content active">
             <h2>About Me</h2>
             <p>
-                I am a third-year undergraduate at the Indian Institute of Technology, Kanpur, pursuing a B.S. in
+                I am a third-year undergraduate at the Indian Institute of Technology, Kanpur, pursuing a B.S. in 
                 Mathematics and Scientific Computing.
-                Currently I am working on
+                My primary research interests include:
             </p>
 
             <div style="margin-top: 1.5rem;">
                 <ul>
-                    <li>Test-time Alignment of LLMs (SURGE 2026)</li>
-                    <li>Reinforcement Learning for Robotics (Wadhwani School, IIT Kanpur)</li>
-                    <li>Causal Feature Pruning in Deep RL</li>
+                    <li>Test-time alignment in LLMs</li>
+                    <li>Representation Learning</li>
+                    <li>Reinforcement Learning</li>
                 </ul>
             </div>
 
             <p>
-                My past works include:
+                Alongside these I have also worked with Computational Neuroscience, Robotics and Speech Processing.
             </p>
-            <div style="margin-top: 1.5rem;">
-                <ul>
-                    <li><strong>Computational Neuroscience:</strong> Proposed a Biologically inspired framework to
-                        simulate Memory in SNNs, Implemented SNNs for DQN.</li>
-                    <li><strong>Test-time LLM Alignment:</strong> Best-of-N strategies, ONA metric, MBR Reward Weighted Self Consistency.</li>
-                    <li><strong>Robotics Competitions:</strong> LeHome Challenge ICRA 2026, Samsung EnnovateX AX Hackathon.</li>
-                    <li><strong>Distractor Pruning in Deep RL:</strong> EMA-Tree SAC for dynamic noise filtering in continuous control.</li>
-                    <li><strong>Multi-Agent Systems:</strong> Worked on InterIIT-Techmeet-14.0 Problem Statement
-                        provided by Observe AI.</li>
-                    <li><strong>Audio ML:</strong> Developed a complete pipeline for speaker diarization and
-                        transcription.</li>
-                </ul>
-            </div>
+            
 
             <h2>Achievements</h2>
             <div class="achievements-timeline">
@@ -100,7 +89,7 @@
                     <span class="achievement-year-label">2026</span>
                     <div class="achievement-item">
                         <div class="achievement-title">Samsung EnnovateX AX Hackathon</div>
-                        <div class="achievement-detail">Top 50 teams across 11 problem statements (phase-2)</div>
+                        <div class="achievement-detail">Qualified for pre-final round.</div>
                     </div>
                     <div class="achievement-item">
                         <div class="achievement-title">Build with Opus4.7 Hackathon</div>
@@ -164,47 +153,35 @@
             </div>
 
 
-            <div class="contact-section" style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">
-                <h3>Contact</h3>
-                <p>
-                    <i class="fas fa-envelope"></i> <a href="mailto:visheshk24@iitk.ac.in"
-                        style="text-decoration: none; color: inherit;">visheshk24@iitk.ac.in</a><br>
-                </p>
-            </div>
         </section>
 
         <section id="experience" class="tab-content">
-            <h2>Work Experience</h2>
+            <h2>Internships</h2>
 
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-title">Research Intern</span>
+                    <span class="project-title">Undergraduate Researcher</span>
                     <span class="project-meta">SURGE 2026 &bull; May'26 – Jul'26</span>
                 </div>
                 <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
                     <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Prof. Sayak Ray Chowdhury &bull; Dept. of CSE, IIT Kanpur
                 </div>
-                <ul>
-                    <li>Explored <strong>Best-of-N (BoN)</strong> strategies for <strong>test-time alignment in LLMs</strong> as an alternative to traditional <strong>RLHF</strong> pipelines.</li>
-                    <li>Used <strong>GMS8K</strong> and <strong>MATH500</strong> datasets to test different methodologies, along with building and testing original hypotheses.</li>
-                    <li>Engineered an <strong>ONA metric</strong> to strictly <strong>decouple LLM generation limits from reward model selection capabilities</strong>.</li>
-                    <li>Invented <strong>Min. Bayes Risk Reward Weighted Self Consistency</strong> surpassing individual models by <strong>5% on MATH500</strong>.</li>
-                </ul>
+                <p style="margin-top: 1rem; text-align: justify;">
+                    Worked on test-time alignment of LLMs to mitigate reward hacking and enhance overall reliability. Proposed novel methods for improving Best of N (BoN) strategies accuracy against literature baselines by upto 7-8%, at same time use almost 50% lower generation cost.
+                </p>
             </div>
 
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-title">RL Researcher Intern</span>
+                    <span class="project-title">Reinforcement Learning Researcher</span>
                     <span class="project-meta">Jun'26 – Present</span>
                 </div>
                 <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
                     <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Wadhwani School of AI &amp; Intelligent Systems, IIT Kanpur
                 </div>
-                <ul>
-                    <li>Working on training and testing <strong>Reinforcement Learning policies for robotics</strong>, based on the latest publications in the literature.</li>
-                    <li>Setup simulation environments like <strong>MuJoCo</strong> and <strong>NVIDIA ISAAC Sim</strong> for simulation-based training and testing of robot policies.</li>
-                    <li>Presented and implemented the idea of real-world robot policy steering via <strong>Bottleneck Latent Reinforcement Learning</strong>.</li>
-                </ul>
+                <p>
+                    Working on implementing Reinforcement Learning policies for robotics, based on the latest publications in the literature. Also working on collecting data on the laboratory robotic arm for training base policies, over which RL will be applied.
+                </p>
             </div>
         </section>
 
@@ -240,7 +217,7 @@
         </section> -->
 
         <section id="publications" class="tab-content">
-            <h2>Publications</h2>
+            <h2>Preprints</h2>
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Biological Memory Consolidation in SNNs</span>
@@ -250,28 +227,13 @@
                     <a href="https://github.com/vishesh-kumar-singh/Mimicking-Biological-Memory-Consolidation-in-SNNs"
                         target="_blank"><i class="fab fa-github"></i> Code</a>
                     <a href="https://doi.org/10.36227/techrxiv.177032973.30172948/v1" target="_blank"><i
-                            class="fas fa-book"></i> DOI</a>
+                            class="fas fa-book"></i> Preprint</a>
                 </div>
                 <div style="margin-top: 1rem; text-align: justify;">
                     <p>
-                        Spiking Neural Networks (SNNs) offer a promising paradigm for energy-efficient neuromorphic
-                        computing, yet maintaining knowledge across sequential tasks remains a significant challenge.
-                        This work explores a biologically grounded method for long-term memory preservation through
-                        <strong>synaptic consolidation</strong>. We introduce a <strong>Potentiation-Factor
-                            (P-Factor)</strong> to identify neural patterns responsible for predictions, enabling
+                        For mitigating catastrophic forgetting in SNNs, we introduce a <strong>Potentiation-Factor
+                        (P-Factor)</strong> to identify neural patterns responsible for predictions, enabling
                         selective memory preservation during new task learning.
-                    </p>
-                    <p style="margin-top: 0.75rem;">
-                        <strong>Dual-Phase Learning:</strong>
-                    </p>
-                    <ul style="margin-top: 0.5rem;">
-                        <li><strong>Synaptic Locking:</strong> Freezing of identified expert neurons to preserve learned
-                            representations</li>
-                        <li><strong>Homeostatic Reset:</strong> Recycling of redundant novice neurons to maintain
-                            plasticity for new tasks</li>
-                    </ul>
-                    <p style="margin-top: 0.75rem;">
-                        <strong>Results:</strong> Benchmarked on <strong>Split-MNIST, Split-N-MNIST &amp; 5-Split-Fashion-MNIST</strong>. <strong>Superior performance</strong> over all traditional methods (EWC, SI, PackNet) adapted for SNNs, <strong>surpassing by more than 30%</strong>.
                     </p>
                 </div>
             </div>
@@ -279,7 +241,7 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Dynamic Distractor Pruning in Deep RL (EMA-Tree SAC)</span>
-                    <span class="project-meta">Under Review for TMLR</span>
+                    <span class="project-meta">Preprint Submitted to Springer's ML</span>
                 </div>
                 <div class="project-links">
                     <a href="https://github.com/vishesh-kumar-singh/Distractor-Pruning-in-Deep-RL"
@@ -287,16 +249,7 @@
                 </div>
                 <div style="margin-top: 1rem; text-align: justify;">
                     <p>
-                        Stabilize continuous control RL agents by <strong>dynamically filtering high-variance noise</strong> and spurious distractors.
-                    </p>
-                    <ul style="margin-top: 0.5rem;">
-                        <li>Developed <strong>EMA-Tree SAC</strong>, leveraging <strong>Random Forests</strong> to extract predictive importance from Q-values.</li>
-                        <li>Stabilized selection via <strong>Exponential Moving Average (EMA)</strong> to create a <strong>dynamic binary hard-mask</strong>.</li>
-                        <li>Engineered an adversarial <strong>Distracting Control Suite</strong> injecting Gaussian noise and coupled spurious states.</li>
-                        <li>Outperformed <strong>L1</strong> and <strong>Group-Lasso regularised SAC</strong>, proving hard-masking beats standard weight-decay.</li>
-                    </ul>
-                    <p style="margin-top: 0.75rem;">
-                        <strong>Impact:</strong> <strong>Eliminated destructive noise on-the-fly</strong>, yielding up to a <strong>51% return improvement</strong> over standard SAC.
+                        Stabilize continuous control RL agents by <strong>dynamically filtering high-variance noise</strong> and spurious distractors, using Random Forests to determine feature importance.
                     </p>
                 </div>
             </div>
@@ -321,7 +274,7 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Samsung EnnovateX AX Hackathon</span>
-                    <span class="project-meta">Natural Language Robotic Manipulation &bull; May'26 &ndash; Jun'26</span>
+                    <span class="project-meta">Qualified for Pre-Finals &bull; May'26 &ndash; Jun'26</span>
                 </div>
                 <ul>
                     <li>Coupled a fine-tuned <strong>&pi;<sub>0</sub>-FAST</strong> action policy with a deterministic <strong>spatial grounder</strong> and a <strong>symbolic planner</strong>.</li>
@@ -349,7 +302,7 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Spike-Verse</span>
-                    <span class="project-meta">Summer Project 2025 | BCS Club IITK</span>
+                    <span class="project-meta">Summer Project 2025 &bull; BCS Club IITK</span>
                 </div>
                 <div class="project-links">
                     <a href="https://github.com/vishesh-kumar-singh/Atari-Breakout-DoubleDQN" target="_blank"><i
@@ -378,7 +331,7 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Are You Speaking</span>
-                    <span class="project-meta">ML Problem Statement | Takneek</span>
+                    <span class="project-meta">ML Problem Statement &bull; Takneek</span>
                 </div>
                 <ul>
                     <li>Developed a robust end-to-end pipeline for <strong>speaker diarization</strong>,
@@ -398,7 +351,7 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">JARVIS</span>
-                    <span class="project-meta">System Automation | Self Project | Nov'25 – Dec'25</span>
+                    <span class="project-meta">System Automation &bull; Self Project &bull; Nov'25 – Dec'25</span>
                 </div>
                 <div class="project-links">
                     <a href="https://github.com/vishesh-kumar-singh/jarvis" target="_blank"><i
@@ -421,7 +374,7 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Recall-E</span>
-                    <span class="project-meta">Project Mentor | BCS Club | May'26 – Jul'26</span>
+                    <span class="project-meta">Project Mentor &bull; BCS Club &bull; May'26 – Jul'26</span>
                 </div>
                 <div class="project-links">
                     <a href="https://vishesh-kumar-singh.github.io/recall-e" target="_blank"><i
@@ -438,7 +391,7 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Deux-Machina</span>
-                    <span class="project-meta">Project Mentor | BCS Club | Nov'25 – Dec'25</span>
+                    <span class="project-meta">Project Mentor &bull; BCS Club &bull; Nov'25 – Dec'25</span>
                 </div>
                 <div class="project-links">
                     <a href="https://drive.google.com/file/d/1mgQvEEg9MUTTQHNKBz_Yev61-sAHs5fm/view?usp=drive_link" target="_blank"><i
@@ -513,13 +466,9 @@
                                         <span class="role-period">April 2026 – Present</span>
                                     </div>
                                     <ul>
-                                        <li>Spearheading a 2-tier <strong>team of 30 secretaries</strong> across 2 verticals — Machine Learning and Neuroscience.</li>
+                                        <li>Spearheading a 2-tier <strong>team of 30 secretaries</strong> across 2 verticals: Machine Learning and Neuroscience.</li>
                                         <li>Managing a budget of <strong>INR 1,50,000</strong> to fund neuroscientific equipment and essential club resources.</li>
-                                        <li>Leading a team of secretaries for participation in <strong>ISRO Bhartiya Antariksha Hackathon 2026</strong>.</li>
-                                        <li>Built a <strong>Reinforcement Learning Roadmap</strong>, empowering <strong>200K+ freshers</strong> to master concepts of RL.</li>
-                                        <li><strong>Mentoring 25+ students</strong> along with 3 co-mentors for the summer project Recall-E offered by the club.</li>
-                                        <li>Assisted <strong>500+ users</strong> in learning and accelerating projects through NLP, CV &amp; Neuroscience roadmaps.</li>
-                                        <li>Achieved <strong>2x increase in club outreach</strong> affecting 120+ freshers &amp; 10+ mentors across 4 Summer projects.</li>
+                                        <li>Mentored multiple student teams for projects and hackathons</li>
                                     </ul>
                                 </div>
                                 <div class="role-entry">
@@ -601,6 +550,32 @@
             </div>
 
 
+        </section>
+
+        <section id="contact" class="tab-content">
+            <h2>Get in Touch</h2>
+            <div class="project-card" style="padding: 3rem 2rem; max-width: 650px; margin: 2rem auto; text-align: center;">
+                <p style="font-size: 1.1rem; color: var(--text-color); margin-bottom: 2.5rem; line-height: 1.6; opacity: 0.9;">
+                    I'm currently open to new opportunities, research collaborations, and interesting conversations. Whether you have a question or just want to say hi, feel free to drop a message!
+                </p>
+                
+                <div class="contact-links-container" style="display: flex; flex-direction: column; gap: 1.2rem; align-items: center;">
+                    <a href="mailto:visheshk24@iitk.ac.in" class="contact-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>visheshk24@iitk.ac.in</span>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/thevishesh16" target="_blank" class="contact-link">
+                        <i class="fab fa-linkedin"></i>
+                        <span>linkedin.com/in/thevishesh16</span>
+                    </a>
+
+                    <a href="https://instagram.com/vishesh_kumar_singh" target="_blank" class="contact-link">
+                        <i class="fab fa-instagram"></i>
+                        <span>@vishesh_kumar_singh</span>
+                    </a>
+                </div>
+            </div>
         </section>
 
     </main>
