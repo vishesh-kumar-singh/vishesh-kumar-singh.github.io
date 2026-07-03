@@ -15,6 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = button.getAttribute('data-target');
             const targetContent = document.getElementById(targetId);
             if (targetContent) {
+                // Calculate dynamic unroll duration based on height
+                targetContent.style.display = 'block'; // Temporarily display to measure
+                let scrollHeight = targetContent.offsetHeight;
+                targetContent.style.display = ''; // Reset
+                
+                // Base 0.5s + 1s per 600px of height, max 3.5 seconds
+                let duration = Math.min(3.5, Math.max(1.0, 0.5 + (scrollHeight / 600)));
+                targetContent.style.setProperty('--unroll-duration', `${duration}s`);
+                
                 targetContent.classList.add('active');
             }
         });

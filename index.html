@@ -13,23 +13,33 @@
 </head>
 
 <body>
+    <div class="jarvis-bg">
+        <div class="tenor-gif-embed" data-postid="14889389" data-share-method="host" data-width="100%"><a
+                href="https://tenor.com/view/tony-stark-iron-man-rdj-robert-downey-jr-gif-14889389">Tony Stark GIF</a>
+        </div>
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
 
     <header>
-        <img src="image.png" alt="Vishesh Kumar Singh" class="profile-img">
-        <h1>Vishesh Kumar Singh</h1>
-        <p>Mathematics and Scientific Computing • IIT Kanpur</p>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/thevishesh16" target="_blank" title="LinkedIn"><i
-                    class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/vishesh-kumar-singh" target="_blank" title="GitHub"><i
-                    class="fab fa-github"></i></a>
-            <a href="https://medium.com/@thevishesh16" target="_blank" title="Medium">
-                <svg viewBox="0 0 24 24" fill="currentColor"
-                    style="width: 2rem; height: 1.5rem; vertical-align: -0.125em;">
-                    <path
-                        d="M2.846 6.887c.03-.295-.083-.586-.303-.784l-2.24-2.7v-.403h6.958l5.378 11.795 4.728-11.795h6.633v.403l-1.916 1.837c-.165.126-.247.333-.213.538v13.498c-.034.204.048.411.213.537l1.871 1.851v.403h-9.412v-.403l1.939-1.882c.19-.19.19-.246.19-.537v-10.91l-5.389 13.688h-.728l-6.275-13.688v9.174c-.052.385.076.774.347 1.052l2.521 3.058v.404h-7.148v-.404l2.521-3.058c.27-.279.39-.67.325-1.052v-10.608z" />
-                </svg>
-            </a>
+        <div class="header-content">
+            <img src="image.jpg" alt="Vishesh Kumar Singh" class="profile-img">
+            <div class="header-text">
+                <h1>Vishesh Kumar Singh</h1>
+                <p>Mathematics and Scientific Computing • IIT Kanpur</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/thevishesh16" target="_blank" title="LinkedIn"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/vishesh-kumar-singh" target="_blank" title="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://medium.com/@thevishesh16" target="_blank" title="Medium">
+                        <svg viewBox="0 0 24 24" fill="currentColor"
+                            style="width: 2rem; height: 1.5rem; vertical-align: -0.125em;">
+                            <path
+                                d="M2.846 6.887c.03-.295-.083-.586-.303-.784l-2.24-2.7v-.403h6.958l5.378 11.795 4.728-11.795h6.633v.403l-1.916 1.837c-.165.126-.247.333-.213.538v13.498c-.034.204.048.411.213.537l1.871 1.851v.403h-9.412v-.403l1.939-1.882c.19-.19.19-.246.19-.537v-10.91l-5.389 13.688h-.728l-6.275-13.688v9.174c-.052.385.076.774.347 1.052l2.521 3.058v.404h-7.148v-.404l2.521-3.058c.27-.279.39-.67.325-1.052v-10.608z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="theme-switch-wrapper" title="Toggle dark mode">
@@ -46,7 +56,7 @@
             <button class="nav-arrow nav-arrow--left hidden" aria-label="Scroll left">&#8249;</button>
             <nav class="main-nav">
                 <button class="nav-btn active" data-target="about">About</button>
-                <button class="nav-btn" data-target="education">Education</button>
+                <button class="nav-btn" data-target="achievements">Achievements</button>
                 <button class="nav-btn" data-target="experience">Experience</button>
                 <button class="nav-btn" data-target="publications">Publications</button>
                 <button class="nav-btn" data-target="projects">Projects</button>
@@ -63,94 +73,29 @@
         <section id="about" class="tab-content active">
             <h2>About Me</h2>
             <p>
-                I am a third-year undergraduate at the Indian Institute of Technology, Kanpur, pursuing a B.S. in 
-                Mathematics and Scientific Computing.
+                I am a third-year undergraduate at the <a href="https://www.iitk.ac.in/">Indian Institute of Technology, Kanpur</a>, pursuing a B.S. in
+                <a href="https://iitk.ac.in/math/">Mathematics and Scientific Computing</a>. Currently I am persuing undergraduate reseach under guidance of <a
+                    href="https://sites.google.com/view/sayakraychowdhury/home">Prof. Sayak Ray Chowdhury</a> from <a
+                    href="https://www.cse.iitk.ac.in/">Department of Computer Science and Engineering</a> at IITK. I am
+                also working with <a href="https://iitk.ac.in/wsais/">Wadhwani School of    AI and Intelligent Systems</a> at
+                IITK as a research intern.
                 My primary research interests include:
             </p>
 
             <div style="margin-top: 1.5rem;">
                 <ul>
-                    <li>Test-time alignment in LLMs</li>
-                    <li>Representation Learning</li>
-                    <li>Reinforcement Learning</li>
+                    <li><strong>Alignment in Large Language Models:</strong> Investigating the mechanics of confident hallucinations. I build mathematically grounded, test-time alignment strategies (like sequential early stopping) to prevent reward hacking and ensure reliable reasoning trajectories.</li>
+                    <li><strong>Representation Learning:</strong> Exploring the geometric topology of dense hidden states. I use information bottlenecks in latent spaces to filter adversarial noise and extract robust representations of truth and uncertainty.</li>
+                    <li><strong>Reinforcement Learning & Robotics:</strong> I just love to play with robots. There is no grand philosophical motivation here... I just enjoy treating hardwares and RL algorithms as highly complex toys to tinker with.</li>
                 </ul>
             </div>
 
             <p>
-                Alongside these I have also worked with Computational Neuroscience, Robotics and Speech Processing.
+                Alongside these I have also worked with Computational Neuroscience, where generally I am intrested to mimic biological phenomenons like memory formation, decision making, etc.
             </p>
-            
 
-            <h2>Achievements</h2>
-            <div class="achievements-timeline">
 
-                <!-- 2026 -->
-                <div class="achievement-year-group">
-                    <span class="achievement-year-label">2026</span>
-                    <div class="achievement-item">
-                        <div class="achievement-title">Samsung EnnovateX AX Hackathon</div>
-                        <div class="achievement-detail">Qualified for pre-final round.</div>
-                    </div>
-                    <div class="achievement-item">
-                        <div class="achievement-title">Build with Opus4.7 Hackathon</div>
-                        <div class="achievement-detail">Top 500 out of 20K applicants worldwide (round 2)</div>
-                    </div>
-                </div>
 
-                <!-- 2025 -->
-                <div class="achievement-year-group">
-                    <span class="achievement-year-label">2025</span>
-                    <div class="achievement-item">
-                        <div class="achievement-title">Iranian Combinatorics Olympiad</div>
-                        <div class="achievement-detail">1 of 2 Indian &amp; 37 international teams qualified for phase 2</div>
-                    </div>
-                    <div class="achievement-item">
-                        <div class="achievement-title">InterIIT Techmeet 14.0</div>
-                        <div class="achievement-detail">Contingent member; IITK secured overall 2nd position</div>
-                    </div>
-                </div>
-
-                <!-- 2024 -->
-                <div class="achievement-year-group">
-                    <span class="achievement-year-label">2024</span>
-                    <div class="achievement-item">
-                        <div class="achievement-title">AIR 786 at JEE Advanced</div>
-                        <div class="achievement-detail">3rd in city, among 1.9 lakh shortlisted candidates</div>
-                    </div>
-                    <div class="achievement-item">
-                        <div class="achievement-title">AIR 1904 at JEE Mains</div>
-                        <div class="achievement-detail">100%ile in Physics among 14 lakh students</div>
-                    </div>
-
-                    <div class="achievement-item">
-                        <div class="achievement-title">CBSE Class XII &mdash; 88.2%</div>
-                        <div class="achievement-detail">Aryan International School, Varanasi</div>
-                    </div>
-                </div>
-
-                <!-- 2023 -->
-                <div class="achievement-year-group">
-                    <span class="achievement-year-label">2023</span>
-                    <div class="achievement-item">
-                        <div class="achievement-title">National Top 1% at NSEP</div>
-                        <div class="achievement-detail">305 selected for INPhO out of 49,460 candidates</div>
-                    </div>
-                    <div class="achievement-item">
-                        <div class="achievement-title">National Top 1% at NSEC</div>
-                        <div class="achievement-detail">531 selected for INChO out of 44,363 candidates</div>
-                    </div>
-                </div>
-
-                <!-- 2022 -->
-                <div class="achievement-year-group">
-                    <span class="achievement-year-label">2022</span>
-                    <div class="achievement-item">
-                        <div class="achievement-title">CBSE Class X &mdash; 92.8%</div>
-                        <div class="achievement-detail">Guru Nanak English School, Varanasi</div>
-                    </div>
-                </div>
-
-            </div>
 
 
         </section>
@@ -164,10 +109,13 @@
                     <span class="project-meta">SURGE 2026 &bull; May'26 – Jul'26</span>
                 </div>
                 <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
-                    <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Prof. Sayak Ray Chowdhury &bull; Dept. of CSE, IIT Kanpur
+                    <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Prof.
+                    Sayak Ray Chowdhury &bull; Dept. of CSE, IIT Kanpur
                 </div>
                 <p style="margin-top: 1rem; text-align: justify;">
-                    Worked on test-time alignment of LLMs to mitigate reward hacking and enhance overall reliability. Proposed novel methods for improving Best of N (BoN) strategies accuracy against literature baselines by upto 7-8%, at same time use almost 50% lower generation cost.
+                    Worked on test-time alignment of LLMs to mitigate reward hacking and enhance overall reliability.
+                    Proposed novel methods for improving Best of N (BoN) strategies accuracy against literature
+                    baselines by upto 10%, at same time cuts the generation costs by upto 65%.
                 </p>
             </div>
 
@@ -177,10 +125,16 @@
                     <span class="project-meta">Jun'26 – Present</span>
                 </div>
                 <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
-                    <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Wadhwani School of AI &amp; Intelligent Systems, IIT Kanpur
+                    <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i>
+                    Wadhwani School of AI &amp; Intelligent Systems, IIT Kanpur
                 </div>
                 <p>
-                    Working on implementing Reinforcement Learning policies for robotics, based on the latest publications in the literature. Also working on collecting data on the laboratory robotic arm for training base policies, over which RL will be applied.
+                    Formulated rigorous simulation pipelines in MuJoCo to benchmark and evaluate state-of-the-art 
+                    Reinforcement Learning (RL) policies against established baselines.
+                    Implemented recent literature methods like robot policy steering via latent space interventions.
+                    Investigating cross-morphology policy transfer by retargeting pre-trained network weights to the
+                    specific kinematic constraints of the lab’s Nero robot, establishing the foundation for future physical
+                    deployment.
                 </p>
             </div>
         </section>
@@ -232,7 +186,7 @@
                 <div style="margin-top: 1rem; text-align: justify;">
                     <p>
                         For mitigating catastrophic forgetting in SNNs, we introduce a <strong>Potentiation-Factor
-                        (P-Factor)</strong> to identify neural patterns responsible for predictions, enabling
+                            (P-Factor)</strong> to identify neural patterns responsible for predictions, enabling
                         selective memory preservation during new task learning.
                     </p>
                 </div>
@@ -244,12 +198,14 @@
                     <span class="project-meta">Preprint Submitted to Springer's ML</span>
                 </div>
                 <div class="project-links">
-                    <a href="https://github.com/vishesh-kumar-singh/Distractor-Pruning-in-Deep-RL"
-                        target="_blank"><i class="fab fa-github"></i> Code</a>
+                    <a href="https://github.com/vishesh-kumar-singh/Distractor-Pruning-in-Deep-RL" target="_blank"><i
+                            class="fab fa-github"></i> Code</a>
                 </div>
                 <div style="margin-top: 1rem; text-align: justify;">
                     <p>
-                        Stabilize continuous control RL agents by <strong>dynamically filtering high-variance noise</strong> and spurious distractors, using Random Forests to determine feature importance.
+                        Stabilize continuous control RL agents by <strong>dynamically filtering high-variance
+                            noise</strong> and spurious distractors, using Random Forests to determine feature
+                        importance.
                     </p>
                 </div>
             </div>
@@ -264,23 +220,31 @@
                     <span class="project-meta">Team ERA IITK &bull; Apr'26</span>
                 </div>
                 <ul>
-                    <li>Trained <strong>smolVLA</strong> for garment folding with 2 LeRobots and applied <strong>Residual-RL</strong> correction layer to improve performance.</li>
-                    <li>Used <strong>ISAAC-Sim for simulation</strong>-based training of residual RL and other RL-based policies.</li>
-                    <li>Also experimented with <strong>RL-based finetuning</strong> and <strong>Residual PPO over ACT policy</strong>.</li>
-                    <li><strong>Results:</strong> Total: <strong>46.13%</strong> | Long-Sleeved Tops: 43.5% | Short-Sleeved Tops: 24.5% | Long Pants: 50.5% | Shorts: 66.0%</li>
+                    <li>Trained <strong>smolVLA</strong> for garment folding with 2 LeRobots and applied
+                        <strong>Residual-RL</strong> correction layer to improve performance.</li>
+                    <li>Used <strong>ISAAC-Sim for simulation</strong>-based training of residual RL and other RL-based
+                        policies.</li>
+                    <li>Also experimented with <strong>RL-based finetuning</strong> and <strong>Residual PPO over ACT
+                            policy</strong>.</li>
+                    <li><strong>Results:</strong> Total: <strong>46.13%</strong> | Long-Sleeved Tops: 43.5% |
+                        Short-Sleeved Tops: 24.5% | Long Pants: 50.5% | Shorts: 66.0%</li>
                 </ul>
             </div>
 
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Samsung EnnovateX AX Hackathon</span>
-                    <span class="project-meta">Qualified for Pre-Finals &bull; May'26 &ndash; Jun'26</span>
+                    <span class="project-meta">National Top 6 Teams Qualified for Pre-Finals &bull; May'26 &ndash; Jun'26</span>
                 </div>
                 <ul>
-                    <li>Coupled a fine-tuned <strong>&pi;<sub>0</sub>-FAST</strong> action policy with a deterministic <strong>spatial grounder</strong> and a <strong>symbolic planner</strong>.</li>
-                    <li><strong>Segmented LIBERO demonstrations into subgoal phases</strong> directly from gripper open/close transitions.</li>
-                    <li><strong>Fine-tuned &pi;<sub>0</sub>-FAST with LoRA</strong> to follow subgoals, giving symbolic planner control over low-level policy.</li>
-                    <li><strong>Results:</strong> Achieved <strong>92% and 82% on LIBERO Spatial and Long</strong> respectively, vs. OpenPI&rsquo;s 70% and 60%.</li>
+                    <li>Coupled a fine-tuned <strong>&pi;<sub>0</sub>-FAST</strong> action policy with a deterministic
+                        <strong>spatial grounder</strong> and a <strong>symbolic planner</strong>.</li>
+                    <li><strong>Segmented LIBERO demonstrations into subgoal phases</strong> directly from gripper
+                        open/close transitions.</li>
+                    <li><strong>Fine-tuned &pi;<sub>0</sub>-FAST with LoRA</strong> to follow subgoals, giving symbolic
+                        planner control over low-level policy.</li>
+                    <li><strong>Results:</strong> Achieved <strong>92% and 82% on LIBERO Spatial and Long</strong>
+                        respectively, vs. OpenPI&rsquo;s 70% and 60%.</li>
                 </ul>
             </div>
 
@@ -290,10 +254,14 @@
                     <span class="project-meta">Observe AI &bull; Nov'25 &ndash; Dec'25</span>
                 </div>
                 <ul>
-                    <li>Causal analysis from data of <strong>20,000 call-center transcripts</strong> on Business Events based on natural language queries.</li>
-                    <li>Designed a novel <strong>causal-graph-driven, agentic RAG framework</strong> for causal analysis of business events.</li>
-                    <li>Developed <strong>multi-agent query generation</strong> and evaluation pipelines with <strong>human-feedback-based</strong> filtering.</li>
-                    <li>Integrated <strong>MCP</strong> powered <strong>SQL database</strong> for statistical backing and graph of thought to reduce inconsistency.</li>
+                    <li>Causal analysis from data of <strong>20,000 call-center transcripts</strong> on Business Events
+                        based on natural language queries.</li>
+                    <li>Designed a novel <strong>causal-graph-driven, agentic RAG framework</strong> for causal analysis
+                        of business events.</li>
+                    <li>Developed <strong>multi-agent query generation</strong> and evaluation pipelines with
+                        <strong>human-feedback-based</strong> filtering.</li>
+                    <li>Integrated <strong>MCP</strong> powered <strong>SQL database</strong> for statistical backing
+                        and graph of thought to reduce inconsistency.</li>
                 </ul>
             </div>
 
@@ -358,13 +326,20 @@
                             class="fab fa-github"></i> Code</a>
                 </div>
                 <ul>
-                    <li>Designed an agentic system for complete <strong>task automation</strong>, featuring deep <strong>personalization</strong> and <strong>voice-based controls</strong>.</li>
-                    <li>Integrated <strong>OS-level system controls</strong> with permissions to read, write, copy, paste, and move files via audio commands.</li>
-                    <li>Utilized a <strong>Model Context Protocol (MCP)</strong> based server for tool calling, ensuring reliable and highly secure task execution.</li>
-                    <li>Engineered a hybrid memory system using <strong>LangGraph-based Short-Term Memory</strong> and <strong>Mem0-based Long-Term Memory</strong> for robust and context-aware responses.</li>
-                    <li>Implemented a <strong>three-level user persona generation</strong> framework based on research papers to dynamically adapt to user preferences and mood.</li>
-                    <li>Automated <strong>email reports and alerts</strong>, automatically scheduling important parsed events directly into <strong>Google Calendar</strong>.</li>
-                    <li>Achieved <strong>automatic personalization</strong> of system behavior, adapting to music tastes, academic background, hobbies, and specific response preferences.</li>
+                    <li>Designed an agentic system for complete <strong>task automation</strong>, featuring deep
+                        <strong>personalization</strong> and <strong>voice-based controls</strong>.</li>
+                    <li>Integrated <strong>OS-level system controls</strong> with permissions to read, write, copy,
+                        paste, and move files via audio commands.</li>
+                    <li>Utilized a <strong>Model Context Protocol (MCP)</strong> based server for tool calling, ensuring
+                        reliable and highly secure task execution.</li>
+                    <li>Engineered a hybrid memory system using <strong>LangGraph-based Short-Term Memory</strong> and
+                        <strong>Mem0-based Long-Term Memory</strong> for robust and context-aware responses.</li>
+                    <li>Implemented a <strong>three-level user persona generation</strong> framework based on research
+                        papers to dynamically adapt to user preferences and mood.</li>
+                    <li>Automated <strong>email reports and alerts</strong>, automatically scheduling important parsed
+                        events directly into <strong>Google Calendar</strong>.</li>
+                    <li>Achieved <strong>automatic personalization</strong> of system behavior, adapting to music
+                        tastes, academic background, hobbies, and specific response preferences.</li>
                 </ul>
             </div>
 
@@ -381,10 +356,15 @@
                             class="fas fa-globe"></i> Website</a>
                 </div>
                 <ul>
-                    <li>Mentored a group of 30 students to demonstrate <strong>continual learning</strong> in <strong>Reinforcement Learning</strong> via shallow world models on <strong>ContinualBench</strong>.</li>
-                    <li>Guided the implementation of <strong>Proximal Policy Optimization (PPO)</strong> for <strong>robotic arm manipulation</strong> across various sequential tasks.</li>
-                    <li>Investigated <strong>catastrophic forgetting in PPO</strong> by training agents sequentially across tasks and analyzing other continual learning mitigation methods.</li>
-                    <li>Led the integration and performance comparison of <strong>Model Predictive Control (MPC)</strong> based shallow world models.</li>
+                    <li>Mentored a group of 30 students to demonstrate <strong>continual learning</strong> in
+                        <strong>Reinforcement Learning</strong> via shallow world models on
+                        <strong>ContinualBench</strong>.</li>
+                    <li>Guided the implementation of <strong>Proximal Policy Optimization (PPO)</strong> for
+                        <strong>robotic arm manipulation</strong> across various sequential tasks.</li>
+                    <li>Investigated <strong>catastrophic forgetting in PPO</strong> by training agents sequentially
+                        across tasks and analyzing other continual learning mitigation methods.</li>
+                    <li>Led the integration and performance comparison of <strong>Model Predictive Control
+                            (MPC)</strong> based shallow world models.</li>
                 </ul>
             </div>
 
@@ -394,13 +374,16 @@
                     <span class="project-meta">Project Mentor &bull; BCS Club &bull; Nov'25 – Dec'25</span>
                 </div>
                 <div class="project-links">
-                    <a href="https://drive.google.com/file/d/1mgQvEEg9MUTTQHNKBz_Yev61-sAHs5fm/view?usp=drive_link" target="_blank"><i
-                            class="fas fa-file-pdf"></i> Project Report</a>
+                    <a href="https://drive.google.com/file/d/1mgQvEEg9MUTTQHNKBz_Yev61-sAHs5fm/view?usp=drive_link"
+                        target="_blank"><i class="fas fa-file-pdf"></i> Project Report</a>
                 </div>
                 <ul>
-                    <li>Mentored a group of students to train a <strong>multi-agent self-improving</strong> Reinforcement Learning algorithm for multiplayer games like Pong.</li>
-                    <li>Guided the implementation of <strong>iterative self-play</strong> using Deep Q-Networks (DQN) where the agent learns by competing against a clone of itself to create an auto-curriculum.</li>
-                    <li>Demonstrated robust <strong>learning without human data ingestion</strong>, showcasing successful convergence compared to training solely against a static, ideal opponent.</li>
+                    <li>Mentored a group of students to train a <strong>multi-agent self-improving</strong>
+                        Reinforcement Learning algorithm for multiplayer games like Pong.</li>
+                    <li>Guided the implementation of <strong>iterative self-play</strong> using Deep Q-Networks (DQN)
+                        where the agent learns by competing against a clone of itself to create an auto-curriculum.</li>
+                    <li>Demonstrated robust <strong>learning without human data ingestion</strong>, showcasing
+                        successful convergence compared to training solely against a static, ideal opponent.</li>
                 </ul>
             </div>
 
@@ -437,129 +420,91 @@
             </div>
         </section>
 
-        <section id="education" class="tab-content">
-            <h2>Education</h2>
+        <section id="achievements" class="tab-content">
+            <h2>Achievements</h2>
+            <div class="achievements-timeline">
 
-            <div class="education-timeline">
-
-                <div class="education-card">
-                    <div class="education-header">
-                        <span class="education-degree">Bachelor of Science (B.S.)</span>
-                        <span class="education-year">2024 – Present</span>
+                <!-- 2026 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2026</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">Samsung EnnovateX AX Hackathon</div>
+                        <div class="achievement-detail">Top 6 teams nationally to qualify for pre-finals.</div>
                     </div>
-                    <div class="education-institution">
-                        <i class="fas fa-university"></i> Indian Institute of Technology (IIT) Kanpur
-                    </div>
-                    <div class="education-field">Mathematics and Scientific Computing</div>
-
-                    <div class="card-subsection">
-                        <h4><i class="fas fa-users"></i> Clubs &amp; Positions</h4>
-                        <div class="club-item">
-                            <span class="club-name"><i class="fas fa-brain"></i> Brain and Cognitive Science (BCS)
-                                Club</span>
-
-                            <div class="role-timeline">
-                                
-                                <div class="role-entry">
-                                    <div class="role-header">
-                                        <strong>Coordinator</strong>
-                                        <span class="role-period">April 2026 – Present</span>
-                                    </div>
-                                    <ul>
-                                        <li>Spearheading a 2-tier <strong>team of 30 secretaries</strong> across 2 verticals: Machine Learning and Neuroscience.</li>
-                                        <li>Managing a budget of <strong>INR 1,50,000</strong> to fund neuroscientific equipment and essential club resources.</li>
-                                        <li>Mentored multiple student teams for projects and hackathons</li>
-                                    </ul>
-                                </div>
-                                <div class="role-entry">
-                                    <div class="role-header">
-                                        <strong>Secretary</strong>
-                                        <span class="role-period">May 2025 – March 2026</span>
-                                    </div>
-                                    <ul>
-                                        <li>Mentored Deux Machina (Multi-Agent RL via Self-Play), FAP 2025</li>
-                                        <li>Worked the research project titled "Mimicking Bioloigical Memory Consolidation in SNNs" with pre-print avialable.</li>
-                                        <li>Managed sessions like "Intro to ML" and workshop over Reinforcement Learning.</li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="club-item">
-                            <span class="club-name"><i class="fas fa-robot"></i>Team Humanoid</span>
-
-                            <div class="role-timeline">
-                                
-
-                                <div class="role-entry">
-                                    <div class="role-header">
-                                        <strong>Technical Team Member</strong>
-                                        <span class="role-period">April 2025 – March 2026</span>
-                                    </div>
-                                    <ul>
-                                        <li>Worked over LQR-based controled for dynamic walking in a biped robot</li>
-                                        <li>Simulated dynamic walking via Gazebo simulator engine.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-subsection">
-                        <h4><i class="fas fa-book"></i> Key Courses</h4>
-                        <ul>
-                            <li>Fundamentals of Computing-I (Grade: A*) &amp; II</li>
-                            <li>Single Variable Calculus (Grade: A)</li>
-                            <li>Multivariable Calculus</li>
-                            <li>Linear Algebra</li>
-                            <li>Probability Theory</li>
-                            <li>Abstract Algebra</li>
-                            <li>Set Theory and Logic</li>
-                            <li>Real Analysis</li>
-                            <li>Ordinary Differential Equations</li>
-                            <li>Numerical Analysis &amp; Sci. Computing</li>
-                            <li>Quantum Physics</li>
-                            <li>Introduction to Electronics</li>
-                        </ul>
+                    <div class="achievement-item">
+                        <div class="achievement-title">Build with Opus4.7 Hackathon</div>
+                        <div class="achievement-detail">Top 500 out of 20K applicants worldwide (round 2)</div>
                     </div>
                 </div>
 
-                <div class="education-card">
-                    <div class="education-header">
-                        <span class="education-degree">Senior Secondary (Class XI – XII)</span>
-                        <span class="education-year">2022 – 2024</span>
+                <!-- 2025 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2025</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">Iranian Combinatorics Olympiad</div>
+                        <div class="achievement-detail">1 of 2 Indian &amp; 37 international teams qualified for phase 2</div>
                     </div>
-                    <div class="education-institution">
-                        <i class="fas fa-school"></i> Aryan International School, Varanasi
+                    <div class="achievement-item">
+                        <div class="achievement-title">InterIIT Techmeet 14.0</div>
+                        <div class="achievement-detail">Contingent member; IITK secured overall 2nd position</div>
                     </div>
-                    <div class="education-field">Percentage: <strong>88.2%</strong></div>
                 </div>
 
-                <div class="education-card">
-                    <div class="education-header">
-                        <span class="education-degree">Secondary (Up to Class X)</span>
-                        <span class="education-year">Up to 2022</span>
+                <!-- 2024 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2024</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">AIR 786 at JEE Advanced</div>
+                        <div class="achievement-detail">3rd in city, among 1.9 lakh shortlisted candidates</div>
                     </div>
-                    <div class="education-institution">
-                        <i class="fas fa-school"></i> Guru Nanak English School, Shivpur, Varanasi
+                    <div class="achievement-item">
+                        <div class="achievement-title">AIR 1904 at JEE Mains</div>
+                        <div class="achievement-detail">100%ile in Physics among 14 lakh students</div>
                     </div>
-                    <div class="education-field">Percentage: <strong>92.8%</strong></div>
+
+                    <div class="achievement-item">
+                        <div class="achievement-title">CBSE Class XII &mdash; 88.2%</div>
+                        <div class="achievement-detail">Aryan International School, Varanasi</div>
+                    </div>
+                </div>
+
+                <!-- 2023 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2023</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">National Top 1% at NSEP</div>
+                        <div class="achievement-detail">305 selected for INPhO out of 49,460 candidates</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-title">National Top 1% at NSEC</div>
+                        <div class="achievement-detail">531 selected for INChO out of 44,363 candidates</div>
+                    </div>
+                </div>
+
+                <!-- 2022 -->
+                <div class="achievement-year-group">
+                    <span class="achievement-year-label">2022</span>
+                    <div class="achievement-item">
+                        <div class="achievement-title">CBSE Class X &mdash; 92.8%</div>
+                        <div class="achievement-detail">Guru Nanak English School, Varanasi</div>
+                    </div>
                 </div>
 
             </div>
-
-
         </section>
 
         <section id="contact" class="tab-content">
             <h2>Get in Touch</h2>
-            <div class="project-card" style="padding: 3rem 2rem; max-width: 650px; margin: 2rem auto; text-align: center;">
-                <p style="font-size: 1.1rem; color: var(--text-color); margin-bottom: 2.5rem; line-height: 1.6; opacity: 0.9;">
-                    I'm currently open to new opportunities, research collaborations, and interesting conversations. Whether you have a question or just want to say hi, feel free to drop a message!
+            <div class="project-card"
+                style="padding: 3rem 2rem; max-width: 650px; margin: 2rem auto; text-align: center;">
+                <p
+                    style="font-size: 1.1rem; color: var(--text-color); margin-bottom: 2.5rem; line-height: 1.6; opacity: 0.9;">
+                    I'm currently open to new opportunities, research collaborations, and interesting conversations.
+                    Whether you have a question or just want to say hi, feel free to drop a message!
                 </p>
-                
-                <div class="contact-links-container" style="display: flex; flex-direction: column; gap: 1.2rem; align-items: center;">
+
+                <div class="contact-links-container"
+                    style="display: flex; flex-direction: column; gap: 1.2rem; align-items: center;">
                     <a href="mailto:visheshk24@iitk.ac.in" class="contact-link">
                         <i class="fas fa-envelope"></i>
                         <span>visheshk24@iitk.ac.in</span>
