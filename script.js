@@ -87,4 +87,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    // --- Hash routing for tabs ---
+    if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        const targetBtn = document.querySelector(`.nav-btn[data-target="${hash}"]`);
+        if (targetBtn) {
+            targetBtn.click();
+            // Give it a tiny delay to let the layout settle, then scroll to top of the content
+            setTimeout(() => {
+                const nav = document.querySelector('.main-nav');
+                if (nav) {
+                    window.scrollTo({
+                        top: nav.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100);
+        }
+    }
 });

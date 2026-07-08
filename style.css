@@ -3,7 +3,7 @@
     --secondary-color: #961a15;
     --text-color: #333333;
     --bg-color: #f9f9f9;
-    --card-bg: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.65);
     --link-color: #0056b3;
     --font-main: 'Inter', sans-serif;
 }
@@ -14,11 +14,20 @@
     --secondary-color: #ff00ff; /* Hot Pink */
     --text-color: #e0e0e0; /* Light grey for readability */
     --bg-color: #050508; /* Pitch black with slight blue/purple tint */
-    --card-bg: #100818; /* Very dark purple */
+    --card-bg: rgba(16, 8, 24, 0.45); /* Very dark purple, more transparent */
     --link-color: #00ffff;
     --font-main: 'Courier New', Courier, monospace; /* Terminal font */
 }
 
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
 
 [data-theme="dark"] body {
     font-family: var(--font-main);
@@ -401,7 +410,7 @@ header p {
 }
 
 main {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 2rem auto;
     padding: 0 1rem;
     min-height: 50vh;
@@ -424,6 +433,8 @@ h2 {
 .blog-card,
 .working-card {
     background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
