@@ -26,6 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 targetContent.classList.add('active');
             }
+
+            // Update background scene
+            const bgScenes = document.querySelectorAll('.bg-scene');
+            bgScenes.forEach(scene => scene.classList.remove('active'));
+            const targetBg = document.getElementById('bg-' + targetId);
+            if (targetBg) {
+                targetBg.classList.add('active');
+            } else {
+                const defaultBg = document.getElementById('bg-default');
+                if (defaultBg) defaultBg.classList.add('active');
+            }
         });
     });
 

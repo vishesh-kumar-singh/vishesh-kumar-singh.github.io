@@ -186,8 +186,60 @@ a:hover {
 }
 
 [data-theme="dark"] .jarvis-bg {
-    opacity: 0.07; /* Subtle background overlay */
+    opacity: 1; /* Allow children to handle their own opacities */
 }
+
+.bg-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: -1;
+}
+
+.bg-scene.active {
+    opacity: 0.07; /* Default opacity for scenes */
+    visibility: visible;
+    z-index: 1;
+}
+
+#bg-projects.active {
+    opacity: 0.25; /* Increased opacity specifically for the projects scene */
+    visibility: visible;
+    z-index: 1;
+}
+
+#bg-achievements.active {
+    opacity: 0.20; /* Increased opacity specifically for achievements scene */
+    visibility: visible;
+    z-index: 1;
+}
+
+#bg-contact.active {
+    opacity: 0.20; /* Adjust as needed */
+    visibility: visible;
+    z-index: 1;
+}
+
+#bg-experience.active {
+    opacity: 0.20; /* Adjust as needed */
+    visibility: visible;
+    z-index: 1;
+}
+
+#bg-publications.active {
+    opacity: 0.10; /* Less opaque as requested */
+    visibility: visible;
+    z-index: 1;
+}
+
 
 /* Theme Switch */
 .theme-switch-wrapper {
@@ -252,6 +304,22 @@ input:checked + .slider:before {
     z-index: 1;
 }
 
+.theme-switch-text {
+    margin-right: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-color);
+    letter-spacing: 0.5px;
+}
+
+.theme-switch-text::before {
+    content: "Switch to the cool version";
+}
+
+[data-theme="dark"] .theme-switch-text::before {
+    content: "Go to boring theme";
+}
+
 .slider .fa-sun {
     left: 8px;
     opacity: 0;
@@ -259,7 +327,7 @@ input:checked + .slider:before {
 
 .slider .fa-moon {
     right: 8px;
-    color: #f1c40f;
+    color: #555; /* Darker color for visibility on light mode slider */
 }
 
 input:checked + .slider .fa-sun {
