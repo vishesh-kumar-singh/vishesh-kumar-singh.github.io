@@ -98,8 +98,8 @@
             <button class="nav-arrow nav-arrow--left hidden" aria-label="Scroll left">&#8249;</button>
             <nav class="main-nav">
                 <button class="nav-btn active" data-target="about">About</button>
-                <button class="nav-btn" data-target="achievements">Achievements</button>
                 <button class="nav-btn" data-target="experience">Experience</button>
+                <button class="nav-btn" data-target="achievements">Achievements</button>
                 <button class="nav-btn" data-target="publications">Publications</button>
                 <button class="nav-btn" data-target="projects">Projects</button>
                 <!-- <button class="nav-btn" data-target="currently-working">Currently Working</button> -->
@@ -143,16 +143,33 @@
         </section>
 
         <section id="experience" class="tab-content">
-            <h2>Internships</h2>
+            
+            
+
+            <h2>Research Experience</h2>
 
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-title">Undergraduate Researcher</span>
+                    <span class="project-title">Undergraduate Research Assistant</span>
+                    <span class="project-meta">Aug'26 – Present</span>
+                </div>
+                <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
+                    <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Prof.
+                    Sayak Ray Chowdhury &bull; Machine Intelligence, Learning, Automation, and Privacy (MILAP) Lab, IIT Kanpur
+                </div>
+                <p style="margin-top: 1rem; text-align: justify;">
+                    Working on test-time-alignment in LLMs, and building more budget efficient and mathematically provable algorithms. Targetting ICLR 2027 submission of our work.
+                </p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">Research Intern</span>
                     <span class="project-meta">SURGE 2026 &bull; May'26 – Jul'26</span>
                 </div>
                 <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
                     <i class="fas fa-university" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Prof.
-                    Sayak Ray Chowdhury &bull; Dept. of CSE, IIT Kanpur
+                    Sayak Ray Chowdhury &bull; Machine Intelligence, Learning, Automation, and Privacy (MILAP) Lab, IIT Kanpur
                 </div>
                 <p style="margin-top: 1rem; text-align: justify;">
                     Worked on test-time alignment of LLMs to mitigate reward hacking and enhance overall reliability.
@@ -160,6 +177,7 @@
                     baselines by upto 10%, at same time cuts the generation costs by upto 65%.
                 </p>
             </div>
+
 
             <div class="project-card">
                 <div class="project-header">
@@ -179,6 +197,19 @@
                     deployment.
                 </p>
             </div>
+
+            <h2>Industrial Experience</h2>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-title">Incoming Software Engineering Intern</span>
+                    <span class="project-meta">Upcoming</span>
+                </div>
+                <div style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.25rem;">
+                    <i class="fas fa-building" style="color: var(--secondary-color); margin-right: 0.4rem;"></i> Capital One
+                </div>
+            </div>
+
         </section>
 
         <!-- <section id="currently-working" class="tab-content">
@@ -217,7 +248,7 @@
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Biological Memory Consolidation in SNNs</span>
-                    <span class="project-meta">Under Revision for Elsevier Neurocomputing</span>
+                    <span class="project-meta">Revision 1 under review for Elsevier Neurocomputing</span>
                 </div>
                 <div class="project-links">
                     <a href="https://github.com/vishesh-kumar-singh/Mimicking-Biological-Memory-Consolidation-in-SNNs"
@@ -234,7 +265,7 @@
                 </div>
             </div>
 
-            <div class="project-card">
+            <!-- <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">Dynamic Distractor Pruning in Deep RL (EMA-Tree SAC)</span>
                     <span class="project-meta">Preprint Submitted to Springer's ML</span>
@@ -250,7 +281,7 @@
                         importance.
                     </p>
                 </div>
-            </div>
+            </div> -->
         </section>
 
         <section id="projects" class="tab-content">
@@ -339,10 +370,10 @@
                 </ul>
             </div>
 
-            <div class="project-card">
+            <!-- <div class="project-card">
                 <div class="project-header">
-                    <span class="project-title">Are You Speaking</span>
-                    <span class="project-meta">ML Problem Statement &bull; Takneek</span>
+                    <span class="project-title">Did you stop talking</span>
+                    <span class="project-meta">ML Problem Statement &bull; Inter Hall Competition IITK</span>
                 </div>
                 <ul>
                     <li>Developed a robust end-to-end pipeline for <strong>speaker diarization</strong>,
@@ -357,12 +388,12 @@
                         with <strong>Silhouette Score</strong> for dynamic speaker counting, culminating in
                         transcription via <strong>OpenAI Whisper</strong>.</li>
                 </ul>
-            </div>
+            </div> -->
 
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-title">JARVIS</span>
-                    <span class="project-meta">System Automation &bull; Self Project &bull; Nov'25 – Dec'25</span>
+                    <span class="project-meta">System Automation &bull; Self Project &bull; Continuously Improving</span>
                 </div>
                 <div class="project-links">
                     <a href="https://github.com/vishesh-kumar-singh/jarvis" target="_blank"><i
@@ -484,19 +515,19 @@
                         <div class="achievement-title">Samsung EnnovateX AX Hackathon</div>
                         <div class="achievement-detail">Top 6 teams nationally out of 1000+ teams to qualify for pre-finals.</div>
                     </div>
-                    <div class="achievement-item">
+                    <!-- <div class="achievement-item">
                         <div class="achievement-title">Build with Opus4.7 Hackathon</div>
                         <div class="achievement-detail">Top 500 out of 20K applicants worldwide (round 2)</div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- 2025 -->
                 <div class="achievement-year-group">
                     <span class="achievement-year-label">2025</span>
-                    <div class="achievement-item">
+                    <!-- <div class="achievement-item">
                         <div class="achievement-title">Iranian Combinatorics Olympiad</div>
                         <div class="achievement-detail">1 of 2 Indian &amp; 37 international teams qualified for phase 2</div>
-                    </div>
+                    </div> -->
                     <div class="achievement-item">
                         <div class="achievement-title">InterIIT Techmeet 14.0</div>
                         <div class="achievement-detail">Contingent member; IITK secured overall 2nd position</div>
