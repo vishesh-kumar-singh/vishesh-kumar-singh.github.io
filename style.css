@@ -182,7 +182,16 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: scale(1.5);
+    /* Use a large scale to cover the screen regardless of aspect ratio differences between the gif and the screen */
+    transform: scale(2);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .jarvis-bg .tenor-gif-embed {
+        /* Mobile screens often have extreme aspect ratios compared to square/landscape gifs, need a larger scale */
+        transform: scale(4); 
+    }
 }
 
 [data-theme="dark"] .jarvis-bg {
