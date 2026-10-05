@@ -2,11 +2,11 @@
 
 Welcome to the source code of my personal portfolio website! This repository actually hosts **two complete versions** of my portfolio, seamlessly integrated into a single domain.
 
-🌐 **Live Website**: [vishesh-kumar-singh.github.io](https://vishesh-kumar-singh.github.io)
+**Live Website**: [vishesh-kumar-singh.github.io](https://vishesh-kumar-singh.github.io)
 
 ---
 
-## 🚀 The 3D Interactive Version (Next-Gen)
+## The 3D Interactive Version (Next-Gen)
 The main landing page is a fully modernized, highly interactive 3D Single Page Application. It is designed to be visually stunning, performant, and engaging.
 
 **Tech Stack:**
@@ -17,7 +17,7 @@ The main landing page is a fully modernized, highly interactive 3D Single Page A
 *   **Lucide React**: For crisp, scalable iconography.
 *   **Lenis Scroll**: Providing buttery-smooth scroll hijacking across the entire application.
 
-## 🎓 The Classic Version (Legacy)
+## The Classic Version (Legacy)
 Sometimes you just need the facts without the flash. The site features a built-in toggle that transports you back to the "Classic View"—a clean, minimal, academic-style portfolio.
 
 **Tech Stack:**
@@ -26,7 +26,7 @@ Sometimes you just need the facts without the flash. The site features a built-i
 
 ---
 
-## 🛠️ Local Development
+## Local Development
 
 To run the interactive 3D version locally on your machine:
 
@@ -47,7 +47,7 @@ To run the interactive 3D version locally on your machine:
 
 *(Note: The Classic version is located inside the `public/classic` folder and is served statically by Vite).*
 
-## 🚀 Deployment (GitHub Actions)
+## Deployment (GitHub Actions)
 
 This repository uses a custom **GitHub Actions Workflow** (`.github/workflows/deploy.yml`) to automatically build and deploy the Vite React application to GitHub Pages. 
 
