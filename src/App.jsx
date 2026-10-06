@@ -11,28 +11,145 @@ import { Mail, FileText, Code2, User, ChevronRight, Brain, Cpu, Rocket, Terminal
 // ==========================================
 function NetworkParticles() {
   const ref = useRef();
-  const sphere = useMemo(() => {
-    // Generate particles in a massive space so the camera never leaves it
-    const positions = new Float32Array(15000 * 3);
-    for (let i = 0; i < 15000; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 300;     // X
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 300; // Y
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 300; // Z
+  
+  // We need initial positions for the physics spring-back
+  const [positions, initialPositions] = useMemo(() => {
+    // Reduced particle count slightly to ensure 60fps with CPU physics
+    const count = 5000;
+    const pos = new Float32Array(count * 3);
+    const init = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const x = (Math.random() - 0.5) * 200;
+      const y = (Math.random() - 0.5) * 200;
+      const z = (Math.random() - 0.5) * 200;
+      pos[i * 3] = x; pos[i * 3 + 1] = y; pos[i * 3 + 2] = z;
+      init[i * 3] = x; init[i * 3 + 1] = y; init[i * 3 + 2] = z;
     }
-    return positions;
+    return [pos, init];
   }, []);
 
   useFrame((state, delta) => {
-    ref.current.rotation.x -= delta / 30;
-    ref.current.rotation.y -= delta / 20;
+    if (!ref.current) return;
+    
+    // Slower rotation
+    ref.current.rotation.x -= delta / 50;
+    ref.current.rotation.y -= delta / 40;
+
+    // Convert mouse to world position slightly in front of the camera
+    const vec = new THREE.Vector3(state.mouse.x, state.mouse.y, 0.5);
+    vec.unproject(state.camera);
+    const dir = vec.sub(state.camera.position).normalize();
+    const distance = 25; // 25 units in front of camera
+    const cursorWorld = state.camera.position.clone().add(dir.multiplyScalar(distance));
+    
+    // Convert cursor world pos to local pos of the rotating particle group
+    ref.current.worldToLocal(cursorWorld);
+    
+    const posArray = ref.current.geometry.attributes.position.array;
+    
+    // Forcefield parameters
+    const forceRadius = 15;
+    const forceRadiusSq = forceRadius * forceRadius;
+    const repulsionStrength = 2.0;
+    const springBack = 0.05;
+
+    for (let i = 0; i < 5000; i++) {
+        const i3 = i * 3;
+        const px = posArray[i3];
+        const py = posArray[i3 + 1];
+        const pz = posArray[i3 + 2];
+        
+        const dx = px - cursorWorld.x;
+        const dy = py - cursorWorld.y;
+        const dz = pz - cursorWorld.z;
+        const distSq = dx*dx + dy*dy + dz*dz;
+        
+        // Repulse particles away from cursor
+        if (distSq < forceRadiusSq) {
+            const dist = Math.sqrt(distSq);
+            const force = (forceRadius - dist) / forceRadius * repulsionStrength;
+            posArray[i3] += (dx / dist) * force;
+            posArray[i3 + 1] += (dy / dist) * force;
+            posArray[i3 + 2] += (dz / dist) * force;
+        }
+        
+        // Always spring back to initial position slowly
+        posArray[i3] += (initialPositions[i3] - posArray[i3]) * springBack;
+        posArray[i3 + 1] += (initialPositions[i3 + 1] - posArray[i3 + 1]) * springBack;
+        posArray[i3 + 2] += (initialPositions[i3 + 2] - posArray[i3 + 2]) * springBack;
+    }
+    
+    ref.current.geometry.attributes.position.needsUpdate = true;
   });
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
-        <PointMaterial transparent color="#8b5cf6" size={0.3} sizeAttenuation={true} depthWrite={false} opacity={0.6} />
+      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+        <PointMaterial transparent color="#8b5cf6" size={0.4} sizeAttenuation={true} depthWrite={false} opacity={0.4} />
       </Points>
     </group>
+  );
+}
+
+function CustomCursor() {
+  const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const updateMousePosition = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (!isVisible) setIsVisible(true);
+    };
+    
+    const handleMouseOver = (e) => {
+      if (e.target.tagName?.toLowerCase() === 'a' || e.target.tagName?.toLowerCase() === 'button' || e.target.closest('a') || e.target.closest('button')) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
+
+    const handleMouseLeave = (e) => {
+      if (e.clientY <= 0 || e.clientX <= 0 || (e.clientX >= window.innerWidth || e.clientY >= window.innerHeight)) {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("mousemove", updateMousePosition);
+    window.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseleave", handleMouseLeave);
+    
+    return () => {
+      window.removeEventListener("mousemove", updateMousePosition);
+      window.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [isVisible]);
+
+  return (
+    <>
+      <motion.div
+        className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[9999] shadow-[0_0_15px_rgba(255,255,255,0.9)]"
+        animate={{
+          x: mousePosition.x - 6,
+          y: mousePosition.y - 6,
+          scale: isVisible ? (isHovering ? 0 : 1) : 0,
+          opacity: isVisible ? 1 : 0
+        }}
+        transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
+      />
+      <motion.div
+        className="fixed top-0 left-0 w-10 h-10 border-2 border-orange-400/90 rounded-full pointer-events-none z-[9998] bg-orange-500/20 shadow-[0_0_20px_rgba(249,115,22,0.6)] backdrop-blur-[2px]"
+        animate={{
+          x: mousePosition.x - 20,
+          y: mousePosition.y - 20,
+          scale: isVisible ? (isHovering ? 1.5 : 1) : 0.5,
+          opacity: isVisible ? 1 : 0
+        }}
+        transition={{ type: "spring", stiffness: 150, damping: 25, mass: 0.8 }}
+      />
+    </>
   );
 }
 
@@ -143,6 +260,84 @@ function ExperienceTimeline() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function TerminalIntro() {
+  const lines = [
+    "> sys.boot() --verbose",
+    "[INFO] Initializing quantum core...",
+    "> mount /dev/mind /mnt/consciousness",
+    "[OK] Synaptic pathways connected.",
+    "> bypass --target=reality_constraints",
+    "[WARN] Anomalous logic detected. Overriding...",
+    "[OK] Override successful. Rendering 3D matrix...",
+    "> execute vishesh.exe",
+    "[INFO] Compiling thoughts into code...",
+    "[OK] Environment stable."
+  ];
+  
+  const [displayedLines, setDisplayedLines] = useState([]);
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [isDone, setIsDone] = useState(false);
+  
+  useEffect(() => {
+    if (isDone) return;
+    
+    if (currentLineIndex < lines.length) {
+      const line = lines[currentLineIndex];
+      
+      if (currentCharIndex < line.length) {
+        const timeout = setTimeout(() => {
+          setCurrentCharIndex(prev => prev + 1);
+        }, Math.random() * 30 + 15); // Fast typing speed
+        return () => clearTimeout(timeout);
+      } else {
+        const timeout = setTimeout(() => {
+          setDisplayedLines(prev => [...prev, line]);
+          setCurrentLineIndex(prev => prev + 1);
+          setCurrentCharIndex(0);
+        }, 300); // Pause between lines
+        return () => clearTimeout(timeout);
+      }
+    } else {
+      setIsDone(true);
+    }
+  }, [currentLineIndex, currentCharIndex, isDone, lines.length]);
+
+  return (
+    <div className="w-full max-w-2xl mx-auto mt-12 bg-[#050505]/80 backdrop-blur-xl border border-slate-700/50 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)] text-left font-mono text-xs sm:text-sm z-20 pointer-events-auto">
+      <div className="bg-slate-900/80 px-4 py-3 border-b border-slate-700/50 flex gap-2 items-center">
+        <div className="w-3 h-3 rounded-full bg-rose-500" />
+        <div className="w-3 h-3 rounded-full bg-yellow-500" />
+        <div className="w-3 h-3 rounded-full bg-emerald-500" />
+        <span className="ml-4 text-slate-500 text-xs flex items-center gap-2"><Terminal className="w-3 h-3" /> vishesh@iitk:~</span>
+      </div>
+      <div className="p-4 sm:p-6 text-emerald-400 min-h-[340px]">
+        {displayedLines.map((line, i) => (
+          <div key={i} className={`mb-1 ${line.startsWith("[") ? (line.includes("WARN") ? "text-yellow-400" : "text-blue-400") : ""}`}>{line}</div>
+        ))}
+        {!isDone && currentLineIndex < lines.length && (
+          <div className="mb-1">
+            <span className={lines[currentLineIndex].startsWith("[") ? (lines[currentLineIndex].includes("WARN") ? "text-yellow-400" : "text-blue-400") : ""}>
+              {lines[currentLineIndex].substring(0, currentCharIndex)}
+            </span>
+            <span className="w-2 h-4 bg-emerald-400 inline-block align-middle ml-1 animate-pulse" />
+          </div>
+        )}
+        {isDone && (
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            className="text-white mt-6 font-bold flex items-center gap-2"
+          >
+            <span className="text-emerald-400">$</span> System ready. Welcome to my digital space.
+            <span className="w-2 h-4 bg-emerald-400 inline-block align-middle animate-pulse" />
+          </motion.div>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -491,7 +686,8 @@ function App() {
   const heroBlur = useTransform(scrollYProgress, [0, 0.1], ["blur(0px)", "blur(20px)"]);
 
   return (
-    <div ref={container} className="relative bg-[#020202] text-white selection:bg-purple-500/50">
+    <div ref={container} className="relative bg-[#020202] text-white selection:bg-purple-500/50 cursor-none">
+      <CustomCursor />
       
       {/* 3D Canvas Background */}
       <div className="fixed inset-0 z-0 pointer-events-none bg-[#020202]">
@@ -512,13 +708,12 @@ function App() {
             <img src="/image.jpg" alt="Vishesh" className="relative w-48 h-48 rounded-full object-cover border-4 border-slate-700/50 shadow-2xl" />
           </div>
           
-          <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-6 leading-none">
+          <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-4 leading-none">
             VISHESH <br/>
             KUMAR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400">SINGH</span>
           </h1>
-          <p className="text-xl md:text-3xl text-slate-400 font-light max-w-3xl">
-            Mathematics & Scientific Computing @ IIT Kanpur.
-          </p>
+          
+          <TerminalIntro />
         </motion.div>
       </section>
 
