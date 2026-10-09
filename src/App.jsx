@@ -191,7 +191,7 @@ const experiences = [
   {
     id: 3,
     title: "RL Research Intern",
-    meta: "Jun'26 – Aug'26 | Wadhwani School of AI",
+    meta: "Jun'26 – Aug'26 | Wadhwani School of AI and Intelligent Systems, IITK",
     icon: <Rocket className="w-8 h-8 text-emerald-400" />,
     points: [
       "Integrated missing NERO robot support in Robosuite for data collection to train baseline imitation learning policy.",
@@ -246,14 +246,16 @@ function ExperienceTimeline() {
                 </div>
                 <h3 className="text-3xl font-black text-white mt-6 mb-2">{exp.title}</h3>
                 <p className="text-purple-400 font-mono text-xs mb-8 tracking-wider uppercase">{exp.meta}</p>
-                <ul className="space-y-4">
+                <div className="text-slate-300 leading-relaxed text-sm md:text-base text-justify space-y-4 font-light">
                   {exp.points.map((pt, i) => (
-                    <li key={i} className="text-slate-300 leading-relaxed flex items-start text-sm md:text-base">
-                      <ChevronRight className="w-5 h-5 mr-3 flex-shrink-0 text-blue-400 mt-0.5" />
-                      <span>{pt}</span>
-                    </li>
+                    <p key={i}>
+                      {pt.includes("Paper submitted") || pt.includes("exceeded") || pt.includes("Mean Score") ? 
+                        <strong className="text-emerald-400 font-medium">{pt}</strong> : 
+                        pt
+                      }
+                    </p>
                   ))}
-                </ul>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -701,7 +703,7 @@ function App() {
       <section className="relative h-[150vh] w-full z-10 pointer-events-none">
         <motion.div 
           style={{ opacity: heroOpacity, scale: heroScale, filter: heroBlur }}
-          className="sticky top-0 h-screen flex flex-col items-center justify-center text-center px-4"
+          className="sticky top-0 h-screen flex flex-col items-center justify-start pt-16 lg:justify-center lg:pt-0 text-center px-4"
         >
           <div className="relative mb-12 group">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-3xl opacity-40 rounded-full animate-pulse" />
@@ -717,8 +719,8 @@ function App() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2, duration: 1 }}
-            className="mb-8 pointer-events-auto z-50"
+            transition={{ delay: 1, duration: 1 }}
+            className="mb-8 pointer-events-auto z-50 mt-8"
           >
             <a href="/classic/index.html" className="px-8 py-3.5 bg-[#0a0a0a]/80 backdrop-blur-md border-2 border-emerald-500 rounded-full text-sm md:text-base font-bold text-emerald-400 hover:bg-emerald-500 hover:text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_40px_rgba(16,185,129,0.8)] transition-all duration-300 flex items-center gap-4 group">
               <span className="relative flex h-3 w-3 md:h-4 md:w-4">
@@ -729,14 +731,14 @@ function App() {
             </a>
           </motion.div>
           
-          <TerminalIntro />
+          {/* <TerminalIntro /> */}
 
           {/* Scroll Indicator */}
           <motion.div 
              initial={{ opacity: 0 }}
              animate={{ opacity: 1 }}
-             transition={{ delay: 3, duration: 1 }}
-             className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-slate-400 font-mono text-xs animate-bounce pointer-events-none"
+             transition={{ delay: 2, duration: 1 }}
+             className="mt-8 md:mt-16 flex flex-col items-center text-slate-400 font-mono text-xs animate-bounce pointer-events-none"
           >
              <span>Scroll to explore</span>
              <div className="w-[1px] h-12 bg-gradient-to-b from-slate-400 to-transparent mt-2" />
