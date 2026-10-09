@@ -703,14 +703,14 @@ function App() {
       <section className="relative h-[150vh] w-full z-10 pointer-events-none">
         <motion.div 
           style={{ opacity: heroOpacity, scale: heroScale, filter: heroBlur }}
-          className="sticky top-0 h-screen flex flex-col items-center justify-start pt-6 sm:pt-8 md:pt-12 xl:pt-16 text-center px-4"
+          className="sticky top-0 h-screen flex flex-col items-center justify-center text-center px-4 py-[4vh] overflow-hidden"
         >
-          <div className="relative mb-6 md:mb-8 group">
+          <div className="relative mb-[3vh] group flex-shrink-0">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-3xl opacity-40 rounded-full animate-pulse" />
-            <img src="/image.jpg" alt="Vishesh" className="relative w-32 h-32 md:w-48 md:h-48 rounded-full object-cover border-4 border-slate-700/50 shadow-2xl" />
+            <img src="/image.jpg" alt="Vishesh" className="relative w-[20vh] h-[20vh] max-w-[192px] max-h-[192px] min-w-[96px] min-h-[96px] rounded-full object-cover border-4 border-slate-700/50 shadow-2xl" />
           </div>
           
-          <h1 className="text-5xl md:text-9xl font-black tracking-tighter mb-4 leading-none">
+          <h1 className="text-4xl sm:text-6xl md:text-[clamp(3rem,8vh,8rem)] font-black tracking-tighter mb-[2vh] leading-none flex-shrink-0">
             VISHESH <br/>
             KUMAR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400">SINGH</span>
           </h1>
@@ -720,24 +720,22 @@ function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 1 }}
-            className="mb-8 pointer-events-auto z-50 mt-6 md:mt-8"
+            className="mt-[3vh] pointer-events-auto z-50 flex-shrink-0"
           >
-            <a href="/classic/index.html" className="px-6 py-3 md:px-8 md:py-3.5 bg-[#0a0a0a]/80 backdrop-blur-md border-2 border-purple-500 rounded-full text-sm md:text-base font-bold text-purple-400 hover:bg-purple-500 hover:text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.8)] transition-all duration-300 flex items-center justify-center">
+            <a href="/classic/index.html" className="px-6 py-3 md:px-8 md:py-3.5 bg-[#0a0a0a]/80 backdrop-blur-md border-2 border-purple-500 rounded-full text-xs sm:text-sm md:text-base font-bold text-purple-400 hover:bg-purple-500 hover:text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.8)] transition-all duration-300 flex items-center justify-center">
               Switch to Professional/Academic View
             </a>
           </motion.div>
-          
-          {/* <TerminalIntro /> */}
 
           {/* Scroll Indicator */}
           <motion.div 
              initial={{ opacity: 0 }}
              animate={{ opacity: 1 }}
              transition={{ delay: 2, duration: 1 }}
-             className="mt-4 md:mt-8 flex flex-col items-center text-slate-400 font-mono text-xs animate-bounce pointer-events-none"
+             className="mt-[4vh] flex flex-col items-center text-slate-400 font-mono text-xs animate-bounce pointer-events-none flex-shrink-0"
           >
              <span>Scroll to explore</span>
-             <div className="w-[1px] h-8 md:h-12 bg-gradient-to-b from-slate-400 to-transparent mt-2" />
+             <div className="w-[1px] h-[6vh] max-h-[48px] bg-gradient-to-b from-slate-400 to-transparent mt-[1vh]" />
           </motion.div>
         </motion.div>
       </section>
