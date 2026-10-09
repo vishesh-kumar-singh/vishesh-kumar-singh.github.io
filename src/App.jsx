@@ -712,8 +712,35 @@ function App() {
             VISHESH <br/>
             KUMAR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400">SINGH</span>
           </h1>
+
+          {/* Classic View Toggle */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2, duration: 1 }}
+            className="mb-8 pointer-events-auto z-50"
+          >
+            <a href="/classic/index.html" className="px-8 py-3.5 bg-[#0a0a0a]/80 backdrop-blur-md border-2 border-emerald-500 rounded-full text-sm md:text-base font-bold text-emerald-400 hover:bg-emerald-500 hover:text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_40px_rgba(16,185,129,0.8)] transition-all duration-300 flex items-center gap-4 group">
+              <span className="relative flex h-3 w-3 md:h-4 md:w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 md:h-4 md:w-4 bg-emerald-500 group-hover:bg-white"></span>
+              </span>
+              Switch to Professional/Academic View
+            </a>
+          </motion.div>
           
           <TerminalIntro />
+
+          {/* Scroll Indicator */}
+          <motion.div 
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             transition={{ delay: 3, duration: 1 }}
+             className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-slate-400 font-mono text-xs animate-bounce pointer-events-none"
+          >
+             <span>Scroll to explore</span>
+             <div className="w-[1px] h-12 bg-gradient-to-b from-slate-400 to-transparent mt-2" />
+          </motion.div>
         </motion.div>
       </section>
 
@@ -751,14 +778,6 @@ function App() {
         </div>
       </section>
       
-      {/* Toggle to Classic View */}
-      <a href="/classic/index.html" className="fixed top-6 right-6 z-50 px-5 py-2.5 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 backdrop-blur-md border border-emerald-500/50 rounded-full text-sm font-bold text-emerald-300 hover:from-emerald-500 hover:to-teal-500 hover:text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)] transition-all duration-300 flex items-center gap-3 group">
-        <span className="relative flex h-3 w-3">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 group-hover:bg-white"></span>
-        </span>
-        Switch to Classic/Academic View
-      </a>
     </div>
   );
 }
