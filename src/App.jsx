@@ -703,15 +703,17 @@ function App() {
       <section className="relative h-[150vh] w-full z-10 pointer-events-none">
         <motion.div 
           style={{ opacity: heroOpacity, scale: heroScale, filter: heroBlur }}
-          className="sticky top-0 h-screen w-full flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 overflow-hidden"
+          className="sticky top-0 h-screen w-full flex flex-col items-center justify-center text-center overflow-hidden p-[8vh_5vw] sm:p-[10vh_5vw]"
         >
-          <div className="flex flex-col items-center justify-center w-full max-w-5xl max-h-[900px] my-auto">
-            <div className="relative mb-6 md:mb-10 group flex-shrink-0">
+          <div className="flex flex-col items-center justify-between w-full h-full max-w-5xl">
+            {/* Image */}
+            <div className="relative group flex-shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-3xl opacity-40 rounded-full animate-pulse" />
-              <img src="/image.jpg" alt="Vishesh" className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-slate-700/50 shadow-2xl" />
+              <img src="/image.jpg" alt="Vishesh" className="relative h-[15vh] w-[15vh] sm:h-[20vh] sm:w-[20vh] max-h-[200px] max-w-[200px] min-h-[80px] min-w-[80px] rounded-full object-cover border-4 border-slate-700/50 shadow-2xl" />
             </div>
             
-            <h1 className="text-[12vw] sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-4 md:mb-8 leading-none flex-shrink-0 w-full break-words">
+            {/* Title */}
+            <h1 className="text-center text-[clamp(2rem,10vh,9rem)] font-black tracking-tighter leading-none flex-shrink-0 w-full break-words my-[2vh]">
               VISHESH <br/>
               KUMAR <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400">SINGH</span>
             </h1>
@@ -721,9 +723,9 @@ function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1, duration: 1 }}
-              className="mt-4 md:mt-8 pointer-events-auto z-50 flex-shrink-0"
+              className="pointer-events-auto z-50 flex-shrink-0 my-[2vh]"
             >
-              <a href="/classic/index.html" className="px-6 py-3 sm:px-8 sm:py-4 bg-[#0a0a0a]/80 backdrop-blur-md border-2 border-purple-500 rounded-full text-xs sm:text-sm md:text-base font-bold text-purple-400 hover:bg-purple-500 hover:text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.8)] transition-all duration-300 flex items-center justify-center w-full max-w-md mx-auto">
+              <a href="/classic/index.html" className="px-[4vw] py-[2vh] sm:px-8 sm:py-4 bg-[#0a0a0a]/80 backdrop-blur-md border-2 border-purple-500 rounded-full text-[clamp(0.75rem,2vh,1.125rem)] font-bold text-purple-400 hover:bg-purple-500 hover:text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.8)] transition-all duration-300 flex items-center justify-center w-full">
                 Switch to Professional/Academic View
               </a>
             </motion.div>
@@ -733,10 +735,10 @@ function App() {
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
                transition={{ delay: 2, duration: 1 }}
-               className="mt-8 md:mt-12 flex flex-col items-center text-slate-400 font-mono text-xs animate-bounce pointer-events-none flex-shrink-0"
+               className="flex flex-col items-center text-slate-400 font-mono text-[clamp(0.5rem,1.5vh,0.75rem)] animate-bounce pointer-events-none flex-shrink-0 h-[10vh] max-h-[80px]"
             >
                <span>Scroll to explore</span>
-               <div className="w-[1px] h-8 md:h-16 bg-gradient-to-b from-slate-400 to-transparent mt-2" />
+               <div className="w-[1px] h-full bg-gradient-to-b from-slate-400 to-transparent mt-[1vh]" />
             </motion.div>
           </div>
         </motion.div>
