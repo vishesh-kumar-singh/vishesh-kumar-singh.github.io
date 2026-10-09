@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vishesh-kumar-singh.github.io/sitemap.xml
