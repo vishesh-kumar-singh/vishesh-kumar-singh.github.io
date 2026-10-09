@@ -722,11 +722,7 @@ function App() {
             transition={{ delay: 1, duration: 1 }}
             className="mb-8 pointer-events-auto z-50 mt-8"
           >
-            <a href="/classic/index.html" className="px-8 py-3.5 bg-[#0a0a0a]/80 backdrop-blur-md border-2 border-emerald-500 rounded-full text-sm md:text-base font-bold text-emerald-400 hover:bg-emerald-500 hover:text-white shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_40px_rgba(16,185,129,0.8)] transition-all duration-300 flex items-center gap-4 group">
-              <span className="relative flex h-3 w-3 md:h-4 md:w-4">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 md:h-4 md:w-4 bg-emerald-500 group-hover:bg-white"></span>
-              </span>
+            <a href="/classic/index.html" className="px-8 py-3.5 bg-[#0a0a0a]/80 backdrop-blur-md border-2 border-purple-500 rounded-full text-sm md:text-base font-bold text-purple-400 hover:bg-purple-500 hover:text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_40px_rgba(168,85,247,0.8)] transition-all duration-300 flex items-center justify-center">
               Switch to Professional/Academic View
             </a>
           </motion.div>
