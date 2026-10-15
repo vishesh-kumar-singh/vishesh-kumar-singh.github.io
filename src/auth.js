@@ -1,8 +1,6 @@
 // Author / Admin Authentication Engine for Static GitHub Pages
 // Works entirely client-side without requiring a backend server.
 
-const DEFAULT_HASH_2026 = 'e6a28aa0d8f1f02569ba1d02103d51072e1044f92c08af12b7efc6101bbe705e'; // vishesh2026
-const DEFAULT_HASH_SIMPLE = '545cbe37167b037d77ea96e95d8083499bfda62edafce32de8a62801e8141b99'; // vishesh
 const SESSION_KEY = 'vishesh_author_session';
 
 export async function hashPassword(str) {
@@ -24,17 +22,17 @@ export function isAuthorLoggedIn() {
 export async function loginAuthor(password, rememberMe = true) {
   if (!password) return { success: false, error: 'Password cannot be empty.' };
 
-  const envPass = import.meta.env.VITE_ADMIN_PASSWORD;
+  const targetHash = import.meta.env.VITE_ADMIN_PASSWORD_HASH;
   const inputHash = await hashPassword(password);
 
   let isValid = false;
 
-  // 1. Primary check against GitHub Secrets / .env variable
-  if (envPass && password === envPass) {
+  // 1. Primary check: compare SHA-256 hash against injected secret hash
+  if (targetHash && inputHash === targetHash) {
     isValid = true;
   }
-  // 2. Fallback check against default hashes (vishesh2026 or vishesh)
-  else if (inputHash === DEFAULT_HASH_2026 || inputHash === DEFAULT_HASH_SIMPLE) {
+  // 2. Dev mode direct match fallback
+  else if (import.meta.env.VITE_ADMIN_PASSWORD && password === import.meta.env.VITE_ADMIN_PASSWORD) {
     isValid = true;
   }
 

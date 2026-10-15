@@ -29,6 +29,18 @@ for (let line of lines) {
   }
 }
 
+// Automatically convert plaintext admin password to irreversible SHA-256 hash
+// so the plaintext password is NEVER exposed in the frontend JavaScript bundle!
+if (map.has('VITE_ADMIN_PASSWORD')) {
+  const plain = map.get('VITE_ADMIN_PASSWORD');
+  const crypto = require('crypto');
+  const hash = crypto.createHash('sha256').update(plain).digest('hex');
+  map.set('VITE_ADMIN_PASSWORD_HASH', hash);
+  map.delete('VITE_ADMIN_PASSWORD');
+  delete process.env.VITE_ADMIN_PASSWORD;
+  process.env.VITE_ADMIN_PASSWORD_HASH = hash;
+}
+
 // Clean up any empty process.env variables that were passed as dummy empty secrets
 const known = [
   'VITE_WEB3FORMS_ACCESS_KEY',
@@ -39,7 +51,7 @@ const known = [
   'VITE_FIREBASE_STORAGE_BUCKET',
   'VITE_FIREBASE_MESSAGING_SENDER_ID',
   'VITE_FIREBASE_APP_ID',
-  'VITE_ADMIN_PASSWORD'
+  'VITE_ADMIN_PASSWORD_HASH'
 ];
 
 for (const k of known) {
