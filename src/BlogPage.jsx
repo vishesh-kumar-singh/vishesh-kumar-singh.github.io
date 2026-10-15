@@ -610,11 +610,6 @@ export default function BlogPage({ storySlug = 'her', onBack }) {
                 <span>Private Note</span>
               </button>
             </div>
-
-            <div className="flex items-center gap-2 mt-3 text-[11px] text-slate-500 font-mono">
-              <Sparkles className="w-3 h-3 text-rose-400/70" />
-              <span>Tap hearts as many times as you like • Counts update live</span>
-            </div>
           </div>
 
           {/* Author's Epilogue Note (Controlled from Markdown frontmatter) */}
