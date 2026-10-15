@@ -31,5 +31,6 @@ public/classic/blogs/
 blogs/*
 # !blogs/HER.md
 !blogs/MONA.md
+public/blogs/
 
 

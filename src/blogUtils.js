@@ -161,6 +161,22 @@ export function parseBlog(rawMarkdown) {
       return { type: 'h3', text: block.replace(/^###\s+/, '') };
     }
 
+    // Check for Markdown Image: ![alt](url)
+    const imgMatch = block.match(/^!\[(.*?)\]\((.*?)(?:\s+"(.*?)")?\)$/);
+    if (imgMatch) {
+      let src = imgMatch[2].trim();
+      // Normalize relative image paths to root-relative public path
+      if (src.startsWith('blogs/')) src = '/' + src;
+      else if (src.startsWith('./Images/')) src = '/blogs/Images/' + src.slice(9);
+      else if (src.startsWith('Images/')) src = '/blogs/Images/' + src.slice(7);
+      return {
+        type: 'image',
+        alt: imgMatch[1].trim(),
+        src: src,
+        caption: (imgMatch[3] || imgMatch[1] || '').trim(),
+      };
+    }
+
     // Regular paragraph
     const dropCap = isFirstParagraph;
     if (isFirstParagraph) isFirstParagraph = false;

@@ -551,6 +551,35 @@ export default function BlogPage({ storySlug = 'her', onBack }) {
               );
             }
 
+            // Markdown Image: ![alt](url)
+            if (block.type === 'image') {
+              return (
+                <motion.figure
+                  key={idx}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ duration: 0.8 }}
+                  className="my-12 text-center"
+                >
+                  <div className="relative group max-w-xl mx-auto rounded-3xl overflow-hidden border border-white/15 bg-white/5 backdrop-blur-md shadow-2xl p-2 sm:p-3 transition-all duration-500 hover:border-rose-400/40 hover:shadow-rose-950/30">
+                    <img
+                      src={block.src}
+                      alt={block.alt || 'Story illustration'}
+                      className="w-full h-auto rounded-2xl object-cover transition-transform duration-700 group-hover:scale-[1.015]"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 rounded-3xl pointer-events-none ring-1 ring-inset ring-white/10" />
+                  </div>
+                  {block.caption && (
+                    <figcaption className="mt-3.5 text-xs sm:text-sm font-serif italic text-slate-400 max-w-md mx-auto leading-relaxed">
+                      {block.caption}
+                    </figcaption>
+                  )}
+                </motion.figure>
+              );
+            }
+
             // Standard Paragraph
             return (
               <motion.div 

@@ -75,6 +75,13 @@ fs.writeFileSync('.env.production', envContent);
 const loadedKeys = Array.from(map.keys());
 console.log('✅ Injected and verified keys:', loadedKeys.join(', '));
 
+// Automatically sync blogs/Images to public/blogs/Images so markdown images work seamlessly
+if (fs.existsSync('blogs/Images')) {
+  fs.mkdirSync('public/blogs/Images', { recursive: true });
+  fs.cpSync('blogs/Images', 'public/blogs/Images', { recursive: true });
+  console.log('🖼️  Synced blog images to public/blogs/Images');
+}
+
 // Run Vite build with the sanitized, populated environment
 console.log('--- Running Vite Build ---');
 execSync('npx vite build', { stdio: 'inherit', env: process.env });
