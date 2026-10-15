@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Vishesh Kumar Singh | Personal Universe</title>
+    <script type="text/javascript">
+      // GitHub Pages SPA router redirection
+      var l = window.location;
+      var cleanPath = l.pathname.replace(/^\/+|\/+$/g, '');
+      
+      if (cleanPath === 'admin') {
+        l.replace(l.protocol + '//' + l.host + '/?view=admin' + (l.hash ? l.hash : ''));
+      } else {
+        l.replace(l.protocol + '//' + l.host + '/?' + (cleanPath ? 'story=' + encodeURIComponent(cleanPath) : ''));
+      }
+    </script>
+  </head>
+  <body style="background: #020202; color: #64748b; font-family: monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+    <p>Navigating...</p>
+  </body>
+</html>
