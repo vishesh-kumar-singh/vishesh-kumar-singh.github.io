@@ -46,27 +46,51 @@ jobs:
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
           VITE_ADMIN_PASSWORD: ${{ secrets.VITE_ADMIN_PASSWORD }}
         run: |
-          if [ -n "$ENV_FILE" ]; then
-            printf '%s\n' "$ENV_FILE" > .env
-          fi
-          
-          # Append individual secrets if they were provided and not already in .env
-          [ -n "$VITE_WEB3FORMS_ACCESS_KEY" ] && ! grep -q "VITE_WEB3FORMS_ACCESS_KEY" .env 2>/dev/null && echo "VITE_WEB3FORMS_ACCESS_KEY=$VITE_WEB3FORMS_ACCESS_KEY" >> .env
-          [ -n "$VITE_FIREBASE_API_KEY" ] && ! grep -q "VITE_FIREBASE_API_KEY" .env 2>/dev/null && echo "VITE_FIREBASE_API_KEY=$VITE_FIREBASE_API_KEY" >> .env
-          [ -n "$VITE_FIREBASE_AUTH_DOMAIN" ] && ! grep -q "VITE_FIREBASE_AUTH_DOMAIN" .env 2>/dev/null && echo "VITE_FIREBASE_AUTH_DOMAIN=$VITE_FIREBASE_AUTH_DOMAIN" >> .env
-          [ -n "$VITE_FIREBASE_DATABASE_URL" ] && ! grep -q "VITE_FIREBASE_DATABASE_URL" .env 2>/dev/null && echo "VITE_FIREBASE_DATABASE_URL=$VITE_FIREBASE_DATABASE_URL" >> .env
-          [ -n "$VITE_FIREBASE_PROJECT_ID" ] && ! grep -q "VITE_FIREBASE_PROJECT_ID" .env 2>/dev/null && echo "VITE_FIREBASE_PROJECT_ID=$VITE_FIREBASE_PROJECT_ID" >> .env
-          [ -n "$VITE_FIREBASE_STORAGE_BUCKET" ] && ! grep -q "VITE_FIREBASE_STORAGE_BUCKET" .env 2>/dev/null && echo "VITE_FIREBASE_STORAGE_BUCKET=$VITE_FIREBASE_STORAGE_BUCKET" >> .env
-          [ -n "$VITE_FIREBASE_MESSAGING_SENDER_ID" ] && ! grep -q "VITE_FIREBASE_MESSAGING_SENDER_ID" .env 2>/dev/null && echo "VITE_FIREBASE_MESSAGING_SENDER_ID=$VITE_FIREBASE_MESSAGING_SENDER_ID" >> .env
-          [ -n "$VITE_FIREBASE_APP_ID" ] && ! grep -q "VITE_FIREBASE_APP_ID" .env 2>/dev/null && echo "VITE_FIREBASE_APP_ID=$VITE_FIREBASE_APP_ID" >> .env
-          [ -n "$VITE_ADMIN_PASSWORD" ] && ! grep -q "VITE_ADMIN_PASSWORD" .env 2>/dev/null && echo "VITE_ADMIN_PASSWORD=$VITE_ADMIN_PASSWORD" >> .env
-
-          if [ -f .env ] && [ -s .env ]; then
-            echo "✅ Configuration detected ($(wc -l < .env) lines configured)"
-          else
-            echo "⚠️ Warning: No environment configuration detected"
-          fi
-
+          node -e '
+            const fs = require("fs");
+            let raw = process.env.ENV_FILE || "";
+            if (raw.includes("\\n") && !raw.includes("\n")) {
+              raw = raw.replace(/\\n/g, "\n");
+            }
+            const lines = raw.split("\n");
+            const map = new Map();
+            for (let line of lines) {
+              line = line.trim().replace(/^[0-9]+:\s*/, "").trim();
+              if (line && line.includes("=") && !line.startsWith("#")) {
+                const eqIdx = line.indexOf("=");
+                const k = line.slice(0, eqIdx).trim();
+                const v = line.slice(eqIdx + 1).trim();
+                if (k.startsWith("VITE_")) map.set(k, v);
+              }
+            }
+            const known = [
+              "VITE_WEB3FORMS_ACCESS_KEY",
+              "VITE_FIREBASE_API_KEY",
+              "VITE_FIREBASE_AUTH_DOMAIN",
+              "VITE_FIREBASE_DATABASE_URL",
+              "VITE_FIREBASE_PROJECT_ID",
+              "VITE_FIREBASE_STORAGE_BUCKET",
+              "VITE_FIREBASE_MESSAGING_SENDER_ID",
+              "VITE_FIREBASE_APP_ID",
+              "VITE_ADMIN_PASSWORD"
+            ];
+            for (const k of known) {
+              if (!map.has(k) && process.env[k]) {
+                map.set(k, process.env[k].trim());
+              }
+            }
+            let output = "";
+            for (const [k, v] of map.entries()) {
+              output += `${k}=${v}\n`;
+            }
+            fs.writeFileSync(".env", output);
+            const loadedKeys = Array.from(map.keys());
+            if (loadedKeys.length > 0) {
+              console.log("✅ Configured environment keys:", loadedKeys.join(", "));
+            } else {
+              console.warn("⚠️ Warning: No VITE_* environment variables detected!");
+            }
+          '
           npm run build
         
       - name: Setup Pages
