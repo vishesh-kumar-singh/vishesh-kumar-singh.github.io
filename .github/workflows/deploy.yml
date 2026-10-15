@@ -44,10 +44,29 @@ jobs:
           VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_ADMIN_PASSWORD: ${{ secrets.VITE_ADMIN_PASSWORD }}
         run: |
           if [ -n "$ENV_FILE" ]; then
-            echo "$ENV_FILE" > .env
+            printf '%s\n' "$ENV_FILE" > .env
           fi
+          
+          # Append individual secrets if they were provided and not already in .env
+          [ -n "$VITE_WEB3FORMS_ACCESS_KEY" ] && ! grep -q "VITE_WEB3FORMS_ACCESS_KEY" .env 2>/dev/null && echo "VITE_WEB3FORMS_ACCESS_KEY=$VITE_WEB3FORMS_ACCESS_KEY" >> .env
+          [ -n "$VITE_FIREBASE_API_KEY" ] && ! grep -q "VITE_FIREBASE_API_KEY" .env 2>/dev/null && echo "VITE_FIREBASE_API_KEY=$VITE_FIREBASE_API_KEY" >> .env
+          [ -n "$VITE_FIREBASE_AUTH_DOMAIN" ] && ! grep -q "VITE_FIREBASE_AUTH_DOMAIN" .env 2>/dev/null && echo "VITE_FIREBASE_AUTH_DOMAIN=$VITE_FIREBASE_AUTH_DOMAIN" >> .env
+          [ -n "$VITE_FIREBASE_DATABASE_URL" ] && ! grep -q "VITE_FIREBASE_DATABASE_URL" .env 2>/dev/null && echo "VITE_FIREBASE_DATABASE_URL=$VITE_FIREBASE_DATABASE_URL" >> .env
+          [ -n "$VITE_FIREBASE_PROJECT_ID" ] && ! grep -q "VITE_FIREBASE_PROJECT_ID" .env 2>/dev/null && echo "VITE_FIREBASE_PROJECT_ID=$VITE_FIREBASE_PROJECT_ID" >> .env
+          [ -n "$VITE_FIREBASE_STORAGE_BUCKET" ] && ! grep -q "VITE_FIREBASE_STORAGE_BUCKET" .env 2>/dev/null && echo "VITE_FIREBASE_STORAGE_BUCKET=$VITE_FIREBASE_STORAGE_BUCKET" >> .env
+          [ -n "$VITE_FIREBASE_MESSAGING_SENDER_ID" ] && ! grep -q "VITE_FIREBASE_MESSAGING_SENDER_ID" .env 2>/dev/null && echo "VITE_FIREBASE_MESSAGING_SENDER_ID=$VITE_FIREBASE_MESSAGING_SENDER_ID" >> .env
+          [ -n "$VITE_FIREBASE_APP_ID" ] && ! grep -q "VITE_FIREBASE_APP_ID" .env 2>/dev/null && echo "VITE_FIREBASE_APP_ID=$VITE_FIREBASE_APP_ID" >> .env
+          [ -n "$VITE_ADMIN_PASSWORD" ] && ! grep -q "VITE_ADMIN_PASSWORD" .env 2>/dev/null && echo "VITE_ADMIN_PASSWORD=$VITE_ADMIN_PASSWORD" >> .env
+
+          if [ -f .env ] && [ -s .env ]; then
+            echo "✅ Configuration detected ($(wc -l < .env) lines configured)"
+          else
+            echo "⚠️ Warning: No environment configuration detected"
+          fi
+
           npm run build
         
       - name: Setup Pages

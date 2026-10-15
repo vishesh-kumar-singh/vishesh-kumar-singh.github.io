@@ -37,31 +37,68 @@ if (isFirebaseConfigured) {
  */
 export function subscribeToStoryHearts(storySlug, onCountUpdate) {
   const safeSlug = storySlug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+  const channelName = `story_hearts_${safeSlug}`;
 
+  // 1. Cross-window / cross-tab instant broadcast listener
+  let bc = null;
+  if (typeof window !== 'undefined' && typeof BroadcastChannel !== 'undefined') {
+    try {
+      bc = new BroadcastChannel(channelName);
+      bc.onmessage = (event) => {
+        if (event && event.data && typeof event.data.count === 'number') {
+          onCountUpdate(event.data.count);
+        }
+      };
+    } catch (e) {}
+  }
+
+  // 2. Storage event fallback for older or sandboxed tabs
+  const handleStorage = (e) => {
+    if (e.key === `hearts_${safeSlug}` && e.newValue != null) {
+      const parsed = parseInt(e.newValue, 10);
+      if (!isNaN(parsed)) onCountUpdate(parsed);
+    }
+  };
+  if (typeof window !== 'undefined') {
+    window.addEventListener('storage', handleStorage);
+  }
+
+  // 3. Global real-time Firebase WebSockets
+  let firebaseUnsubscribe = null;
   if (isFirebaseConfigured && db) {
     try {
       const heartsRef = ref(db, `hearts/${safeSlug}`);
-      const unsubscribe = onValue(heartsRef, (snapshot) => {
+      firebaseUnsubscribe = onValue(heartsRef, (snapshot) => {
         const val = snapshot.val();
+        let count = 0;
         if (typeof val === 'number') {
-          onCountUpdate(val);
+          count = val;
         } else if (val && typeof val.count === 'number') {
-          onCountUpdate(val.count);
-        } else {
-          onCountUpdate(0);
+          count = val.count;
         }
+        try {
+          localStorage.setItem(`hearts_${safeSlug}`, count.toString());
+        } catch (e) {}
+        onCountUpdate(count);
       });
-      return unsubscribe;
     } catch (e) {
       console.warn("Firebase subscription error:", e);
     }
+  } else {
+    // Local storage fallback when Firebase is not active
+    const localHearts = parseInt(localStorage.getItem(`hearts_${safeSlug}`) || (safeSlug === 'her' ? '42' : '0'), 10);
+    onCountUpdate(localHearts);
   }
 
-  // Graceful fallback: local storage
-  const localHearts = parseInt(localStorage.getItem(`hearts_${safeSlug}`) || (safeSlug === 'her' ? '42' : '0'), 10);
-  onCountUpdate(localHearts);
-
-  return () => {};
+  return () => {
+    if (typeof firebaseUnsubscribe === 'function') firebaseUnsubscribe();
+    if (bc) {
+      try { bc.close(); } catch (e) {}
+    }
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('storage', handleStorage);
+    }
+  };
 }
 
 /**
@@ -69,6 +106,7 @@ export function subscribeToStoryHearts(storySlug, onCountUpdate) {
  */
 export async function incrementStoryHearts(storySlug) {
   const safeSlug = storySlug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+  let updatedCount = null;
 
   if (isFirebaseConfigured && db) {
     try {
@@ -76,17 +114,36 @@ export async function incrementStoryHearts(storySlug) {
       const result = await runTransaction(heartsRef, (currentCount) => {
         return (Number.isInteger(currentCount) ? currentCount : 0) + 1;
       });
-      return result.snapshot.val();
+      if (result && result.snapshot) {
+        updatedCount = result.snapshot.val();
+      }
     } catch (e) {
       console.warn("Firebase increment error:", e);
     }
   }
 
-  // Local fallback
-  const current = parseInt(localStorage.getItem(`hearts_${safeSlug}`) || (safeSlug === 'her' ? '42' : '0'), 10);
-  const updated = current + 1;
-  localStorage.setItem(`hearts_${safeSlug}`, updated.toString());
-  return updated;
+  if (typeof updatedCount !== 'number') {
+    const current = parseInt(localStorage.getItem(`hearts_${safeSlug}`) || (safeSlug === 'her' ? '42' : '0'), 10);
+    updatedCount = current + 1;
+  }
+
+  // Persist locally
+  try {
+    localStorage.setItem(`hearts_${safeSlug}`, updatedCount.toString());
+  } catch (e) {}
+
+  // Broadcast instantly to all other open tabs/windows
+  if (typeof window !== 'undefined' && typeof BroadcastChannel !== 'undefined') {
+    try {
+      const bc = new BroadcastChannel(`story_hearts_${safeSlug}`);
+      bc.postMessage({ count: updatedCount });
+      setTimeout(() => {
+        try { bc.close(); } catch (e) {}
+      }, 200);
+    } catch (e) {}
+  }
+
+  return updatedCount;
 }
 
 /**
