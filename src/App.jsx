@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 
 import Lenis from 'lenis';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial, Html } from '@react-three/drei';
-import { Mail, FileText, Code2, User, ChevronRight, Brain, Cpu, Rocket, Terminal, Layers, Star, Award, Zap, Camera, X, Sparkles, Heart, Building2 } from 'lucide-react';
+import { Mail, FileText, Code2, User, ChevronRight, Brain, Cpu, Rocket, Terminal, Layers, Star, Award, Zap, Camera, X, Sparkles, Heart } from 'lucide-react';
 import BlogPage from './BlogPage.jsx';
 import { renderInlineMarkdown } from './renderInlineMarkdown.jsx';
 import BlogsUniversePage from './BlogsUniversePage.jsx';
@@ -214,22 +214,13 @@ const experiences = [
     points: [
       "Leading a team of 30 secretaries for participation in competitions and handling events. Leading 1 competition (AIMO-Interpretability Challenge, NeurIPS 2026) with a total of 10 team members and managing a research project with 8 secretaries on the team."
     ]
-  },
-  {
-    id: 5,
-    title: "Incoming Software Engineering Intern",
-    meta: "Upcoming | Capital One",
-    icon: <Building2 className="w-8 h-8 text-amber-400" />,
-    points: [
-      "Incoming Software Engineering Intern at Capital One."
-    ]
   }
 ];
 
 function ExperienceTimeline() {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
 
   return (
     <section ref={targetRef} className="relative h-[400vh] z-10 pointer-events-none">
