@@ -7,6 +7,7 @@ import {
 import { getAllBlogs } from './blogUtils.js';
 import { getBlogCardTheme } from './blogThemes.js';
 import { renderInlineMarkdown } from './renderInlineMarkdown.jsx';
+import { BlogBadgeIcon } from './BlogBadgeIcon.jsx';
 
 export default function BlogsUniversePage({ onBack, onOpenStory }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -194,7 +195,7 @@ export default function BlogsUniversePage({ onBack, onOpenStory }) {
                           </div>
 
                           <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider border font-bold ${theme.badge}`}>
-                            <Heart className={`w-3.5 h-3.5 ${theme.heart}`} />
+                            <BlogBadgeIcon badge={blog.metadata.badge} theme={theme} className="w-3.5 h-3.5" />
                             <span>{blog.metadata.badge || 'Personal Memoir'}</span>
                           </span>
                         </div>

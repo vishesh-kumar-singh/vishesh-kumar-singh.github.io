@@ -196,3 +196,23 @@ export function getBlogCardTheme(badge = '', tags = [], theme = '') {
   // PRIORITY 3: Default to Rose (Personal Memoir style)
   return BADGE_PALETTES.rose;
 }
+
+export function getBadgeIconType(badge = '', paletteType = '') {
+  const lower = (badge || '').toLowerCase();
+  if (lower.includes('philo') || lower.includes('mind') || lower.includes('thought') || lower.includes('exist') || paletteType === 'indigo') {
+    return 'compass';
+  }
+  if (lower.includes('child') || lower.includes('nostalg') || lower.includes('innocen') || paletteType === 'amber') {
+    return 'sparkles';
+  }
+  if (lower.includes('memoir') || lower.includes('love') || lower.includes('romanc') || lower.includes('heart') || paletteType === 'rose') {
+    return 'heart';
+  }
+  if (lower.includes('campus') || lower.includes('college') || lower.includes('journey') || paletteType === 'emerald') {
+    return 'book';
+  }
+  if (lower.includes('tech') || lower.includes('code') || lower.includes('research') || lower.includes('ai') || paletteType === 'violet') {
+    return 'cpu';
+  }
+  return 'sparkles';
+}

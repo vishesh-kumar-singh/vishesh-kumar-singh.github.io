@@ -74,8 +74,6 @@
                 <button class="nav-btn" data-target="achievements">Achievements</button>
                 <button class="nav-btn" data-target="publications">Publications</button>
                 <button class="nav-btn" data-target="projects">Projects</button>
-                <!-- <button class="nav-btn" data-target="currently-working">Currently Working</button> -->
-                <!-- <button class="nav-btn" data-target="blogs">Blogs</button> -->
                 <button class="nav-btn" data-target="contact">Contact</button>
             </nav>
             <button class="nav-arrow nav-arrow--right" aria-label="Scroll right">&#8250;</button>
@@ -295,6 +293,147 @@
                     </p>
                 </div>
             </div> -->
+
+            <!-- Anthropic-style Articles & Research Essays -->
+            <h2 style="margin-top: 3.5rem;">Technical Blogs and Articles</h2>
+            <div class="anthropic-blog-container">
+                <div class="anthropic-masthead">
+                    <!-- <span class="anthropic-masthead-badge">Research &amp; Essays</span> -->
+                    <!-- <p class="anthropic-masthead-desc">
+                        Technical explorations spanning mechanistic interpretability, large language model alignment,
+                        reasoning dynamics, and reinforcement learning theory. Both peer-reviewed club publications and independent write-ups.
+                    </p> -->
+                </div>
+
+                <!-- Dynamic Category Filter Bar (populated automatically by script.js) -->
+                <div class="anthropic-filter-bar"></div>
+
+                <!-- Featured Hero Card: LLMs Know When They Lie... (BCS IITK) -->
+                <a href="https://www.bcs-iitk.com/blogs/2026-10-19-LLMs-Know-When-They-Lie" target="_blank" rel="noopener noreferrer" class="anthropic-hero-card" data-category="interpretability">
+                    <div class="anthropic-badge-row">
+                        <span class="anthropic-pill-spotlight">Featured Research</span>
+                        <span class="anthropic-pill-venue">
+                            <i class="fas fa-brain" style="color: #f28c67;"></i> Brain & Cognitive Science Club, IITK
+                        </span>
+                        <span class="anthropic-meta-time">October 19, 2026 • 22 min read</span>
+                    </div>
+
+                    <h3 class="anthropic-hero-title">LLMs Know When They Lie…</h3>
+                    
+                    <p class="anthropic-hero-excerpt">
+                        An overview of the growing body of research suggesting that a language model's internal representations often encode the truth, even when its output doesn't. Investigating the split-brain phenomenon, linear representation of truth, activation steering, and whether models exhibit emergent strategic deception.
+                    </p>
+
+                    <div class="anthropic-card-footer">
+                        <div class="anthropic-tag-list">
+                            <span class="anthropic-tag">Mechanistic Interpretability</span>
+                            <span class="anthropic-tag">Latent Representations</span>
+                            <span class="anthropic-tag">Activation Steering</span>
+                            <span class="anthropic-tag">Alignment Faking</span>
+                        </div>
+                        <span class="anthropic-action-link">
+                            Read on BCS IITK <i class="fas fa-arrow-up-right-from-square"></i>
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Articles Grid -->
+                <!-- <div class="anthropic-articles-grid">
+
+                    <a href="article.html?post=test-time-alignment" class="anthropic-grid-card" data-category="interpretability">
+                        <div>
+                            <div class="anthropic-card-header">
+                                <span class="anthropic-pill-category">LLM Alignment</span>
+                                <span class="anthropic-meta-time">Oct 2026 • 16 min read</span>
+                            </div>
+                            <h4 class="anthropic-card-title">Test-Time Alignment in Large Language Models</h4>
+                            <p class="anthropic-card-excerpt">
+                                A comprehensive analysis of test-time alignment methods: Best-of-N sampling, Process Reward Models (PRMs), and how dynamic early-stopping reshapes the efficiency frontier of inference compute.
+                            </p>
+                        </div>
+                        <div class="anthropic-card-footer">
+                            <div class="anthropic-tag-list">
+                                <span class="anthropic-tag" style="color: #ef4444; border-color: rgba(239,68,68,0.3);">Draft</span>
+                                <span class="anthropic-tag">Test-Time Compute</span>
+                                <span class="anthropic-tag">PRMs</span>
+                            </div>
+                            <span class="anthropic-action-link">
+                                Read Essay <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="https://medium.com/@thevishesh16/q-learning-to-rainbow-dqn-the-complete-evolution-of-q-learning-complete-theory-with-8f25cfb31b01" target="_blank" rel="noopener noreferrer" class="anthropic-grid-card" data-category="reinforcement-learning">
+                        <div>
+                            <div class="anthropic-card-header">
+                                <span class="anthropic-pill-category">Deep RL</span>
+                                <span class="anthropic-meta-time">Jul 2025 • 18 min read</span>
+                            </div>
+                            <h4 class="anthropic-card-title">Q-Learning to Rainbow DQN: The Complete Evolution</h4>
+                            <p class="anthropic-card-excerpt">
+                                A rigorous walkthrough of the mathematical foundations and architectural evolution of Deep Q-Networks: Double Q-learning, Prioritized Replay, Dueling Architectures, Multi-step Learning, and Rainbow.
+                            </p>
+                        </div>
+                        <div class="anthropic-card-footer">
+                            <div class="anthropic-tag-list">
+                                <span class="anthropic-tag">Medium ↗</span>
+                                <span class="anthropic-tag">Q-Learning</span>
+                                <span class="anthropic-tag">Distributional RL</span>
+                            </div>
+                            <span class="anthropic-action-link">
+                                Read on Medium <i class="fas fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="https://medium.com/@thevishesh16/the-measure-of-intelligence-the-arc-benchmark-3d85304a920a" target="_blank" rel="noopener noreferrer" class="anthropic-grid-card" data-category="benchmarks">
+                        <div>
+                            <div class="anthropic-card-header">
+                                <span class="anthropic-pill-category">Cognitive AGI</span>
+                                <span class="anthropic-meta-time">May 2025 • 10 min read</span>
+                            </div>
+                            <h4 class="anthropic-card-title">The Measure of Intelligence: The ARC Benchmark</h4>
+                            <p class="anthropic-card-excerpt">
+                                An exploration of François Chollet's Abstraction and Reasoning Corpus (ARC). Why current LLMs struggle with ARC, and what true program synthesis and human-like generalization require.
+                            </p>
+                        </div>
+                        <div class="anthropic-card-footer">
+                            <div class="anthropic-tag-list">
+                                <span class="anthropic-tag">Medium ↗</span>
+                                <span class="anthropic-tag">ARC Benchmark</span>
+                                <span class="anthropic-tag">Generalization</span>
+                            </div>
+                            <span class="anthropic-action-link">
+                                Read on Medium <i class="fas fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="https://medium.com/@thevishesh16/the-multi-armed-bandits-problem-major-strategies-9a4f2b43e049" target="_blank" rel="noopener noreferrer" class="anthropic-grid-card" data-category="reinforcement-learning">
+                        <div>
+                            <div class="anthropic-card-header">
+                                <span class="anthropic-pill-category">Decision Theory</span>
+                                <span class="anthropic-meta-time">Mar 2025 • 8 min read</span>
+                            </div>
+                            <h4 class="anthropic-card-title">The Multi-Armed Bandits Problem: Major Strategies</h4>
+                            <p class="anthropic-card-excerpt">
+                                A concise breakdown of the exploration-exploitation trade-off in multi-armed bandits, comparing Epsilon-Greedy, Upper Confidence Bound (UCB), and Bayesian Thompson Sampling.
+                            </p>
+                        </div>
+                        <div class="anthropic-card-footer">
+                            <div class="anthropic-tag-list">
+                                <span class="anthropic-tag">Medium ↗</span>
+                                <span class="anthropic-tag">Bandits</span>
+                                <span class="anthropic-tag">Thompson Sampling</span>
+                            </div>
+                            <span class="anthropic-action-link">
+                                Read on Medium <i class="fas fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                </div> -->
+            </div>
         </section>
 
         <section id="projects" class="tab-content">
@@ -343,16 +482,10 @@
                     <span class="project-meta">Observe AI &bull; Nov'25 &ndash; Dec'25</span>
                 </div>
                 <ul>
-                    <li>Performed <strong>causal analysis</strong> from data of <strong>20,000 call-center
-                            transcripts</strong> on Business Events
-                        retrieved and analysed from base data based on natural language queries.</li>
-                    <li>Designed a novel <strong>causal-graph-driven, agentic RAG framework</strong> for causal analysis
-                        of business events.</li>
-                    <li>Developed <strong>multi-agent query generation</strong> and evaluation pipelines with
-                        <strong>human-feedback-based</strong> filtering.
-                    </li>
-                    <li>Integrated <strong>MCP</strong> powered <strong>SQL database</strong> for statistical backing
-                        and graph of thought to reduce inconsistency.</li>
+                    <li>Performed <strong>causal analysis</strong> from data of <strong>20,000 call-center transcripts</strong> on Business Events retrieved and analysed from base data based on natural language queries.</li>
+                    <li>Designed a <strong>causal-graph-driven, multi-agentic RAG framework</strong> for proper causal analysis as requested by the prompt, returning, analysis, along with statistics and example conversation citations</li>
+                    <li>Developed <strong>multi-agent query generation</strong> and evaluation pipeline with <strong>human-feedback-based</strong> filtering.</li>
+                    <li>Integrated <strong>MCP</strong> powered <strong>SQL database</strong> for statistical backing of the claims and further automated corrections and further analysis if there is significant difference between analysis and statistics.</li>
                 </ul>
             </div>
 
@@ -415,24 +548,8 @@
                     <a href="https://github.com/vishesh-kumar-singh/jarvis" target="_blank"><i
                             class="fab fa-github"></i> Code</a>
                 </div>
-                <ul>
-                    <li>Designed an agentic system for complete <strong>task automation</strong>, featuring deep
-                        <strong>personalization</strong> and <strong>voice-based controls</strong>.
-                    </li>
-                    <li>Integrated <strong>OS-level system controls</strong> with permissions to read, write, copy,
-                        paste, and move files via audio commands.</li>
-                    <li>Utilized a <strong>Model Context Protocol (MCP)</strong> based server for tool calling, ensuring
-                        reliable and highly secure task execution.</li>
-                    <li>Engineered a hybrid memory system using <strong>LangGraph-based Short-Term Memory</strong> and
-                        <strong>Mem0-based Long-Term Memory</strong> for robust and context-aware responses.
-                    </li>
-                    <li>Implemented a <strong>three-level user persona generation</strong> framework based on research
-                        papers to dynamically adapt to user preferences and mood.</li>
-                    <li>Automated <strong>email reports and alerts</strong>, automatically scheduling important parsed
-                        events directly into <strong>Google Calendar</strong>.</li>
-                    <li>Achieved <strong>automatic personalization</strong> of system behavior, adapting to music
-                        tastes, academic background, hobbies, and specific response preferences.</li>
-                </ul>
+                <p>Designing an agentic system for complete <strong>task automation</strong>, and complete system control for my system featuring deep
+                        <strong>personalization</strong> and <strong>voice-based controls</strong>.</p>
             </div>
 
 
@@ -483,46 +600,7 @@
 
         </section>
 
-        <!--
-        <section id="blogs" class="tab-content">
-            <h2>Blogs</h2>
 
-            <div class="blog-card">
-                <a href="blogs/a-survey-on-test-time-alignment-in-llms.html" class="blog-link">
-                    <div class="blog-title">A survey on test-time alignment in LLMs</div>
-                    <p>A comprehensive overview of the modern test-time alignment landscape, from foundational Best-of-N (BoN) sampling and early-stopping to Process Reward Models and Intrinsic Verification.</p>
-                </a>
-            </div>
-            -->
-
-        <!-- <div class="blog-card">
-                <a href="https://medium.com/@thevishesh16/q-learning-to-rainbow-dqn-the-complete-evolution-of-q-learning-complete-theory-with-8f25cfb31b01"
-                    target="_blank" class="blog-link">
-                    <div class="blog-title">Q-Learning to Rainbow DQN: The Complete Evolution</div>
-                    <p>A comprehensive guide to the evolution of Q-Learning algorithms, covering theory and
-                        implementation details.</p>
-                </a>
-            </div>
-
-            <div class="blog-card">
-                <a href="https://medium.com/@thevishesh16/the-measure-of-intelligence-the-arc-benchmark-3d85304a920a"
-                    target="_blank" class="blog-link">
-                    <div class="blog-title">The Measure of Intelligence: The ARC Benchmark</div>
-                    <p>An exploration of the ARC benchmark and what it means for measuring machine intelligence.</p>
-                </a>
-            </div>
-
-            <div class="blog-card">
-                <a href="https://medium.com/@thevishesh16/the-multi-armed-bandits-problem-major-strategies-9a4f2b43e049"
-                    target="_blank" class="blog-link">
-                    <div class="blog-title">The Multi-Armed Bandits Problem: Major Strategies</div>
-                    <p>An coincise explaination of Multi-Armed Bandits and the major strategies like Epsilon Greedy,
-                        Upper Confidence Bound, and Thompson Samplng.
-                    </p>
-                </a>
-            </div>
-        </section>
-        -->
 
         <section id="achievements" class="tab-content">
             <h2>Achievements</h2>

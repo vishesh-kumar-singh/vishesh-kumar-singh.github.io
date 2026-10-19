@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Article | Vishesh Kumar Singh</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Highlight.js for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" id="hljs-theme">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    
+    <!-- Marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- MathJax for rendering math -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        :root {
+            --art-bg: #fbfbfd;
+            --art-text: #1d1d1f;
+            --art-muted: #6e6e73;
+            --art-border: rgba(0, 0, 0, 0.08);
+            --art-card-bg: rgba(255, 255, 255, 0.85);
+            --art-code-bg: #1e1e24;
+            --art-accent: #b45309;
+            --art-accent-light: #fef3c7;
+        }
+
+        [data-theme="dark"] {
+            --art-bg: #09090b;
+            --art-text: #f4f4f5;
+            --art-muted: #a1a1aa;
+            --art-border: rgba(255, 255, 255, 0.1);
+            --art-card-bg: rgba(24, 24, 27, 0.7);
+            --art-code-bg: #121216;
+            --art-accent: #f28c67;
+            --art-accent-light: rgba(242, 140, 103, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--art-bg);
+            color: var(--art-text);
+            line-height: 1.75;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Reading Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f28c67, #d97706);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Top Minimalist Header */
+        .art-header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 2rem;
+            background: var(--art-card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--art-border);
+        }
+
+        .art-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--art-muted);
+            text-decoration: none;
+            padding: 0.4rem 0.9rem;
+            border-radius: 9999px;
+            background: rgba(125, 125, 125, 0.08);
+            border: 1px solid var(--art-border);
+            transition: all 0.2s ease;
+        }
+
+        .art-back-btn:hover {
+            color: var(--art-text);
+            border-color: var(--art-muted);
+            transform: translateX(-2px);
+        }
+
+        .art-theme-toggle {
+            background: transparent;
+            border: 1px solid var(--art-border);
+            border-radius: 9999px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--art-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .art-theme-toggle:hover {
+            color: var(--art-text);
+            border-color: var(--art-muted);
+        }
+
+        /* Article Wrapper */
+        .art-container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem 6rem;
+        }
+
+        /* Article Metadata Masthead */
+        .art-meta-pills {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .art-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.28rem 0.75rem;
+            border-radius: 9999px;
+            background: var(--art-accent-light);
+            color: var(--art-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .art-pill-draft {
+            background: rgba(239, 68, 68, 0.12);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+
+        .art-meta-time {
+            font-size: 0.82rem;
+            color: var(--art-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .art-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1.18;
+            letter-spacing: -0.025em;
+            color: var(--art-text);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .art-title {
+                font-size: 2rem;
+            }
+        }
+
+        .art-subtitle {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--art-muted);
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        /* Author Card */
+        .art-author-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0 2rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--art-border);
+        }
+
+        .art-author-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-cover: cover;
+            border: 2px solid var(--art-border);
+        }
+
+        .art-author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .art-author-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--art-text);
+        }
+
+        .art-author-role {
+            font-size: 0.8rem;
+            color: var(--art-muted);
+        }
+
+        /* Markdown Typography & Elements */
+        .art-body {
+            font-size: 1.08rem;
+            line-height: 1.85;
+            color: var(--art-text);
+        }
+
+        .art-body p {
+            margin-bottom: 1.6rem;
+        }
+
+        .art-body h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--art-text);
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid var(--art-border);
+        }
+
+        .art-body h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--art-text);
+        }
+
+        .art-body ul, .art-body ol {
+            margin: 1.2rem 0 1.6rem 1.6rem;
+        }
+
+        .art-body li {
+            margin-bottom: 0.6rem;
+        }
+
+        .art-body hr {
+            border: none;
+            height: 1px;
+            background: var(--art-border);
+            margin: 3rem auto;
+            width: 40%;
+        }
+
+        .art-body strong {
+            font-weight: 600;
+            color: var(--art-text);
+        }
+
+        .art-body em {
+            font-style: italic;
+        }
+
+        .art-body a {
+            color: var(--art-accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: opacity 0.2s;
+        }
+
+        .art-body a:hover {
+            opacity: 0.8;
+        }
+
+        .art-body code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88em;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            background: rgba(125, 125, 125, 0.12);
+        }
+
+        .art-code-block {
+            position: relative;
+            margin: 2rem 0;
+            border-radius: 12px;
+            background: var(--art-code-bg);
+            border: 1px solid var(--art-border);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .art-code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .art-code-copy-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-family: inherit;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .art-code-copy-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .art-code-block pre {
+            margin: 0;
+            padding: 1.2rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .art-code-block code {
+            background: transparent;
+            padding: 0;
+        }
+
+        /* Callouts / Blockquotes */
+        .art-callout {
+            margin: 2rem 0;
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid;
+            font-size: 0.98rem;
+            background: rgba(125, 125, 125, 0.05);
+        }
+
+        .art-callout-note {
+            border-left-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.07);
+        }
+
+        .art-callout-tip {
+            border-left-color: #10b981;
+            background: rgba(16, 185, 129, 0.07);
+        }
+
+        .art-callout-warning {
+            border-left-color: #f59e0b;
+            background: rgba(245, 158, 11, 0.07);
+        }
+
+        .art-callout-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .art-callout-note .art-callout-label { color: #3b82f6; }
+        .art-callout-tip .art-callout-label { color: #10b981; }
+        .art-callout-warning .art-callout-label { color: #f59e0b; }
+
+        /* Footer Return Card */
+        .art-footer-box {
+            margin-top: 4rem;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--art-border);
+            background: var(--art-card-bg);
+            text-align: center;
+        }
+
+        .art-footer-box h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .art-footer-box p {
+            color: var(--art-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .art-footer-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.92rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 9999px;
+            background: var(--art-accent);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .art-footer-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Loading Skeleton */
+        .art-loading {
+            text-align: center;
+            padding: 6rem 0;
+            color: var(--art-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-bar"></div>
+
+    <header class="art-header">
+        <a href="index.html#publications" class="art-back-btn">
+            <i class="fas fa-arrow-left"></i>
+            <span>Research & Articles</span>
+        </a>
+        <button id="theme-toggle" class="art-theme-toggle" title="Toggle Light/Dark Theme">
+            <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+    </header>
+
+    <main class="art-container">
+        <div id="article-content">
+            <div class="art-loading">
+                <i class="fas fa-circle-notch fa-spin fa-2x"></i>
+                <p style="margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
+                    Loading research essay...
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Reading Progress Indicator
+        window.addEventListener('scroll', () => {
+            const docElem = document.documentElement;
+            const docBody = document.body;
+            const scrollTop = docElem['scrollTop'] || docBody['scrollTop'];
+            const scrollBottom = (docElem['scrollHeight'] || docBody['scrollHeight']) - window.innerHeight;
+            const scrollPercent = scrollBottom > 0 ? (scrollTop / scrollBottom) * 100 : 0;
+            document.getElementById('progress-bar').style.width = scrollPercent + '%';
+        });
+
+        // Theme sync
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        applyTheme(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        // Helper: YAML Frontmatter Parser
+        function parseFrontmatter(rawText) {
+            const regex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
+            const match = rawText.match(regex);
+            if (!match) {
+                return { meta: {}, body: rawText };
+            }
+            const yamlStr = match[1];
+            const body = match[2];
+            const meta = {};
+            let currentKey = null;
+
+            yamlStr.split(/\r?\n/).forEach(line => {
+                const trimmed = line.trim();
+                if (!trimmed || trimmed.startsWith('#')) return;
+
+                if (trimmed.startsWith('-') && currentKey) {
+                    const val = trimmed.replace(/^-\s*/, '').replace(/^["']|["']$/g, '');
+                    if (Array.isArray(meta[currentKey])) {
+                        meta[currentKey].push(val);
+                    } else {
+                        meta[currentKey] = [val];
+                    }
+                    return;
+                }
+
+                const colonIdx = trimmed.indexOf(':');
+                if (colonIdx > 0) {
+                    const k = trimmed.slice(0, colonIdx).trim();
+                    let v = trimmed.slice(colonIdx + 1).trim();
+                    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+                        v = v.slice(1, -1);
+                    }
+                    if (v === 'true') v = true;
+                    if (v === 'false') v = false;
+                    meta[k] = v;
+                    currentKey = k;
+                }
+            });
+
+            return { meta, body };
+        }
+
+        // Custom Marked renderer for code blocks and callouts
+        const renderer = new marked.Renderer();
+
+        renderer.code = function({ text, lang }) {
+            const language = lang || 'text';
+            const highlighted = hljs.getLanguage(language)
+                ? hljs.highlight(text, { language }).value
+                : hljs.highlightAuto(text).value;
+
+            const safeCode = encodeURIComponent(text);
+
+            return `
+                <div class="art-code-block">
+                    <div class="art-code-header">
+                        <span>${language}</span>
+                        <button class="art-code-copy-btn" onclick="copyCode(this, decodeURIComponent('${safeCode}'))">
+                            <i class="far fa-copy"></i> <span>Copy</span>
+                        </button>
+                    </div>
+                    <pre><code class="hljs language-${language}">${highlighted}</code></pre>
+                </div>
+            `;
+        };
+
+        renderer.blockquote = function({ text }) {
+            // Check for GitHub style alerts: [!NOTE], [!TIP], [!WARNING], [!IMPORTANT]
+            const alertMatch = text.match(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]\s*(?:<br\s*\/?>)?([\s\S]*)$/i);
+            if (alertMatch) {
+                const type = alertMatch[1].toLowerCase();
+                const content = alertMatch[2];
+                let icon = 'info-circle';
+                if (type === 'tip') icon = 'lightbulb';
+                if (type === 'warning' || type === 'caution') icon = 'triangle-exclamation';
+
+                return `
+                    <div class="art-callout art-callout-${type}">
+                        <div class="art-callout-label">
+                            <i class="fas fa-${icon}"></i> ${type.toUpperCase()}
+                        </div>
+                        <div>${content}</div>
+                    </div>
+                `;
+            }
+            return `<blockquote>${text}</blockquote>`;
+        };
+
+        marked.setOptions({
+            renderer: renderer,
+            gfm: true,
+            breaks: false
+        });
+
+        // Copy Code Function
+        window.copyCode = function(button, codeText) {
+            navigator.clipboard.writeText(codeText).then(() => {
+                const span = button.querySelector('span');
+                const orig = span.textContent;
+                span.textContent = 'Copied!';
+                setTimeout(() => { span.textContent = orig; }, 1800);
+            });
+        };
+
+        // Load Article
+        async function loadArticle() {
+            const params = new URLSearchParams(window.location.search);
+            const postSlug = params.get('post') || 'test-time-alignment';
+            const postUrl = `blogs/${encodeURIComponent(postSlug)}.md`;
+
+            try {
+                const response = await fetch(postUrl);
+                if (!response.ok) {
+                    throw new Error(`Article not found: ${response.status}`);
+                }
+                const rawMarkdown = await response.text();
+                const { meta, body } = parseFrontmatter(rawMarkdown);
+
+                document.title = `${meta.title || postSlug} | Vishesh Kumar Singh`;
+
+                // Automatically calculate reading time (~200 words per minute)
+                const wordCount = body.trim().split(/\s+/).filter(Boolean).length;
+                const calculatedMinutes = Math.max(1, Math.ceil(wordCount / 200));
+                const readTimeText = meta.readTime || `${calculatedMinutes} min read`;
+
+                // Render article HTML
+                const parsedBody = marked.parse(body);
+
+                const pillsHtml = `
+                    <div class="art-meta-pills">
+                        ${meta.venue ? `<span class="art-pill">${meta.venue}</span>` : '<span class="art-pill">Research Essay</span>'}
+                        ${meta.draft ? `<span class="art-pill art-pill-draft"><i class="fas fa-pen-nib"></i> Draft</span>` : ''}
+                        <span class="art-meta-time">
+                            ${meta.date ? `<i class="far fa-calendar-alt"></i> ${meta.date} &bull; ` : ''}
+                            <i class="far fa-clock"></i> ${readTimeText}
+                        </span>
+                    </div>
+                `;
+
+                const headerHtml = `
+                    ${pillsHtml}
+                    <h1 class="art-title">${meta.title || postSlug}</h1>
+                    ${meta.subtitle ? `<p class="art-subtitle">${meta.subtitle}</p>` : ''}
+                    <div class="art-author-row">
+                        <img src="../image.jpg" alt="Vishesh Kumar Singh" class="art-author-avatar">
+                        <div class="art-author-info">
+                            <span class="art-author-name">Vishesh Kumar Singh</span>
+                            <span class="art-author-role">IIT Kanpur &bull; ML & Cognitive Science</span>
+                        </div>
+                    </div>
+                `;
+
+                const footerHtml = `
+                    <div class="art-footer-box">
+                        <h4>Enjoyed this research?</h4>
+                        <p>Explore more perspectives on LLMs, reinforcement learning, and cognitive architectures.</p>
+                        <a href="index.html#publications" class="art-footer-btn">
+                            <i class="fas fa-arrow-left"></i> Back to Research & Articles
+                        </a>
+                    </div>
+                `;
+
+                const container = document.getElementById('article-content');
+                container.innerHTML = `
+                    ${headerHtml}
+                    <div class="art-body">${parsedBody}</div>
+                    ${footerHtml}
+                `;
+
+                // Typeset math equations with MathJax
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise();
+                }
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('article-content').innerHTML = `
+                    <div style="text-align: center; padding: 4rem 1rem;">
+                        <i class="fas fa-exclamation-circle fa-3x" style="color: #ef4444; margin-bottom: 1rem;"></i>
+                        <h2 style="font-family: 'Outfit', sans-serif; margin-bottom: 0.5rem;">Article Not Found</h2>
+                        <p style="color: var(--art-muted); margin-bottom: 1.5rem;">The draft or article <code>${postSlug}.md</code> could not be loaded.</p>
+                        <a href="index.html#publications" class="art-footer-btn">
+                            <i class="fas fa-arrow-left"></i> Return to Research
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        loadArticle();
+    </script>
+</body>
+</html>

@@ -75,9 +75,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // --- Dynamic Anthropic Blog Filter Generation ---
+    const filterBar = document.querySelector('.anthropic-filter-bar');
+    const blogCards = document.querySelectorAll('.anthropic-hero-card, .anthropic-grid-card');
+
+    if (filterBar) {
+        if (blogCards.length === 0) {
+            filterBar.style.display = 'none';
+        } else {
+            // Friendly display names for standard slugs
+            const categoryLabels = {
+                'interpretability': 'LLMs & Interpretability',
+                'reinforcement-learning': 'Reinforcement Learning',
+                'benchmarks': 'Cognitive Science & AGI'
+            };
+
+            // Count occurrences of each category among currently active cards
+            const categoryCounts = {};
+            blogCards.forEach(card => {
+                const rawCat = card.getAttribute('data-category') || 'general';
+                categoryCounts[rawCat] = (categoryCounts[rawCat] || 0) + 1;
+            });
+
+            // Generate "All" button
+            let html = `
+                <button class="anthropic-filter-btn active" data-filter="all">
+                    All <span class="anthropic-filter-count">(${blogCards.length})</span>
+                </button>
+            `;
+
+            // Generate button for each detected category
+            for (const [catKey, count] of Object.entries(categoryCounts)) {
+                const label = categoryLabels[catKey] || (catKey.charAt(0).toUpperCase() + catKey.slice(1).replace(/-/g, ' '));
+                html += `
+                    <button class="anthropic-filter-btn" data-filter="${catKey}">
+                        ${label} <span class="anthropic-filter-count">(${count})</span>
+                    </button>
+                `;
+            }
+
+            filterBar.innerHTML = html;
+
+            // Wire up interactive filtering
+            const filterBtns = filterBar.querySelectorAll('.anthropic-filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.getAttribute('data-filter');
+
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    blogCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = '';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(8px)';
+                            requestAnimationFrame(() => {
+                                card.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            });
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+    }
+
     // --- Hash routing for tabs ---
     if (window.location.hash) {
-        const hash = window.location.hash.substring(1);
+        let hash = window.location.hash.substring(1);
+        if (hash === 'blogs') hash = 'publications';
         const targetBtn = document.querySelector(`.nav-btn[data-target="${hash}"]`);
         if (targetBtn) {
             targetBtn.click();

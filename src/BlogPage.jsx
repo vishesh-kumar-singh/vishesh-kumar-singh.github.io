@@ -3,13 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowLeft, Heart, Share2, Volume2, VolumeX, Sparkles, 
   Bookmark, Clock, Calendar, MapPin, Check, Send, 
-  ChevronUp, Coffee, Smile, Compass, Feather, MessageSquareHeart, MessageSquare
+  ChevronUp, Coffee, Smile, Compass, Feather, MessageSquareHeart, MessageSquare,
+  Copy, Terminal, Info, AlertTriangle, Lightbulb
 } from 'lucide-react';
 import { getBlogBySlug } from './blogUtils.js';
 import { subscribeToStoryHearts, incrementStoryHearts } from './firebase.js';
 import SendMessageModal from './SendMessageModal.jsx';
 import CommentsSection from './CommentsSection.jsx';
 import { renderInlineMarkdown } from './renderInlineMarkdown.jsx';
+import { BlogBadgeIcon } from './BlogBadgeIcon.jsx';
 
 // Authentic Ambient Rain Player with Smooth Fade-in & Seamless Loop
 class AmbientLoFiEngine {
@@ -412,8 +414,13 @@ export default function BlogPage({ storySlug = 'her', onBack }) {
             transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border mb-6 backdrop-blur-md shadow-sm"
           >
-            <Sparkles className="w-3.5 h-3.5 text-rose-400 animate-spin" style={{ animationDuration: '6s' }} />
+            <BlogBadgeIcon badge={metadata.badge} className="w-3.5 h-3.5" />
             <span className={currentTheme.badge}>{metadata.badge || 'Personal Memoir'}</span>
+            {metadata.draft && (
+              <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-mono tracking-widest uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                Draft
+              </span>
+            )}
           </motion.div>
 
           <motion.h1
@@ -529,6 +536,102 @@ export default function BlogPage({ storySlug = 'her', onBack }) {
                   <p className="text-sm sm:text-base font-serif text-slate-200 italic leading-relaxed">
                     "{renderInlineMarkdown(block.text)}"
                   </p>
+                </motion.div>
+              );
+            }
+
+            // Markdown Callout: > [!NOTE] or [!TIP] or [!WARNING]
+            if (block.type === 'callout') {
+              const isTip = block.calloutType === 'tip';
+              const isWarning = block.calloutType === 'warning' || block.calloutType === 'caution';
+              const isImportant = block.calloutType === 'important';
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className={`my-8 p-5 sm:p-6 rounded-2xl border backdrop-blur-md flex items-start gap-4 ${
+                    isWarning
+                      ? 'bg-amber-950/25 border-amber-500/30 text-amber-200'
+                      : isTip
+                      ? 'bg-emerald-950/25 border-emerald-500/30 text-emerald-200'
+                      : 'bg-indigo-950/25 border-indigo-500/30 text-indigo-200'
+                  }`}
+                >
+                  <div className="flex-shrink-0 mt-0.5">
+                    {isWarning ? <AlertTriangle className="w-5 h-5 text-amber-400" /> : isTip ? <Lightbulb className="w-5 h-5 text-emerald-400" /> : <Info className="w-5 h-5 text-indigo-400" />}
+                  </div>
+                  <div className="text-sm sm:text-base font-serif leading-relaxed text-slate-200">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-widest block mb-1 opacity-80">
+                      {block.calloutType}
+                    </span>
+                    {renderInlineMarkdown(block.text)}
+                  </div>
+                </motion.div>
+              );
+            }
+
+            // Markdown Code Block: ```lang ... ```
+            if (block.type === 'code') {
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="my-8 rounded-2xl border border-white/10 bg-[#0d1117] shadow-xl overflow-hidden"
+                >
+                  <div className="flex items-center justify-between px-4 py-2.5 bg-white/5 border-b border-white/10 text-xs font-mono text-slate-400">
+                    <div className="flex items-center gap-2">
+                      <Terminal className="w-3.5 h-3.5 text-slate-400" />
+                      <span>{block.lang || 'code'}</span>
+                    </div>
+                    <button
+                      onClick={() => navigator.clipboard.writeText(block.code)}
+                      className="hover:text-white transition-colors flex items-center gap-1.5 px-2 py-0.5 rounded bg-white/5 hover:bg-white/10"
+                      title="Copy Code"
+                    >
+                      <Copy className="w-3 h-3" />
+                      <span>Copy</span>
+                    </button>
+                  </div>
+                  <pre className="p-4 sm:p-5 overflow-x-auto text-xs sm:text-sm font-mono leading-relaxed text-slate-200 selection:bg-purple-500/40">
+                    <code>{block.code}</code>
+                  </pre>
+                </motion.div>
+              );
+            }
+
+            // Markdown Lists: bulleted or ordered
+            if (block.type === 'list') {
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="my-6 pl-2 sm:pl-4"
+                >
+                  {block.ordered ? (
+                    <ol className="list-decimal space-y-3 font-serif text-base sm:text-lg text-slate-300 leading-relaxed pl-5">
+                      {block.items.map((item, itemIdx) => (
+                        <li key={itemIdx}>{renderInlineMarkdown(item)}</li>
+                      ))}
+                    </ol>
+                  ) : (
+                    <ul className="space-y-3 font-serif text-base sm:text-lg text-slate-300 leading-relaxed">
+                      {block.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex items-start gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2.5 flex-shrink-0" />
+                          <span>{renderInlineMarkdown(item)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </motion.div>
               );
             }

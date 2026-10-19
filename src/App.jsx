@@ -4,13 +4,14 @@ import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 
 import Lenis from 'lenis';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points, PointMaterial, Html } from '@react-three/drei';
-import { Mail, FileText, Code2, User, ChevronRight, Brain, Cpu, Rocket, Terminal, Layers, Star, Award, Zap, Camera, X, Sparkles, Heart } from 'lucide-react';
+import { Mail, FileText, Code2, User, ChevronRight, Brain, Cpu, Rocket, Terminal, Layers, Star, Award, Zap, Camera, X, Sparkles, Heart, Building2 } from 'lucide-react';
 import BlogPage from './BlogPage.jsx';
 import { renderInlineMarkdown } from './renderInlineMarkdown.jsx';
 import BlogsUniversePage from './BlogsUniversePage.jsx';
 import AdminPage from './AdminPage.jsx';
 import { getAllBlogs, getFeaturedBlogs } from './blogUtils.js';
 import { getBlogCardTheme } from './blogThemes.js';
+import { BlogBadgeIcon } from './BlogBadgeIcon.jsx';
 
 // ==========================================
 // 1. The Dive-In Hero (3D Network & Camera)
@@ -176,8 +177,9 @@ function CameraController({ scrollYProgress }) {
 const experiences = [
   {
     id: 1,
-    title: "Undergrad Research Assistant",
-    meta: "Jul'26 – Present | MILAP Lab, IITK",
+    title: "Undergraduate Research Assistant",
+    meta: "Jul'26 – Present | MILAP Lab, IIT Kanpur",
+    submeta: "Prof. Sayak Ray Chowdhury",
     icon: <Brain className="w-8 h-8 text-purple-400" />,
     points: [
       "Formulated Anytime-Valid sequential tests to improve the efficiency of test-time alignment within the BoN framework, providing provable error guarantees for early stopping criteria.",
@@ -186,33 +188,40 @@ const experiences = [
   },
   {
     id: 2,
-    title: "Research Intern (SURGE)",
-    meta: "May'26 – Jul'26 | MILAP Lab, IITK",
+    title: "Research Intern (SURGE Program)",
+    meta: "May'26 – Jul'26 | MILAP Lab, IIT Kanpur",
+    submeta: "Prof. Sayak Ray Chowdhury",
     icon: <Cpu className="w-8 h-8 text-blue-400" />,
     points: [
-      "Exploited Best-of-N (BoN) strategies for test-time alignment in LLMs as an alternative to standard RLHF pipelines.",
-      "Invented Reward Weighted Self Consistency improving performance over standard BoN by up to 10% and SPRT-RWSC for early stopping of candidates generation reducing budgets by up to 65%."
+      "Exploited Best-of-N (BoN) strategies for test-time alignment in LLMs as an alternative to standard RLHF pipelines. Invented Reward Weighted Self Consistency improving performance over standard BoN by up to 10% and SPRT-RWSC for early stopping of candidates generation reducing budgets by up to 65%."
     ]
   },
   {
     id: 3,
-    title: "RL Research Intern",
-    meta: "Jun'26 – Aug'26 | Wadhwani School of AI and Intelligent Systems, IITK",
+    title: "Reinforcement Learning Research Intern",
+    meta: "Jun'26 – Aug'26 | Wadhwani School of AI & Intelligent Systems, IIT Kanpur",
+    submeta: "Prof. Shakti Singh Gupta",
     icon: <Rocket className="w-8 h-8 text-emerald-400" />,
     points: [
-      "Integrated missing NERO robot support in Robosuite for data collection to train baseline imitation learning policy.",
-      "Implementing the Beyond Action Residuals framework in simulation using Robosuite for AgileX NERO arm.",
-      "Handling the Sim-to-Real transition from trained simulation-based policy to the real NERO hardware."
+      "Integrated missing NERO robot support in Robosuite for data collection to train baseline imitation learning policy. Implementing the Beyond Action Residuals framework in simulation using Robosuite for AgileX NERO arm. Handling the Sim-to-Real transition from trained simulation-based policy to the real NERO hardware."
     ]
   },
   {
     id: 4,
     title: "Coordinator",
-    meta: "April'26 - Present | BCS Club, IITK",
+    meta: "April'26 - Present | Brain and Cognitive Science Club, IIT Kanpur",
     icon: <User className="w-8 h-8 text-orange-400" />,
     points: [
-      "Leading a team of 30 secretaries for participation in competitions and handling events.",
-      "Leading 1 competition (AIMO-Interpretability Challenge, NeurIPS 2026) with a total of 10 team members and managing a research project with 8 secretaries on the team."
+      "Leading a team of 30 secretaries for participation in competitions and handling events. Leading 1 competition (AIMO-Interpretability Challenge, NeurIPS 2026) with a total of 10 team members and managing a research project with 8 secretaries on the team."
+    ]
+  },
+  {
+    id: 5,
+    title: "Incoming Software Engineering Intern",
+    meta: "Upcoming | Capital One",
+    icon: <Building2 className="w-8 h-8 text-amber-400" />,
+    points: [
+      "Incoming Software Engineering Intern at Capital One."
     ]
   }
 ];
@@ -220,7 +229,7 @@ const experiences = [
 function ExperienceTimeline() {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
 
   return (
     <section ref={targetRef} className="relative h-[400vh] z-10 pointer-events-none">
@@ -409,7 +418,7 @@ function WritingsSection({ onOpenStory, onOpenUniverse }) {
                       </div>
 
                       <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider border font-bold ${theme.badge}`}>
-                        <Heart className={`w-3.5 h-3.5 ${theme.heart}`} />
+                        <BlogBadgeIcon badge={blog.metadata.badge} theme={theme} className="w-3.5 h-3.5" />
                         <span>{blog.metadata.badge || 'Personal Memoir'}</span>
                       </span>
                     </div>

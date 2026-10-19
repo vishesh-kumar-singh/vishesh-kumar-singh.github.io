@@ -117,6 +117,12 @@ export function parseBlog(rawMarkdown) {
         return;
       }
 
+      if (key === 'draft') {
+        metadata.draft = value.toLowerCase() === 'true';
+        currentKey = key;
+        return;
+      }
+
       if (value === '') {
         metadata[key] = [];
         currentKey = key;
@@ -141,8 +147,22 @@ export function parseBlog(rawMarkdown) {
       return { type: 'divider' };
     }
 
-    // Check for blockquote: starts with >
+    // Check for Code block: ```lang ... ```
+    if (block.startsWith('```') && block.endsWith('```')) {
+      const firstLineEnd = block.indexOf('\n');
+      const lang = firstLineEnd > -1 ? block.slice(3, firstLineEnd).trim() : '';
+      const code = firstLineEnd > -1 ? block.slice(firstLineEnd + 1, -3).trim() : block.slice(3, -3).trim();
+      return { type: 'code', lang, code };
+    }
+
+    // Check for blockquote or callout: starts with >
     if (block.startsWith('>')) {
+      const matchCallout = block.match(/^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO)\]\s*\n?([\s\S]*)$/i);
+      if (matchCallout) {
+        const calloutType = matchCallout[1].toLowerCase();
+        const calloutText = matchCallout[2].split('\n').map((l) => l.replace(/^>\s?/, '')).join(' ').trim();
+        return { type: 'callout', calloutType, text: calloutText };
+      }
       const quoteText = block
         .split('\n')
         .map((l) => l.replace(/^>\s?/, ''))
@@ -159,6 +179,25 @@ export function parseBlog(rawMarkdown) {
     // Check for Heading 3: ###
     if (block.startsWith('### ')) {
       return { type: 'h3', text: block.replace(/^###\s+/, '') };
+    }
+
+    // Check for Lists: lines starting with - / * or 1.
+    const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
+    const isBulletList = lines.length > 0 && lines.every((l) => /^[-*]\s+/.test(l));
+    const isNumberedList = lines.length > 0 && lines.every((l) => /^\d+\.\s+/.test(l));
+    if (isBulletList) {
+      return {
+        type: 'list',
+        ordered: false,
+        items: lines.map((l) => l.replace(/^[-*]\s+/, '')),
+      };
+    }
+    if (isNumberedList) {
+      return {
+        type: 'list',
+        ordered: true,
+        items: lines.map((l) => l.replace(/^\d+\.\s+/, '')),
+      };
     }
 
     // Check for Markdown Image: ![alt](url)

@@ -24,13 +24,14 @@ dist-ssr
 *.sln
 *.sw?
 
-# Legacy blog directories
-public/classic/blogs/
-
 # Drafts system: ignore all files in blogs/ except published ones
 blogs/*
 # !blogs/HER.md
 !blogs/MONA.md
+!blogs/LIFE.md
+
+
 public/blogs/
+public/classic/blogs
 
 
