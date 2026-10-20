@@ -31,10 +31,10 @@ blogs/*
 !blogs/LIFE.md
 !blogs/HER.md
 
-!public/blogs/Images/HER
 
 
 public/blogs/
+!public/blogs/Images/HER
 public/classic/blogs
 
 
