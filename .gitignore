@@ -31,7 +31,7 @@ blogs/*
 !blogs/LIFE.md
 !blogs/HER.md
 
-public/blogs/Images/HER
+!public/blogs/Images/HER
 
 
 public/blogs/
