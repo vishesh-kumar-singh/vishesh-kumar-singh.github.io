@@ -17,11 +17,15 @@ body {
   background-color: var(--color-primary-base);
   color: #f8fafc;
   overflow-x: hidden;
-  cursor: none;
 }
 
-a, button, [role="button"], input, select, textarea {
-  cursor: none !important;
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a, button, [role="button"], input, select, textarea {
+    cursor: none !important;
+  }
 }
 
 ::selection {

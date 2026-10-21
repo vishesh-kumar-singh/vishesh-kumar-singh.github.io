@@ -34,7 +34,7 @@ blogs/*
 
 
 public/blogs/
-!public/blogs/Images/HER
 public/classic/blogs
+!public/blogs/Images/HER
 
 
