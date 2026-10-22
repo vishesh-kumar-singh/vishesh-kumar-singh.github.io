@@ -19,6 +19,10 @@
     <!-- Marked.js for markdown parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
+    <!-- Firebase SDK for Realtime Comments -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <!-- KaTeX for ultra-fast, robust LaTeX math rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -435,13 +439,23 @@
             background: rgba(245, 158, 11, 0.07);
         }
 
+        .art-callout-important {
+            border-left-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.07);
+        }
+
+        .art-callout-caution {
+            border-left-color: #ef4444;
+            background: rgba(239, 68, 68, 0.07);
+        }
+
         .art-callout-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.4rem;
@@ -450,6 +464,42 @@
         .art-callout-note .art-callout-label { color: #3b82f6; }
         .art-callout-tip .art-callout-label { color: #10b981; }
         .art-callout-warning .art-callout-label { color: #f59e0b; }
+        .art-callout-important .art-callout-label { color: #8b5cf6; }
+        .art-callout-caution .art-callout-label { color: #ef4444; }
+
+        .art-callout-content p {
+            margin: 0.5rem 0;
+            line-height: 1.65;
+        }
+
+        .art-callout-content p:first-child {
+            margin-top: 0;
+        }
+
+        .art-callout-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .art-callout-content ul, .art-callout-content ol {
+            margin: 0.5rem 0 0.5rem 1.4rem;
+            padding: 0;
+        }
+
+        .art-callout-content li {
+            margin-bottom: 0.4rem;
+            line-height: 1.6;
+        }
+
+        .art-callout-content a {
+            color: var(--art-accent);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+        }
+
+        .art-callout-content a:hover {
+            opacity: 0.85;
+        }
 
         /* Footer Return Card */
         .art-footer-box {
@@ -840,6 +890,647 @@
             line-height: 1.6;
             color: #d1d5db;
         }
+
+        /* Layout with Sticky TOC Sidebar */
+        .art-layout-wrapper {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem 6rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 3.5rem;
+            position: relative;
+        }
+
+        .art-toc-sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 5rem;
+            max-height: calc(100vh - 6.5rem);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .art-toc-card {
+            background: var(--art-card-bg);
+            border: 1px solid var(--art-border);
+            border-radius: 12px;
+            padding: 1.25rem 1rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .art-toc-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--art-muted);
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--art-border);
+        }
+
+        .art-toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .art-toc-link {
+            display: block;
+            font-size: 0.84rem;
+            line-height: 1.45;
+            color: var(--art-muted);
+            text-decoration: none;
+            padding: 0.35rem 0.6rem;
+            border-radius: 6px;
+            border-left: 2px solid transparent;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .art-toc-link:hover {
+            color: var(--art-text);
+            background: rgba(125, 125, 125, 0.08);
+        }
+
+        .art-toc-link.active {
+            color: var(--art-accent);
+            font-weight: 600;
+            border-left-color: var(--art-accent);
+            background: var(--art-accent-light);
+        }
+
+        .art-toc-h3 {
+            padding-left: 1.2rem;
+            font-size: 0.78rem;
+        }
+
+        .art-main-col {
+            flex: 1;
+            min-width: 0;
+            max-width: 780px;
+        }
+
+        /* Mobile Floating TOC button */
+        .art-toc-mobile-btn {
+            display: none;
+            position: fixed;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            z-index: 950;
+            background: var(--art-card-bg);
+            border: 1px solid var(--art-border);
+            color: var(--art-text);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 9999px;
+            padding: 0.6rem 1.1rem;
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .art-toc-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+        }
+
+        @media (max-width: 1080px) {
+            .art-layout-wrapper {
+                padding: 2.5rem 1.25rem 5rem;
+                display: block;
+            }
+            .art-toc-sidebar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 290px;
+                height: 100vh;
+                max-height: 100vh;
+                z-index: 999;
+                padding: 1.5rem;
+                background: var(--art-bg);
+                box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+            }
+            .art-toc-sidebar.mobile-open {
+                display: block;
+            }
+            .art-toc-mobile-btn {
+                display: inline-flex;
+            }
+            .art-toc-backdrop.active {
+                display: block;
+            }
+        }
+
+        /* Comments Section */
+        .art-comments-section {
+            margin-top: 4.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--art-border);
+        }
+
+        .art-comments-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .art-comments-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .art-comments-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .art-comments-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+            background: rgba(125, 125, 125, 0.1);
+            color: var(--art-muted);
+            border: 1px solid var(--art-border);
+        }
+
+        .art-author-admin-btn {
+            background: transparent;
+            border: 1px solid var(--art-border);
+            color: var(--art-muted);
+            font-size: 0.8rem;
+            padding: 0.35rem 0.8rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s ease;
+        }
+
+        .art-author-admin-btn:hover {
+            color: var(--art-text);
+            border-color: var(--art-muted);
+        }
+
+        .art-comments-desc {
+            color: var(--art-muted);
+            font-size: 0.92rem;
+            margin-bottom: 1.75rem;
+        }
+
+        /* Comment Form */
+        .art-comment-form {
+            background: var(--art-card-bg);
+            border: 1px solid var(--art-border);
+            border-radius: 14px;
+            padding: 1.25rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+        }
+
+        .art-form-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .art-input-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .art-input-icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--art-muted);
+            font-size: 0.85rem;
+        }
+
+        .art-input {
+            width: 100%;
+            padding: 0.55rem 0.85rem 0.55rem 2.3rem;
+            border-radius: 8px;
+            border: 1px solid var(--art-border);
+            background: rgba(125, 125, 125, 0.05);
+            color: var(--art-text);
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .art-input:focus {
+            border-color: var(--art-accent);
+            background: transparent;
+        }
+
+        .art-author-mode-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.35rem 0.8rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .art-textarea {
+            width: 100%;
+            padding: 0.75rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid var(--art-border);
+            background: rgba(125, 125, 125, 0.05);
+            color: var(--art-text);
+            font-family: inherit;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .art-textarea:focus {
+            border-color: var(--art-accent);
+            background: transparent;
+        }
+
+        .art-form-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .art-form-tip {
+            font-size: 0.78rem;
+            color: var(--art-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .art-submit-btn {
+            background: var(--art-accent);
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .art-submit-btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .art-submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Comments List */
+        .art-comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .art-comment-item {
+            background: var(--art-card-bg);
+            border: 1px solid var(--art-border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+
+        .art-comment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.65rem;
+        }
+
+        .art-comment-user {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .art-comment-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+
+        .art-comment-author-name {
+            font-weight: 600;
+            font-size: 0.93rem;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .art-author-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.12);
+            padding: 0.12rem 0.45rem;
+            border-radius: 4px;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .art-comment-time {
+            font-size: 0.78rem;
+            color: var(--art-muted);
+        }
+
+        .art-comment-body {
+            font-size: 0.93rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+            white-space: pre-line;
+            word-break: break-word;
+        }
+
+        .art-comment-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.82rem;
+        }
+
+        .art-comment-upvote-btn {
+            background: rgba(125, 125, 125, 0.05);
+            border: 1px solid var(--art-border);
+            color: var(--art-muted);
+            padding: 0.28rem 0.75rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .art-comment-upvote-btn:hover:not(:disabled) {
+            color: var(--art-accent);
+            border-color: var(--art-accent);
+            background: var(--art-accent-light);
+            transform: translateY(-1px);
+        }
+
+        .art-comment-upvote-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .art-comment-upvote-btn.upvoted {
+            color: var(--art-accent);
+            border-color: var(--art-accent);
+            background: var(--art-accent-light);
+            font-weight: 600;
+            cursor: default;
+        }
+
+        .art-comment-upvote-btn:disabled {
+            cursor: default;
+            opacity: 0.95;
+        }
+
+        .art-upvote-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            font-weight: 600;
+            padding: 0.08rem 0.42rem;
+            border-radius: 9999px;
+            background: rgba(125, 125, 125, 0.1);
+        }
+
+        .art-comment-upvote-btn.upvoted .art-upvote-count {
+            background: rgba(242, 140, 103, 0.2);
+            color: var(--art-accent);
+        }
+
+        /* Fallback for like button */
+        .art-comment-like-btn {
+            display: none;
+        }
+
+        .art-admin-btn-action {
+            background: transparent;
+            border: none;
+            color: var(--art-muted);
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.45rem;
+            border-radius: 4px;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .art-admin-btn-action:hover {
+            color: var(--art-text);
+            background: rgba(125, 125, 125, 0.08);
+        }
+
+        .art-admin-btn-action.text-danger:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        /* Comment Replies */
+        .art-replies-list {
+            margin-top: 0.9rem;
+            padding-left: 1.25rem;
+            border-left: 2px solid var(--art-border);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .art-reply-item {
+            background: rgba(125, 125, 125, 0.04);
+            border-radius: 8px;
+            padding: 0.85rem;
+        }
+
+        /* Reply Input Box */
+        .art-reply-box {
+            margin-top: 0.85rem;
+            padding: 0.85rem;
+            border-radius: 8px;
+            background: rgba(125, 125, 125, 0.05);
+            border: 1px dashed var(--art-border);
+        }
+
+        .art-empty-comments {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            color: var(--art-muted);
+            border: 1px dashed var(--art-border);
+            border-radius: 12px;
+        }
+
+        .art-empty-comments i {
+            margin-bottom: 0.75rem;
+            opacity: 0.6;
+        }
+
+        /* Author Modal */
+        .art-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .art-modal-card {
+            background: var(--art-bg);
+            border: 1px solid var(--art-border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .art-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .art-modal-header h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .art-modal-close {
+            background: transparent;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--art-muted);
+            cursor: pointer;
+        }
+
+        .art-modal-desc {
+            font-size: 0.88rem;
+            color: var(--art-muted);
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+
+        .art-modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .art-modal-cancel {
+            background: transparent;
+            border: 1px solid var(--art-border);
+            color: var(--art-text);
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .art-modal-confirm {
+            background: var(--art-accent);
+            border: none;
+            color: #fff;
+            padding: 0.45rem 1.1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .art-auth-error {
+            color: #ef4444;
+            font-size: 0.82rem;
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -850,23 +1541,72 @@
     <header class="art-header">
         <a href="index.html#publications" class="art-back-btn">
             <i class="fas fa-arrow-left"></i>
-            <span>Research & Articles</span>
+            <span>Blogs & Articles</span>
         </a>
         <button id="theme-toggle" class="art-theme-toggle" title="Toggle Light/Dark Theme">
             <i class="fas fa-moon" id="theme-icon"></i>
         </button>
     </header>
 
-    <main class="art-container">
-        <div id="article-content">
-            <div class="art-loading">
-                <i class="fas fa-circle-notch fa-spin fa-2x"></i>
-                <p style="margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
-                    Loading research essay...
-                </p>
+    <div class="art-layout-wrapper">
+        <!-- Sticky Table of Contents Sidebar -->
+        <aside class="art-toc-sidebar" id="art-toc-sidebar">
+            <div class="art-toc-card">
+                <div class="art-toc-header">
+                    <i class="fas fa-list-ul"></i>
+                    <span>Contents</span>
+                </div>
+                <nav class="art-toc-nav" id="art-toc-nav">
+                    <ul class="art-toc-list" id="art-toc-list">
+                        <!-- Headings populated by initTableOfContents() -->
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Reading Column -->
+        <main class="art-main-col">
+            <div id="article-content">
+                <div class="art-loading">
+                    <i class="fas fa-circle-notch fa-spin fa-2x"></i>
+                    <p style="margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;">
+                        Loading research essay...
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Floating TOC Button & Backdrop -->
+    <button class="art-toc-mobile-btn" id="art-toc-mobile-btn" onclick="toggleMobileToc()" title="Open Table of Contents">
+        <i class="fas fa-list-ul"></i> <span>Contents</span>
+    </button>
+    <div class="art-toc-backdrop" id="art-toc-backdrop" onclick="toggleMobileToc()"></div>
+
+    <!-- Author Authentication Modal -->
+    <div id="author-modal" class="art-modal-backdrop" style="display: none;" onclick="closeAuthorModal(event)">
+        <div class="art-modal-card" onclick="event.stopPropagation()">
+            <div class="art-modal-header">
+                <h4><i class="fas fa-user-shield"></i> Author Authentication</h4>
+                <button class="art-modal-close" onclick="closeAuthorModal()">&times;</button>
+            </div>
+            <p class="art-modal-desc">Enter author passkey to post verified responses and manage discussions.</p>
+            <div id="author-login-content">
+                <input type="password" id="author-pass-input" class="art-input" placeholder="Enter author password" onkeydown="if(event.key==='Enter') submitAuthorAuth()">
+                <div id="author-auth-error" class="art-auth-error" style="display: none;"></div>
+                <div class="art-modal-actions">
+                    <button class="art-modal-cancel" onclick="closeAuthorModal()">Cancel</button>
+                    <button class="art-modal-confirm" onclick="submitAuthorAuth()">Verify</button>
+                </div>
+            </div>
+            <div id="author-logged-in-content" style="display: none;">
+                <p style="color: #10b981; font-weight: 500; margin-bottom: 1rem;"><i class="fas fa-check-circle"></i> Logged in as Vishesh Kumar Singh</p>
+                <div class="art-modal-actions">
+                    <button class="art-modal-confirm" onclick="handleAuthorLogout()">Logout</button>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
         // Reading Progress Indicator
@@ -1316,25 +2056,46 @@
                     `;
                 };
 
-                renderer.blockquote = function({ text }) {
-                    const alertMatch = text.match(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]\s*(?:<br\s*\/?>)?([\s\S]*)$/i);
+                renderer.blockquote = function(token) {
+                    const firstText = (token.tokens && token.tokens[0] && token.tokens[0].raw) || token.text || '';
+                    const alertMatch = firstText.match(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]/i);
+
                     if (alertMatch) {
                         const type = alertMatch[1].toLowerCase();
-                        const content = alertMatch[2];
                         let icon = 'info-circle';
                         if (type === 'tip') icon = 'lightbulb';
                         if (type === 'warning' || type === 'caution') icon = 'triangle-exclamation';
+
+                        let htmlBody = '';
+                        if (token.tokens && this.parser) {
+                            const clonedTokens = JSON.parse(JSON.stringify(token.tokens));
+                            if (clonedTokens[0]) {
+                                if (clonedTokens[0].tokens && clonedTokens[0].tokens[0]) {
+                                    clonedTokens[0].tokens[0].text = clonedTokens[0].tokens[0].text.replace(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]\s*/i, '');
+                                    clonedTokens[0].tokens[0].raw = clonedTokens[0].tokens[0].raw.replace(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]\s*/i, '');
+                                    if (!clonedTokens[0].tokens[0].text.trim()) {
+                                        clonedTokens[0].tokens.shift();
+                                    }
+                                } else if (clonedTokens[0].text) {
+                                    clonedTokens[0].text = clonedTokens[0].text.replace(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]\s*/i, '');
+                                }
+                            }
+                            htmlBody = this.parser.parse(clonedTokens);
+                        } else {
+                            const cleanRaw = (token.text || token || '').replace(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]\s*/i, '');
+                            htmlBody = window.marked ? window.marked.parse(cleanRaw) : cleanRaw;
+                        }
 
                         return `
                             <div class="art-callout art-callout-${type}">
                                 <div class="art-callout-label">
                                     <i class="fas fa-${icon}"></i> ${type.toUpperCase()}
                                 </div>
-                                <div>${content}</div>
+                                <div class="art-callout-content">${htmlBody}</div>
                             </div>
                         `;
                     }
-                    return `<blockquote>${text}</blockquote>`;
+                    return `<blockquote>${this.parser ? this.parser.parse(token.tokens) : (token.text || '')}</blockquote>`;
                 };
 
                 marked.setOptions({
@@ -1441,8 +2202,6 @@
                                     </div>
                                     ${entry.venue ? `<div class="art-ref-venue">${entry.venue}</div>` : ''}
                                     <div class="art-ref-actions">
-                                        ${entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener noreferrer" class="art-ref-btn"><i class="fas fa-external-link-alt"></i> Paper</a>` : ''}
-                                        <button class="art-ref-btn" onclick="copyCode(this, decodeURIComponent('${safeBib}'))"><i class="far fa-copy"></i> <span>BibTeX</span></button>
                                         <a href="#cite-mark-${key}" class="art-ref-backlink" title="Jump back to citation" onclick="scrollToRef('cite-mark-${key}', event)">↩</a>
                                     </div>
                                 </div>
@@ -1516,22 +2275,72 @@
                     </div>
                 `;
 
-                // 10. Assemble and Mount
+                // 10. Comments Section Generation
+                const commentsHtml = `
+                    <section class="art-comments-section" id="comments">
+                        <div class="art-comments-header">
+                            <div class="art-comments-title-wrap">
+                                <h3 class="art-comments-title"><i class="far fa-comments"></i> Discussion &amp; Perspectives</h3>
+                                <span class="art-comments-badge" id="comments-count-badge">0 comments</span>
+                            </div>
+                            <div class="art-comments-admin-trigger">
+                                <button id="author-admin-btn" class="art-author-admin-btn" onclick="openAuthorModal()">
+                                    <i class="fas fa-user-shield"></i> <span id="author-btn-text">Author Login</span>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="art-comments-desc">Share feedback, questions, or extensions to this research. Open to all readers.</p>
+                        
+                        <form class="art-comment-form" id="comment-form" onsubmit="handleCommentSubmit(event)">
+                            <div class="art-form-row">
+                                <div class="art-input-wrap" id="name-input-wrap">
+                                    <i class="far fa-user art-input-icon"></i>
+                                    <input type="text" id="comment-author-name" class="art-input" placeholder="Your name or handle (optional)" maxlength="50">
+                                </div>
+                                <div id="author-mode-pill" class="art-author-mode-pill" style="display: none;">
+                                    <i class="fas fa-check-circle"></i> Posting as Author (Vishesh)
+                                </div>
+                            </div>
+                            <div class="art-input-wrap" style="width: 100%;">
+                                <textarea id="comment-text" class="art-textarea" rows="3" placeholder="Share your perspective or question on this work..." required maxlength="3000"></textarea>
+                            </div>
+                            <div class="art-form-footer">
+                                <span class="art-form-tip"><i class="fas fa-square-root-alt"></i> Standard TeX renders in comments ($...$ or $$...$$)</span>
+                                <button type="submit" id="comment-submit-btn" class="art-submit-btn">
+                                    <i class="far fa-paper-plane"></i> <span>Post Comment</span>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="comments-list" class="art-comments-list">
+                            <div class="art-empty-comments">
+                                <i class="far fa-comment-dots fa-2x"></i>
+                                <p>Loading discussions...</p>
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+                // 11. Assemble and Mount
                 const container = document.getElementById('article-content');
                 container.innerHTML = `
                     ${headerHtml}
                     <div class="art-body">${parsedBody}</div>
                     ${referencesHtml}
                     ${citeBoxHtml}
+                    ${commentsHtml}
                     ${footerHtml}
                 `;
 
-                // 11. Initialize Interactive Popovers & MathJax
+                // 12. Initialize Interactive Popovers, MathJax, Table of Contents & Comments
                 initCitePopovers(bibMap, keyToNum);
 
                 if (window.MathJax && window.MathJax.typesetPromise) {
                     window.MathJax.typesetPromise();
                 }
+
+                initTableOfContents();
+                initCommentsSystem(postSlug);
 
             } catch (err) {
                 console.error(err);
@@ -1545,6 +2354,690 @@
                         </a>
                     </div>
                 `;
+            }
+        }
+
+        // ==========================================
+        // TABLE OF CONTENTS (TOC) WITH LIVE SCROLL SPY
+        // ==========================================
+        function initTableOfContents() {
+            const tocList = document.getElementById('art-toc-list');
+            if (!tocList) return;
+            tocList.innerHTML = '';
+
+            const articleBody = document.querySelector('.art-body');
+            if (!articleBody) return;
+
+            const headings = Array.from(articleBody.querySelectorAll('h2, h3'));
+
+            const refHeader = document.querySelector('.art-references-header');
+            if (refHeader) {
+                refHeader.id = 'references';
+                headings.push(refHeader);
+            }
+            const citeHeader = document.querySelector('.art-post-citation');
+            if (citeHeader) {
+                citeHeader.id = 'cite-work';
+                headings.push(citeHeader);
+            }
+            const commentsHeader = document.getElementById('comments');
+            if (commentsHeader) {
+                headings.push(commentsHeader);
+            }
+
+            if (headings.length === 0) {
+                const sidebar = document.getElementById('art-toc-sidebar');
+                if (sidebar) sidebar.style.display = 'none';
+                return;
+            }
+
+            const items = [];
+
+            headings.forEach((heading, idx) => {
+                let id = heading.id;
+                if (!id) {
+                    id = 'section-' + (idx + 1) + '-' + heading.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').substring(0, 30);
+                    heading.id = id;
+                }
+
+                let label = '';
+                if (heading.classList.contains('art-references-header')) {
+                    label = 'References';
+                } else if (heading.classList.contains('art-post-citation')) {
+                    label = 'Citation (BibTeX)';
+                } else if (heading.id === 'comments') {
+                    label = 'Discussion';
+                } else {
+                    label = heading.textContent.replace(/^#+\s*/, '').trim();
+                }
+
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.className = 'art-toc-link' + (heading.tagName === 'H3' ? ' art-toc-h3' : '');
+                a.textContent = label;
+                a.title = label;
+
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.getElementById(id);
+                    if (target) {
+                        const targetY = target.getBoundingClientRect().top + window.pageYOffset - 85;
+                        window.scrollTo({ top: targetY, behavior: 'smooth' });
+                        history.pushState(null, null, '#' + id);
+                        closeMobileToc();
+                    }
+                });
+
+                li.appendChild(a);
+                tocList.appendChild(li);
+                items.push({ id, heading, link: a });
+            });
+
+            function updateTocActive() {
+                const scrollPos = window.pageYOffset + 120;
+                const isBottom = (window.innerHeight + window.pageYOffset) >= (document.documentElement.scrollHeight - 60);
+
+                let activeItem = null;
+
+                if (isBottom && items.length > 0) {
+                    activeItem = items[items.length - 1];
+                } else {
+                    for (let i = 0; i < items.length; i++) {
+                        const el = document.getElementById(items[i].id);
+                        if (el) {
+                            const top = el.offsetTop;
+                            if (top <= scrollPos) {
+                                activeItem = items[i];
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                items.forEach(item => {
+                    if (activeItem && item === activeItem) {
+                        item.link.classList.add('active');
+                        item.link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                    } else {
+                        item.link.classList.remove('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(updateTocActive);
+            }, { passive: true });
+
+            updateTocActive();
+        }
+
+        function toggleMobileToc() {
+            const sidebar = document.getElementById('art-toc-sidebar');
+            const backdrop = document.getElementById('art-toc-backdrop');
+            if (sidebar && backdrop) {
+                sidebar.classList.toggle('mobile-open');
+                backdrop.classList.toggle('active');
+            }
+        }
+
+        function closeMobileToc() {
+            const sidebar = document.getElementById('art-toc-sidebar');
+            const backdrop = document.getElementById('art-toc-backdrop');
+            if (sidebar && backdrop) {
+                sidebar.classList.remove('mobile-open');
+                backdrop.classList.remove('active');
+            }
+        }
+
+        // ==========================================
+        // REALTIME COMMENTS SYSTEM (FIREBASE + LOCAL)
+        // ==========================================
+        const AUTH_SESSION_KEY = 'vishesh_author_session';
+        const ADMIN_HASH = 'ad870d5c368e42d258e8f6eaf62199449395afe3e7b7a41751c6f6aad32b0a51';
+
+        const AVATAR_COLORS = [
+            'linear-gradient(135deg, #f43f5e, #9333ea)',
+            'linear-gradient(135deg, #a855f7, #4f46e5)',
+            'linear-gradient(135deg, #3b82f6, #06b6d4)',
+            'linear-gradient(135deg, #10b981, #0d9488)',
+            'linear-gradient(135deg, #f59e0b, #ea580c)',
+            'linear-gradient(135deg, #ec4899, #f43f5e)',
+        ];
+
+        function getAvatarColor(name) {
+            let hash = 0;
+            for (let i = 0; i < (name || '').length; i++) {
+                hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+        }
+
+        function formatRelativeTime(ts) {
+            if (!ts) return 'Just now';
+            const diff = Date.now() - ts;
+            const s = Math.floor(diff / 1000);
+            if (s < 45) return 'Just now';
+            const m = Math.floor(s / 60);
+            if (m < 60) return `${m}m ago`;
+            const h = Math.floor(m / 60);
+            if (h < 24) return `${h}h ago`;
+            const d = Math.floor(h / 24);
+            if (d < 7) return `${d}d ago`;
+            return new Date(ts).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        function isAuthorLoggedIn() {
+            return Boolean(localStorage.getItem(AUTH_SESSION_KEY) || sessionStorage.getItem(AUTH_SESSION_KEY));
+        }
+
+        let activeComments = [];
+        let currentSlug = '';
+        let replyingToId = null;
+        let rtdbInstance = null;
+
+        function initCommentsSystem(slug) {
+            currentSlug = slug;
+            const safeSlug = slug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+
+            updateAuthorStatusUI();
+
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('admin') === 'true' || params.get('admin') === '1' || window.location.hash === '#admin') {
+                openAuthorModal();
+            }
+
+            try {
+                if (typeof firebase !== 'undefined' && !rtdbInstance) {
+                    const firebaseConfig = {
+                        apiKey: "AIzaSyDGbDlw5JyNYuL1qeSxkw6XxC6lpauvpm0",
+                        authDomain: "missyouapp-748.firebaseapp.com",
+                        databaseURL: "https://missyouapp-748-default-rtdb.firebaseio.com",
+                        projectId: "missyouapp-748",
+                        storageBucket: "missyouapp-748.firebasestorage.app",
+                        messagingSenderId: "441263383196",
+                        appId: "1:441263383196:web:c48b637be02f3c42e70359"
+                    };
+                    if (!firebase.apps.length) {
+                        firebase.initializeApp(firebaseConfig);
+                    }
+                    rtdbInstance = firebase.database();
+                }
+            } catch (e) {
+                console.warn("Firebase RTDB init skipped:", e);
+            }
+
+            const localKey = 'comments_' + safeSlug;
+
+            if (rtdbInstance) {
+                try {
+                    const commentsRef = rtdbInstance.ref('comments/' + safeSlug);
+                    commentsRef.on('value', (snapshot) => {
+                        const val = snapshot.val();
+                        if (val && typeof val === 'object') {
+                            const list = Object.entries(val).map(([id, data]) => ({
+                                id,
+                                name: data.name || 'Anonymous Reader',
+                                text: data.text || '',
+                                timestamp: data.timestamp || Date.now(),
+                                likes: typeof data.likes === 'number' ? data.likes : 0,
+                                isAuthor: Boolean(data.isAuthor),
+                                hidden: Boolean(data.hidden),
+                                replies: data.replies && typeof data.replies === 'object'
+                                    ? Object.entries(data.replies).map(([rId, rData]) => ({
+                                        id: rId,
+                                        name: rData.name || 'Vishesh Kumar Singh',
+                                        text: rData.text || '',
+                                        timestamp: rData.timestamp || Date.now(),
+                                        isAuthor: rData.isAuthor !== false
+                                    })).sort((a, b) => a.timestamp - b.timestamp)
+                                    : []
+                            })).filter(c => !c.hidden);
+                            list.sort((a, b) => b.timestamp - a.timestamp);
+                            activeComments = list;
+                            try { localStorage.setItem(localKey, JSON.stringify(list)); } catch (e) {}
+                            renderComments();
+                        } else {
+                            activeComments = [];
+                            try { localStorage.removeItem(localKey); } catch (e) {}
+                            renderComments();
+                        }
+                    }, (err) => {
+                        console.warn("RTDB listen error, fallback to local:", err);
+                        loadLocalComments(localKey);
+                    });
+                    return;
+                } catch (e) {
+                    console.warn("RTDB subscribe failed:", e);
+                }
+            }
+
+            loadLocalComments(localKey);
+        }
+
+        function loadLocalComments(localKey) {
+            try {
+                activeComments = JSON.parse(localStorage.getItem(localKey) || '[]');
+            } catch (e) {
+                activeComments = [];
+            }
+            renderComments();
+        }
+
+        function renderComments() {
+            const listEl = document.getElementById('comments-list');
+            const badgeEl = document.getElementById('comments-count-badge');
+            if (!listEl) return;
+
+            const count = activeComments.length;
+            if (badgeEl) {
+                badgeEl.textContent = `${count} comment${count === 1 ? '' : 's'}`;
+            }
+
+            if (count === 0) {
+                listEl.innerHTML = `
+                    <div class="art-empty-comments">
+                        <i class="far fa-comment-dots fa-2x"></i>
+                        <p>No comments yet. Be the first to start the discussion!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const safeSlug = currentSlug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+            const upvoteKey = 'upvoted_comments_' + safeSlug;
+            let upvotedList = [];
+            try {
+                upvotedList = JSON.parse(localStorage.getItem(upvoteKey) || localStorage.getItem('liked_comments_' + safeSlug) || '[]');
+            } catch (e) {
+                upvotedList = [];
+            }
+            const isAdmin = isAuthorLoggedIn();
+
+            listEl.innerHTML = activeComments.map(c => {
+                const isUpvoted = upvotedList.includes(c.id);
+                const avatarBg = getAvatarColor(c.name);
+                const initial = (c.name || 'A').charAt(0).toUpperCase();
+
+                const avatarHtml = c.isAuthor
+                    ? `<img src="../favicon.png" alt="Vishesh" class="art-comment-avatar">`
+                    : `<div class="art-comment-avatar" style="background: ${avatarBg}">${initial}</div>`;
+
+                const authorBadgeHtml = c.isAuthor
+                    ? `<span class="art-author-badge"><i class="fas fa-check-circle"></i> Author</span>`
+                    : '';
+
+                const repliesHtml = (c.replies && c.replies.length > 0)
+                    ? `<div class="art-replies-list">
+                        ${c.replies.map(r => `
+                            <div class="art-reply-item">
+                                <div class="art-comment-header">
+                                    <div class="art-comment-user">
+                                        <img src="../favicon.png" alt="Vishesh" class="art-comment-avatar" style="width: 26px; height: 26px;">
+                                        <span class="art-comment-author-name">
+                                            ${escapeHtml(r.name)}
+                                            <span class="art-author-badge"><i class="fas fa-check-circle"></i> Author</span>
+                                        </span>
+                                    </div>
+                                    <span class="art-comment-time">${formatRelativeTime(r.timestamp)}</span>
+                                </div>
+                                <div class="art-comment-body" style="font-size: 0.88rem;">${formatCommentText(r.text)}</div>
+                                ${isAdmin ? `<button class="art-admin-btn-action text-danger" onclick="deleteReply('${c.id}', '${r.id}')"><i class="fas fa-trash-alt"></i> Delete Reply</button>` : ''}
+                            </div>
+                        `).join('')}
+                       </div>`
+                    : '';
+
+                const replyFormHtml = (replyingToId === c.id)
+                    ? `<div class="art-reply-box">
+                        <textarea id="reply-text-${c.id}" class="art-textarea" rows="2" placeholder="Write official author reply..." style="margin-bottom: 0.5rem;"></textarea>
+                        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                            <button class="art-modal-cancel" onclick="closeReplyForm()">Cancel</button>
+                            <button class="art-modal-confirm" onclick="submitReply('${c.id}')"><i class="far fa-paper-plane"></i> Send Reply</button>
+                        </div>
+                       </div>`
+                    : '';
+
+                return `
+                    <div class="art-comment-item" id="comment-${c.id}">
+                        <div class="art-comment-header">
+                            <div class="art-comment-user">
+                                ${avatarHtml}
+                                <span class="art-comment-author-name">
+                                    ${escapeHtml(c.name)}
+                                    ${authorBadgeHtml}
+                                </span>
+                            </div>
+                            <span class="art-comment-time">${formatRelativeTime(c.timestamp)}</span>
+                        </div>
+                        <div class="art-comment-body">${formatCommentText(c.text)}</div>
+                        <div class="art-comment-actions">
+                            <button class="art-comment-upvote-btn ${isUpvoted ? 'upvoted' : ''}" 
+                                    ${isUpvoted ? 'disabled title="You have already upvoted this comment"' : 'title="Upvote this comment"'} 
+                                    onclick="handleUpvoteComment('${c.id}')">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>${isUpvoted ? 'Upvoted' : 'Upvote'}</span>
+                                <span class="art-upvote-count">${c.likes || 0}</span>
+                            </button>
+                            ${isAdmin ? `
+                                <button class="art-admin-btn-action" onclick="openReplyForm('${c.id}')">
+                                    <i class="fas fa-reply"></i> Reply
+                                </button>
+                                <button class="art-admin-btn-action text-danger" onclick="deleteComment('${c.id}')">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            ` : ''}
+                        </div>
+                        ${replyFormHtml}
+                        ${repliesHtml}
+                    </div>
+                `;
+            }).join('');
+
+            // If MathJax is present, typeset any dynamic math rendered in comments
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([listEl]).catch(() => {});
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/"/g, '&quot;')
+                      .replace(/'/g, '&#039;');
+        }
+
+        function unescapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&amp;/g, '&')
+                      .replace(/&lt;/g, '<')
+                      .replace(/&gt;/g, '>')
+                      .replace(/&quot;/g, '"')
+                      .replace(/&#039;/g, "'");
+        }
+
+        function formatCommentText(raw) {
+            if (!raw) return '';
+            let escaped = escapeHtml(raw);
+
+            // Display math: $$ ... $$
+            escaped = escaped.replace(/\$\$([\s\S]+?)\$\$/g, (match, tex) => {
+                const cleanTex = unescapeHtml(tex.trim());
+                if (typeof katex !== 'undefined') {
+                    try {
+                        return `<div class="art-math-display">${katex.renderToString(cleanTex, { displayMode: true, throwOnError: false })}</div>`;
+                    } catch (e) {
+                        console.error('KaTeX comment display error:', e);
+                    }
+                }
+                return `<div class="art-math-display">$$${cleanTex}$$</div>`;
+            });
+
+            // Inline math: $ ... $ (ignoring escaped \$)
+            escaped = escaped.replace(/(^|[^\\])\$([^\$\n]+?)\$/g, (match, prefix, tex) => {
+                const cleanTex = unescapeHtml(tex.trim());
+                if (typeof katex !== 'undefined') {
+                    try {
+                        return `${prefix}<span class="art-math-inline">${katex.renderToString(cleanTex, { displayMode: false, throwOnError: false })}</span>`;
+                    } catch (e) {
+                        console.error('KaTeX comment inline error:', e);
+                    }
+                }
+                return `${prefix}$${cleanTex}$`;
+            });
+
+            return escaped;
+        }
+
+        async function handleCommentSubmit(e) {
+            e.preventDefault();
+            const textEl = document.getElementById('comment-text');
+            const nameEl = document.getElementById('comment-author-name');
+            const btnEl = document.getElementById('comment-submit-btn');
+            if (!textEl || !textEl.value.trim()) return;
+
+            const isAdmin = isAuthorLoggedIn();
+            const commentData = {
+                name: isAdmin ? 'Vishesh Kumar Singh' : (nameEl && nameEl.value.trim() ? nameEl.value.trim() : 'Anonymous Reader'),
+                text: textEl.value.trim(),
+                timestamp: Date.now(),
+                likes: 0,
+                isAuthor: Boolean(isAdmin),
+                hidden: false
+            };
+
+            btnEl.disabled = true;
+            btnEl.innerHTML = `<i class="fas fa-spinner fa-spin"></i> <span>Posting...</span>`;
+
+            const safeSlug = currentSlug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+            const localKey = 'comments_' + safeSlug;
+
+            if (rtdbInstance) {
+                try {
+                    await rtdbInstance.ref('comments/' + safeSlug).push(commentData);
+                    textEl.value = '';
+                    btnEl.disabled = false;
+                    btnEl.innerHTML = `<i class="far fa-paper-plane"></i> <span>Post Comment</span>`;
+                    return;
+                } catch (err) {
+                    console.warn("RTDB write error:", err);
+                }
+            }
+
+            const newComment = { id: 'local_' + Date.now(), ...commentData };
+            activeComments.unshift(newComment);
+            try { localStorage.setItem(localKey, JSON.stringify(activeComments)); } catch (e) {}
+            textEl.value = '';
+            btnEl.disabled = false;
+            btnEl.innerHTML = `<i class="far fa-paper-plane"></i> <span>Post Comment</span>`;
+            renderComments();
+        }
+
+        async function handleUpvoteComment(commentId) {
+            const safeSlug = currentSlug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+            const upvoteKey = 'upvoted_comments_' + safeSlug;
+            let upvotedList = [];
+            try {
+                upvotedList = JSON.parse(localStorage.getItem(upvoteKey) || localStorage.getItem('liked_comments_' + safeSlug) || '[]');
+            } catch (e) {
+                upvotedList = [];
+            }
+
+            // Strictly allow only once per user via local browser caching
+            if (upvotedList.includes(commentId)) {
+                return;
+            }
+
+            // Lock immediately in local cache
+            upvotedList.push(commentId);
+            try {
+                localStorage.setItem(upvoteKey, JSON.stringify(upvotedList));
+                localStorage.setItem('liked_comments_' + safeSlug, JSON.stringify(upvotedList));
+            } catch (e) {}
+
+            // Immediate optimistic UI update
+            const target = activeComments.find(c => c.id === commentId);
+            if (target) {
+                target.likes = (typeof target.likes === 'number' ? target.likes : 0) + 1;
+            }
+            try { localStorage.setItem('comments_' + safeSlug, JSON.stringify(activeComments)); } catch (e) {}
+            renderComments();
+
+            // Sync with Firebase Realtime Database in background
+            if (rtdbInstance) {
+                try {
+                    await rtdbInstance.ref('comments/' + safeSlug + '/' + commentId + '/likes').transaction(curr => {
+                        return (typeof curr === 'number' ? curr : 0) + 1;
+                    });
+                } catch (e) {
+                    console.warn("RTDB upvote error:", e);
+                }
+            }
+        }
+
+        const toggleLikeComment = handleUpvoteComment;
+
+        function openReplyForm(commentId) {
+            replyingToId = commentId;
+            renderComments();
+        }
+
+        function closeReplyForm() {
+            replyingToId = null;
+            renderComments();
+        }
+
+        async function submitReply(commentId) {
+            const textarea = document.getElementById('reply-text-' + commentId);
+            if (!textarea || !textarea.value.trim()) return;
+
+            const replyData = {
+                name: 'Vishesh Kumar Singh',
+                text: textarea.value.trim(),
+                timestamp: Date.now(),
+                isAuthor: true
+            };
+
+            const safeSlug = currentSlug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+
+            if (rtdbInstance) {
+                try {
+                    await rtdbInstance.ref('comments/' + safeSlug + '/' + commentId + '/replies').push(replyData);
+                    replyingToId = null;
+                    renderComments();
+                    return;
+                } catch (e) {
+                    console.warn("RTDB reply error:", e);
+                }
+            }
+
+            const target = activeComments.find(c => c.id === commentId);
+            if (target) {
+                target.replies = target.replies || [];
+                target.replies.push({ id: 'reply_' + Date.now(), ...replyData });
+                try { localStorage.setItem('comments_' + safeSlug, JSON.stringify(activeComments)); } catch (e) {}
+            }
+            replyingToId = null;
+            renderComments();
+        }
+
+        async function deleteReply(commentId, replyId) {
+            if (!confirm("Are you sure you want to delete this reply?")) return;
+            const safeSlug = currentSlug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+
+            if (rtdbInstance) {
+                try {
+                    await rtdbInstance.ref('comments/' + safeSlug + '/' + commentId + '/replies/' + replyId).remove();
+                    return;
+                } catch (e) {
+                    console.warn("RTDB delete reply error:", e);
+                }
+            }
+
+            const target = activeComments.find(c => c.id === commentId);
+            if (target && target.replies) {
+                target.replies = target.replies.filter(r => r.id !== replyId);
+                try { localStorage.setItem('comments_' + safeSlug, JSON.stringify(activeComments)); } catch (e) {}
+                renderComments();
+            }
+        }
+
+        async function deleteComment(commentId) {
+            if (!confirm("Are you sure you want to delete this comment?")) return;
+            const safeSlug = currentSlug.toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+
+            if (rtdbInstance) {
+                try {
+                    await rtdbInstance.ref('comments/' + safeSlug + '/' + commentId).remove();
+                    return;
+                } catch (e) {
+                    console.warn("RTDB delete comment error:", e);
+                }
+            }
+
+            activeComments = activeComments.filter(c => c.id !== commentId);
+            try { localStorage.setItem('comments_' + safeSlug, JSON.stringify(activeComments)); } catch (e) {}
+            renderComments();
+        }
+
+        // Author Authentication Functions
+        function openAuthorModal() {
+            const modal = document.getElementById('author-modal');
+            if (!modal) return;
+            modal.style.display = 'flex';
+            const errEl = document.getElementById('author-auth-error');
+            if (errEl) errEl.style.display = 'none';
+
+            const loginContent = document.getElementById('author-login-content');
+            const loggedInContent = document.getElementById('author-logged-in-content');
+            if (isAuthorLoggedIn()) {
+                if (loginContent) loginContent.style.display = 'none';
+                if (loggedInContent) loggedInContent.style.display = 'block';
+            } else {
+                if (loginContent) loginContent.style.display = 'block';
+                if (loggedInContent) loggedInContent.style.display = 'none';
+                const passInput = document.getElementById('author-pass-input');
+                if (passInput) {
+                    passInput.value = '';
+                    setTimeout(() => passInput.focus(), 100);
+                }
+            }
+        }
+
+        function closeAuthorModal(e) {
+            if (e && e.target !== e.currentTarget && !e.target.classList.contains('art-modal-close') && !e.target.classList.contains('art-modal-cancel')) return;
+            const modal = document.getElementById('author-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        async function submitAuthorAuth() {
+            const input = document.getElementById('author-pass-input');
+            const errEl = document.getElementById('author-auth-error');
+            if (!input || !input.value) return;
+
+            const encoder = new TextEncoder();
+            const data = encoder.encode(input.value);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+            if (hash === ADMIN_HASH) {
+                localStorage.setItem(AUTH_SESSION_KEY, 'true');
+                closeAuthorModal();
+                updateAuthorStatusUI();
+                renderComments();
+            } else {
+                if (errEl) {
+                    errEl.textContent = 'Incorrect author password.';
+                    errEl.style.display = 'block';
+                }
+            }
+        }
+
+        function handleAuthorLogout() {
+            localStorage.removeItem(AUTH_SESSION_KEY);
+            sessionStorage.removeItem(AUTH_SESSION_KEY);
+            closeAuthorModal();
+            updateAuthorStatusUI();
+            renderComments();
+        }
+
+        function updateAuthorStatusUI() {
+            const loggedIn = isAuthorLoggedIn();
+            const btnText = document.getElementById('author-btn-text');
+            const nameWrap = document.getElementById('name-input-wrap');
+            const authorModePill = document.getElementById('author-mode-pill');
+
+            if (btnText) {
+                btnText.textContent = loggedIn ? 'Author (Active)' : 'Author Login';
+            }
+            if (nameWrap) {
+                nameWrap.style.display = loggedIn ? 'none' : 'block';
+            }
+            if (authorModePill) {
+                authorModePill.style.display = loggedIn ? 'inline-flex' : 'none';
             }
         }
 
