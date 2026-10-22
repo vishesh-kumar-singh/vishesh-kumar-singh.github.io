@@ -73,6 +73,7 @@
                 <button class="nav-btn" data-target="experience">Experience</button>
                 <button class="nav-btn" data-target="achievements">Achievements</button>
                 <button class="nav-btn" data-target="publications">Publications</button>
+                <button class="nav-btn" data-target="blogs">Blogs</button>
                 <button class="nav-btn" data-target="projects">Projects</button>
                 <button class="nav-btn" data-target="contact">Contact</button>
             </nav>
@@ -262,10 +263,11 @@
                     <span class="project-meta">Revision 2 under review for Elsevier Neurocomputing</span>
                 </div>
                 <div class="project-links">
+                    <a href="article.html?post=snn_memory"><i class="fas fa-file-alt"></i> Research Blog</a>
                     <a href="https://github.com/vishesh-kumar-singh/Mimicking-Biological-Memory-Consolidation-in-SNNs"
                         target="_blank"><i class="fab fa-github"></i> Code</a>
-                    <a href="https://doi.org/10.36227/techrxiv.177032973.30172948/v1" target="_blank"><i
-                            class="fas fa-book"></i> Preprint</a>
+                    <a href="blogs/images/snn_memory/MIMICKING-BIOLOGICAL_MEMORY_CONSOLIDATION_IN_SNNS.pdf" target="_blank"><i
+                            class="fas fa-file-pdf"></i> Paper (PDF)</a>
                 </div>
                 <div style="margin-top: 1rem; text-align: justify;">
                     <p>
@@ -293,53 +295,95 @@
                     </p>
                 </div>
             </div> -->
+        </section>
 
-            <!-- Anthropic-style Articles & Research Essays -->
-            <h2 style="margin-top: 3.5rem;">Technical Blogs, Articles and Essays</h2>
+        <section id="blogs" class="tab-content">
+            <h2>Technical Blogs</h2>
             <div class="anthropic-blog-container">
                 <div class="anthropic-masthead">
-                    <!-- <span class="anthropic-masthead-badge">Research &amp; Essays</span> -->
-                    <!-- <p class="anthropic-masthead-desc">
-                        Technical explorations spanning mechanistic interpretability, large language model alignment,
-                        reasoning dynamics, and reinforcement learning theory. Both peer-reviewed club publications and independent write-ups.
-                    </p> -->
                 </div>
 
                 <!-- Dynamic Category Filter Bar (populated automatically by script.js) -->
                 <div class="anthropic-filter-bar"></div>
 
-                <!-- Featured Hero Card: LLMs Know When They Lie... (BCS IITK) -->
-                <a href="https://www.bcs-iitk.com/blogs/2026-10-19-LLMs-Know-When-They-Lie" target="_blank" rel="noopener noreferrer" class="anthropic-hero-card" data-category="interpretability">
+                <!-- Featured Hero Card: Robustness Blog (AIMO Challenge NeurIPS 2026) [Commented out for now] -->
+                <!--
+                <a href="article.html?post=robustness" class="anthropic-hero-card" data-category="interpretability">
                     <div class="anthropic-badge-row">
-                        <!-- <span class="anthropic-pill-spotlight">Featured Research</span> -->
-                        <span class="anthropic-pill-venue">
-                            <i class="fas fa-brain" style="color: #f28c67;"></i> Brain & Cognitive Science Club, IITK
-                        </span>
-                        <span class="anthropic-meta-time">October 19, 2026 • 22 min read</span>
+                        <span class="anthropic-pill-venue">AIMO Challenge Write-up</span>
+                        <span class="anthropic-meta-time">November 2026 &bull; Draft</span>
                     </div>
 
-                    <h3 class="anthropic-hero-title">LLMs Know When They Lie…</h3>
+                    <h3 class="anthropic-hero-title">When Does an LLM Provide a Robust Solution?</h3>
                     
                     <p class="anthropic-hero-excerpt">
-                        An overview of the growing body of research suggesting that a language model's internal representations often encode the truth, even when its output doesn't. Investigating the split-brain phenomenon, linear representation of truth, activation steering, and whether models exhibit emergent strategic deception.
+                        A technical exploration of our approach for the AIMO Interpretability Challenge at NeurIPS 2026. Investigating the internal representation geometry of mathematical reasoning, verifying solution consistency, and analyzing when model outputs remain robust under perturbations.
                     </p>
 
                     <div class="anthropic-card-footer">
                         <div class="anthropic-tag-list">
+                            <span class="anthropic-tag" style="color: #ef4444; border-color: rgba(239,68,68,0.3);">Draft</span>
                             <span class="anthropic-tag">Mechanistic Interpretability</span>
-                            <span class="anthropic-tag">Latent Representations</span>
-                            <span class="anthropic-tag">Activation Steering</span>
-                            <span class="anthropic-tag">Alignment Faking</span>
+                            <span class="anthropic-tag">NeurIPS 2026</span>
+                            <span class="anthropic-tag">AIMO Challenge</span>
                         </div>
                         <span class="anthropic-action-link">
-                            Read on BCS IITK <i class="fas fa-arrow-up-right-from-square"></i>
+                            Read Essay <i class="fas fa-arrow-right"></i>
                         </span>
                     </div>
                 </a>
+                -->
 
                 <!-- Articles Grid -->
-                <!-- <div class="anthropic-articles-grid">
+                <div class="anthropic-articles-grid">
 
+                    <a href="article.html?post=snn_memory" class="anthropic-grid-card" data-category="neuromorphic">
+                        <div>
+                            <div class="anthropic-card-header">
+                                <span class="anthropic-pill-category">Neuromorphic AI</span>
+                                <span class="anthropic-meta-time">Oct 2026 &bull; 15 min read</span>
+                            </div>
+                            <h4 class="anthropic-card-title">Mimicking Biological Memory Consolidation in SNNs</h4>
+                            <p class="anthropic-card-excerpt">
+                                How biologically inspired neuronal locking solves catastrophic forgetting in Spiking Neural Networks. Using three-factor plasticity and P-Factor consolidation to form permanent engrams without replay buffers or second-order Hessians.
+                            </p>
+                        </div>
+                        <div class="anthropic-card-footer">
+                            <div class="anthropic-tag-list">
+                                <span class="anthropic-tag">Research Paper</span>
+                                <span class="anthropic-tag">SNNs</span>
+                                <span class="anthropic-tag">Continual Learning</span>
+                            </div>
+                            <span class="anthropic-action-link">
+                                Read Essay <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="https://www.bcs-iitk.com/blogs/2026-10-19-LLMs-Know-When-They-Lie" target="_blank" rel="noopener noreferrer" class="anthropic-grid-card" data-category="interpretability">
+                        <div>
+                            <div class="anthropic-card-header">
+                                <span class="anthropic-pill-category">Mechanistic Interpretability</span>
+                                <span class="anthropic-meta-time">Oct 19, 2026 &bull; 22 min read</span>
+                            </div>
+                            <h4 class="anthropic-card-title">LLMs Know When They Lie…</h4>
+                            <p class="anthropic-card-excerpt">
+                                An overview of the growing body of research suggesting that a language model's internal representations often encode the truth, even when its output doesn't. Investigating the split-brain phenomenon, linear representation of truth, activation steering, and whether models exhibit emergent strategic deception.
+                            </p>
+                        </div>
+                        <div class="anthropic-card-footer">
+                            <div class="anthropic-tag-list">
+                                <span class="anthropic-tag">BCS IITK ↗</span>
+                                <span class="anthropic-tag">Activation Steering</span>
+                                <span class="anthropic-tag">Alignment Faking</span>
+                            </div>
+                            <span class="anthropic-action-link">
+                                Read on BCS IITK <i class="fas fa-arrow-up-right-from-square"></i>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!--
                     <a href="article.html?post=test-time-alignment" class="anthropic-grid-card" data-category="interpretability">
                         <div>
                             <div class="anthropic-card-header">
@@ -431,8 +475,9 @@
                             </span>
                         </div>
                     </a>
+                    -->
 
-                </div> -->
+                </div>
             </div>
         </section>
 

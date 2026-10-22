@@ -26,15 +26,23 @@ dist-ssr
 
 # Drafts system: ignore all files in blogs/ except published ones
 blogs/*
-# !blogs/HER.md
 !blogs/MONA.md
 !blogs/LIFE.md
 !blogs/HER.md
 
-
-
 public/blogs/
-public/classic/blogs
 !public/blogs/Images/HER
 
-
+# Classic Blogs Drafts system: ignore drafts in public/classic/blogs/ except published ones
+public/classic/blogs/*
+!public/classic/blogs/posts/
+public/classic/blogs/posts/*
+!public/classic/blogs/posts/snn_memory.md
+!public/classic/blogs/snn_memory.md
+!public/classic/blogs/bibliography/
+public/classic/blogs/bibliography/*
+!public/classic/blogs/bibliography/snn_memory.bib
+!public/classic/blogs/images/
+public/classic/blogs/images/*
+!public/classic/blogs/images/snn_memory/
+!public/classic/blogs/images/snn_memory/**

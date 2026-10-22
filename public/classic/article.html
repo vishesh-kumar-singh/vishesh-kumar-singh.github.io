@@ -19,7 +19,11 @@
     <!-- Marked.js for markdown parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- MathJax for rendering math -->
+    <!-- KaTeX for ultra-fast, robust LaTeX math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+
+    <!-- MathJax for rendering math fallback -->
     <script>
         window.MathJax = {
             tex: {
@@ -317,6 +321,39 @@
             background: rgba(125, 125, 125, 0.12);
         }
 
+        /* Responsive Article Images & Figures */
+        .art-body img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 2rem auto;
+            border-radius: 10px;
+            border: 1px solid var(--art-border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        [data-theme="dark"] .art-body img {
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .art-body figure {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .art-body figure img {
+            margin: 0 auto 0.75rem auto;
+        }
+
+        .art-body figcaption {
+            font-size: 0.9rem;
+            color: var(--art-muted);
+            text-align: center;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
         .art-code-block {
             position: relative;
             margin: 2rem 0;
@@ -456,17 +493,359 @@
             transform: translateY(-2px);
         }
 
-        /* Loading Skeleton */
-        .art-loading {
+        /* LaTeX Math Typography */
+        .art-math-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.85rem 0;
+            margin: 1.4rem 0;
             text-align: center;
-            padding: 6rem 0;
+        }
+
+        .art-math-inline {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 0.1em;
+        }
+
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.4rem 0;
+            margin: 0.5rem 0;
+        }
+
+        .katex {
+            font-size: 1.05em;
+            color: var(--art-text);
+        }
+
+        /* Citations & Hover Popover (Distill / ICLR Style) */
+        .art-cite-wrap {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .art-cite-link {
+            color: var(--art-accent);
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0.05rem 0.3rem;
+            border-radius: 4px;
+            font-size: 0.88em;
+            vertical-align: baseline;
+            position: relative;
+            top: -0.15em;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            background: var(--art-accent-light);
+            border: 1px solid rgba(242, 140, 103, 0.25);
+        }
+
+        .art-cite-link:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Floating Tooltip / Popover */
+        #art-cite-popover {
+            position: fixed;
+            z-index: 2000;
+            max-width: 380px;
+            padding: 1rem 1.15rem;
+            background: var(--art-card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--art-border);
+            border-radius: 12px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--art-text);
+            pointer-events: auto;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+            display: none;
+        }
+
+        #art-cite-popover.visible {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        .popover-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.35rem;
+            font-size: 0.76rem;
+            color: var(--art-accent);
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .popover-title {
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.35;
+        }
+
+        .popover-title a {
+            color: var(--art-text);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .popover-title a:hover {
+            color: var(--art-accent);
+            text-decoration: underline;
+        }
+
+        .popover-authors {
             color: var(--art-muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .popover-venue {
+            font-style: italic;
+            color: var(--art-muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .popover-actions {
+            display: flex;
+            gap: 0.5rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid var(--art-border);
+        }
+
+        .popover-btn {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            background: rgba(125, 125, 125, 0.1);
+            color: var(--art-text);
+            border: 1px solid var(--art-border);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .popover-btn:hover {
+            background: var(--art-accent);
+            color: #fff;
+            border-color: var(--art-accent);
+        }
+
+        /* References / Bibliography Section */
+        .art-references {
+            margin-top: 4rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--art-border);
+        }
+
+        .art-references-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .art-references-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--art-text);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .art-references-title i {
+            color: var(--art-accent);
+            font-size: 1.1rem;
+        }
+
+        .art-references-count {
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            background: rgba(125, 125, 125, 0.1);
+            color: var(--art-muted);
+            border: 1px solid var(--art-border);
+        }
+
+        .art-references-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .art-ref-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            padding: 0.9rem 1.1rem;
+            border-radius: 10px;
+            background: rgba(125, 125, 125, 0.03);
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .art-ref-item:hover {
+            background: rgba(125, 125, 125, 0.06);
+            border-color: var(--art-border);
+        }
+
+        .art-ref-item.highlight-target {
+            background: var(--art-accent-light) !important;
+            border-color: var(--art-accent) !important;
+            box-shadow: 0 0 15px rgba(242, 140, 103, 0.3);
+            transform: translateX(4px);
+        }
+
+        .art-ref-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--art-accent);
+            min-width: 2.2rem;
+            padding-top: 0.1rem;
+        }
+
+        .art-ref-body {
+            flex: 1;
+        }
+
+        .art-ref-authors {
+            font-weight: 600;
+            color: var(--art-text);
+        }
+
+        .art-ref-year {
+            color: var(--art-muted);
+            margin-right: 0.3rem;
+        }
+
+        .art-ref-title {
+            color: var(--art-text);
+            margin: 0.2rem 0;
+        }
+
+        .art-ref-title a {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: rgba(125, 125, 125, 0.4);
+            text-underline-offset: 3px;
+            transition: color 0.15s, text-decoration-color 0.15s;
+        }
+
+        .art-ref-title a:hover {
+            color: var(--art-accent);
+            text-decoration-color: var(--art-accent);
+        }
+
+        .art-ref-venue {
+            font-style: italic;
+            color: var(--art-muted);
+            font-size: 0.86rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .art-ref-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+        }
+
+        .art-ref-btn {
+            font-size: 0.75rem;
+            padding: 0.15rem 0.55rem;
+            border-radius: 9999px;
+            background: rgba(125, 125, 125, 0.08);
+            border: 1px solid var(--art-border);
+            color: var(--art-muted);
+            text-decoration: none;
+            cursor: pointer;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.15s ease;
+        }
+
+        .art-ref-btn:hover {
+            color: var(--art-text);
+            background: rgba(125, 125, 125, 0.15);
+        }
+
+        .art-ref-backlink {
+            font-size: 0.85rem;
+            color: var(--art-accent);
+            text-decoration: none;
+            margin-left: auto;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .art-ref-backlink:hover {
+            background: var(--art-accent-light);
+        }
+
+        /* How to Cite Post Box */
+        .art-post-citation {
+            margin-top: 3.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--art-border);
+            background: var(--art-code-bg);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .art-post-citation-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: #aaa;
+        }
+
+        .art-post-citation pre {
+            margin: 0;
+            padding: 1.1rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: #d1d5db;
         }
     </style>
 </head>
 <body>
 
     <div id="progress-bar"></div>
+    <div id="art-cite-popover"></div>
 
     <header class="art-header">
         <a href="index.html#publications" class="art-back-btn">
@@ -533,25 +912,39 @@
             const body = match[2];
             const meta = {};
             let currentKey = null;
+            let isBlock = false;
 
             yamlStr.split(/\r?\n/).forEach(line => {
                 const trimmed = line.trim();
                 if (!trimmed || trimmed.startsWith('#')) return;
 
-                if (trimmed.startsWith('-') && currentKey) {
-                    const val = trimmed.replace(/^-\s*/, '').replace(/^["']|["']$/g, '');
-                    if (Array.isArray(meta[currentKey])) {
-                        meta[currentKey].push(val);
-                    } else {
-                        meta[currentKey] = [val];
+                if ((line.startsWith('  ') || line.startsWith('\t')) && currentKey) {
+                    if (isBlock) {
+                        meta[currentKey] = (meta[currentKey] ? meta[currentKey] + '\n' : '') + line.replace(/^\s{2}/, '');
+                        return;
                     }
-                    return;
+                    if (trimmed.startsWith('-')) {
+                        const val = trimmed.replace(/^-\s*/, '').replace(/^["']|["']$/g, '');
+                        if (Array.isArray(meta[currentKey])) {
+                            meta[currentKey].push(val);
+                        } else {
+                            meta[currentKey] = [val];
+                        }
+                        return;
+                    }
                 }
 
                 const colonIdx = trimmed.indexOf(':');
                 if (colonIdx > 0) {
                     const k = trimmed.slice(0, colonIdx).trim();
                     let v = trimmed.slice(colonIdx + 1).trim();
+                    if (v === '|' || v === '>') {
+                        isBlock = true;
+                        meta[k] = '';
+                        currentKey = k;
+                        return;
+                    }
+                    isBlock = false;
                     if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
                         v = v.slice(1, -1);
                     }
@@ -565,95 +958,441 @@
             return { meta, body };
         }
 
-        // Custom Marked renderer for code blocks and callouts
-        const renderer = new marked.Renderer();
+        // BibTeX Parser
+        function parseBibtex(bibText) {
+            const entries = {};
+            if (!bibText || !bibText.trim()) return entries;
 
-        renderer.code = function({ text, lang }) {
-            const language = lang || 'text';
-            const highlighted = hljs.getLanguage(language)
-                ? hljs.highlight(text, { language }).value
-                : hljs.highlightAuto(text).value;
+            const entryRegex = /@([a-zA-Z]+)\s*\{\s*([^,\s]+)\s*,([\s\S]*?)(?=\n@[a-zA-Z]+\s*\{|\s*$)/g;
+            let match;
 
-            const safeCode = encodeURIComponent(text);
+            while ((match = entryRegex.exec(bibText)) !== null) {
+                const type = match[1].toLowerCase();
+                const key = match[2].trim();
+                const body = match[3];
 
-            return `
-                <div class="art-code-block">
-                    <div class="art-code-header">
-                        <span>${language}</span>
-                        <button class="art-code-copy-btn" onclick="copyCode(this, decodeURIComponent('${safeCode}'))">
-                            <i class="far fa-copy"></i> <span>Copy</span>
-                        </button>
-                    </div>
-                    <pre><code class="hljs language-${language}">${highlighted}</code></pre>
-                </div>
-            `;
-        };
+                const entry = {
+                    type,
+                    key,
+                    raw: match[0].trim(),
+                    fields: {}
+                };
 
-        renderer.blockquote = function({ text }) {
-            // Check for GitHub style alerts: [!NOTE], [!TIP], [!WARNING], [!IMPORTANT]
-            const alertMatch = text.match(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]\s*(?:<br\s*\/?>)?([\s\S]*)$/i);
-            if (alertMatch) {
-                const type = alertMatch[1].toLowerCase();
-                const content = alertMatch[2];
-                let icon = 'info-circle';
-                if (type === 'tip') icon = 'lightbulb';
-                if (type === 'warning' || type === 'caution') icon = 'triangle-exclamation';
+                const fieldRegex = /([a-zA-Z_-]+)\s*=\s*(?:\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}|"([^"]*)"|([0-9a-zA-Z_-]+))/g;
+                let fieldMatch;
+                while ((fieldMatch = fieldRegex.exec(body)) !== null) {
+                    const fieldName = fieldMatch[1].toLowerCase();
+                    let fieldValue = (fieldMatch[2] !== undefined ? fieldMatch[2] : (fieldMatch[3] !== undefined ? fieldMatch[3] : fieldMatch[4])) || '';
+                    fieldValue = fieldValue.replace(/[\{|\}]/g, '').replace(/\s+/g, ' ').trim();
+                    entry.fields[fieldName] = fieldValue;
+                }
 
-                return `
-                    <div class="art-callout art-callout-${type}">
-                        <div class="art-callout-label">
-                            <i class="fas fa-${icon}"></i> ${type.toUpperCase()}
-                        </div>
-                        <div>${content}</div>
-                    </div>
-                `;
+                const authorsRaw = entry.fields.author || entry.fields.editor || '';
+                const authorList = parseAuthors(authorsRaw);
+                entry.authors = authorList;
+                entry.authorShort = formatShortAuthor(authorList);
+                entry.authorFull = formatFullAuthors(authorList);
+                entry.year = entry.fields.year || 'n.d.';
+                entry.title = entry.fields.title || 'Untitled';
+                entry.venue = entry.fields.journal || entry.fields.booktitle || entry.fields.publisher || entry.fields.archiveprefix || '';
+                entry.url = entry.fields.url || (entry.fields.eprint ? `https://arxiv.org/abs/${entry.fields.eprint}` : (entry.fields.doi ? `https://doi.org/${entry.fields.doi}` : ''));
+
+                entries[key] = entry;
             }
-            return `<blockquote>${text}</blockquote>`;
-        };
 
-        marked.setOptions({
-            renderer: renderer,
-            gfm: true,
-            breaks: false
-        });
+            return entries;
+        }
+
+        function parseAuthors(raw) {
+            if (!raw) return [];
+            return raw.split(/\s+and\s+/i).map(name => {
+                name = name.trim();
+                if (name.includes(',')) {
+                    const parts = name.split(',');
+                    return { last: parts[0].trim(), first: parts.slice(1).join(' ').trim() };
+                } else {
+                    const parts = name.split(/\s+/);
+                    const last = parts.pop() || '';
+                    return { last, first: parts.join(' ') };
+                }
+            });
+        }
+
+        function formatShortAuthor(authors) {
+            if (!authors || authors.length === 0) return 'Unknown';
+            if (authors.length === 1) return authors[0].last;
+            if (authors.length === 2) return `${authors[0].last} & ${authors[1].last}`;
+            return `${authors[0].last} et al.`;
+        }
+
+        function formatFullAuthors(authors) {
+            if (!authors || authors.length === 0) return 'Unknown Author';
+            if (authors.length === 1) return `${authors[0].first} ${authors[0].last}`.trim();
+            if (authors.length === 2) return `${authors[0].first} ${authors[0].last} & ${authors[1].first} ${authors[1].last}`.trim();
+            if (authors.length > 5) {
+                return `${authors.slice(0, 3).map(a => `${a.first} ${a.last}`.trim()).join(', ')}, et al.`;
+            }
+            return authors.map(a => `${a.first} ${a.last}`.trim()).join(', ');
+        }
 
         // Copy Code Function
         window.copyCode = function(button, codeText) {
             navigator.clipboard.writeText(codeText).then(() => {
                 const span = button.querySelector('span');
-                const orig = span.textContent;
-                span.textContent = 'Copied!';
-                setTimeout(() => { span.textContent = orig; }, 1800);
+                const orig = span ? span.textContent : '';
+                if (span) span.textContent = 'Copied!';
+                setTimeout(() => { if (span) span.textContent = orig; }, 1800);
             });
         };
+
+        // Smooth scroll to reference target
+        window.scrollToRef = function(targetId, event) {
+            if (event) event.preventDefault();
+            const elem = document.getElementById(targetId);
+            if (!elem) return;
+            elem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (targetId.startsWith('ref-')) {
+                elem.classList.add('highlight-target');
+                setTimeout(() => { elem.classList.remove('highlight-target'); }, 2200);
+            }
+        };
+
+        // Initialize Citation Popover
+        function initCitePopovers(bibMap, keyToNum) {
+            const popover = document.getElementById('art-cite-popover');
+            if (!popover) return;
+
+            let hideTimeout = null;
+
+            document.querySelectorAll('.art-cite-link').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    clearTimeout(hideTimeout);
+                    const key = link.dataset.citeKey;
+                    const entry = bibMap[key] || {
+                        key,
+                        title: key,
+                        authorFull: 'Unknown Author',
+                        authorShort: 'Unknown',
+                        year: 'n.d.',
+                        venue: '',
+                        url: ''
+                    };
+
+                    const num = keyToNum[key] || link.textContent.replace(/[\[\]]/g, '');
+
+                    popover.innerHTML = `
+                        <div class="popover-header">
+                            <span>CITATION [${num}]</span>
+                            <span>${entry.year}</span>
+                        </div>
+                        <div class="popover-title">
+                            ${entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener noreferrer">${entry.title}</a>` : entry.title}
+                        </div>
+                        <div class="popover-authors">${entry.authorFull || entry.authorShort}</div>
+                        ${entry.venue ? `<div class="popover-venue">${entry.venue}</div>` : ''}
+                        <div class="popover-actions">
+                            ${entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener noreferrer" class="popover-btn"><i class="fas fa-external-link-alt"></i> Paper</a>` : ''}
+                            <button class="popover-btn" onclick="scrollToRef('ref-${num}', event)"><i class="fas fa-arrow-down"></i> Reference</button>
+                        </div>
+                    `;
+
+                    popover.classList.add('visible');
+
+                    const rect = link.getBoundingClientRect();
+                    const pWidth = 360;
+                    let left = rect.left + (rect.width / 2) - (pWidth / 2);
+                    if (left < 16) left = 16;
+                    if (left + pWidth > window.innerWidth - 16) left = window.innerWidth - pWidth - 16;
+
+                    let top = rect.top - popover.offsetHeight - 10;
+                    if (top < 10) {
+                        top = rect.bottom + 10;
+                    }
+
+                    popover.style.left = `${left}px`;
+                    popover.style.top = `${top}px`;
+                });
+
+                link.addEventListener('mouseleave', () => {
+                    hideTimeout = setTimeout(() => {
+                        popover.classList.remove('visible');
+                    }, 260);
+                });
+            });
+
+            popover.addEventListener('mouseenter', () => {
+                clearTimeout(hideTimeout);
+            });
+
+            popover.addEventListener('mouseleave', () => {
+                hideTimeout = setTimeout(() => {
+                    popover.classList.remove('visible');
+                }, 200);
+            });
+        }
 
         // Load Article
         async function loadArticle() {
             const params = new URLSearchParams(window.location.search);
-            const postSlug = params.get('post') || 'test-time-alignment';
-            const postUrl = `blogs/${encodeURIComponent(postSlug)}.md`;
+            const postSlug = params.get('post') || 'robustness';
 
             try {
-                const response = await fetch(postUrl);
-                if (!response.ok) {
-                    throw new Error(`Article not found: ${response.status}`);
-                }
-                const rawMarkdown = await response.text();
-                const { meta, body } = parseFrontmatter(rawMarkdown);
+                // 1. Fetch Post Content with resolution hierarchy: blogs/posts/<slug>.md -> blogs/<slug>.md -> blogs/post/<slug>.md
+                let rawMarkdown = '';
+                const postUrls = [
+                    `blogs/posts/${encodeURIComponent(postSlug)}.md`,
+                    `blogs/${encodeURIComponent(postSlug)}.md`,
+                    `blogs/post/${encodeURIComponent(postSlug)}.md`
+                ];
 
+                for (const pUrl of postUrls) {
+                    try {
+                        const res = await fetch(pUrl);
+                        if (res.ok) {
+                            rawMarkdown = await res.text();
+                            break;
+                        }
+                    } catch (e) {}
+                }
+
+                if (!rawMarkdown) {
+                    throw new Error(`Article not found: ${postSlug}.md`);
+                }
+
+                const { meta, body } = parseFrontmatter(rawMarkdown);
                 document.title = `${meta.title || postSlug} | Vishesh Kumar Singh`;
 
-                // Automatically calculate reading time (~200 words per minute)
+                // 2. Fetch Bibliography (.bib) with automatic resolution
+                const bibUrls = [];
+                if (meta.bibliography) {
+                    bibUrls.push(`blogs/bibliography/${meta.bibliography}`, `blogs/references/${meta.bibliography}`, `blogs/${meta.bibliography}`, meta.bibliography);
+                }
+                bibUrls.push(
+                    `blogs/bibliography/${encodeURIComponent(postSlug)}.bib`,
+                    `blogs/references/${encodeURIComponent(postSlug)}.bib`,
+                    `blogs/${encodeURIComponent(postSlug)}.bib`
+                );
+
+                let bibMap = {};
+                for (const bUrl of bibUrls) {
+                    try {
+                        const bRes = await fetch(bUrl);
+                        if (bRes.ok) {
+                            const bibRawText = await bRes.text();
+                            bibMap = parseBibtex(bibRawText);
+                            break;
+                        }
+                    } catch (e) {}
+                }
+
+                // 3. Process In-Text Citations
+                const citedKeys = [];
+                const keyToNum = {};
+
+                function getOrAssignNum(k) {
+                    const cleanK = k.trim().replace(/^@/, '');
+                    if (!keyToNum[cleanK]) {
+                        citedKeys.push(cleanK);
+                        keyToNum[cleanK] = citedKeys.length;
+                    }
+                    return { key: cleanK, num: keyToNum[cleanK] };
+                }
+
+                function renderGroupCite(keysStr) {
+                    const parts = keysStr.split(/[;,]/).map(s => s.trim()).filter(Boolean);
+                    const links = parts.map(p => {
+                        const noteMatch = p.match(/^@?([a-zA-Z0-9_-]+)(?:\s*,\s*(.+))?$/);
+                        if (noteMatch) {
+                            const k = noteMatch[1];
+                            const note = noteMatch[2] || '';
+                            const { num } = getOrAssignNum(k);
+                            return `<a href="#ref-${num}" class="art-cite-link" data-cite-key="${k}" id="cite-mark-${k}">[${num}${note ? `, ${note}` : ''}]</a>`;
+                        }
+                        const { num } = getOrAssignNum(p);
+                        return `<a href="#ref-${num}" class="art-cite-link" data-cite-key="${p}" id="cite-mark-${p}">[${num}]</a>`;
+                    });
+                    return `<span class="art-cite-wrap">${links.join(' ')}</span>`;
+                }
+
+                // Protect code blocks from citation replacement & math processing
+                const codeBlocks = [];
+                let safeBody = body.replace(/(```[\s\S]*?```|`[^`\n]+`)/g, (match) => {
+                    codeBlocks.push(match);
+                    return `%%CODE_BLOCK_${codeBlocks.length - 1}%%`;
+                });
+
+                // Protect LaTeX math formulas from Markdown parsing (underscores, asterisks, brackets)
+                const mathBlocks = [];
+                // 1. Display Math: $$ ... $$
+                safeBody = safeBody.replace(/\$\$([\s\S]+?)\$\$/g, (match, tex) => {
+                    mathBlocks.push({ type: 'display', tex: tex.trim() });
+                    return `\n\n%%MATH_DISPLAY_${mathBlocks.length - 1}%%\n\n`;
+                });
+                // 2. Inline Math: $ ... $ (ignoring escaped \$)
+                safeBody = safeBody.replace(/(^|[^\\])\$([^\$\n]+?)\$/g, (match, prefix, tex) => {
+                    mathBlocks.push({ type: 'inline', tex: tex.trim() });
+                    return `${prefix}%%MATH_INLINE_${mathBlocks.length - 1}%%`;
+                });
+
+                // Match [@key1; @key2] or [@key, p. 12]
+                safeBody = safeBody.replace(/\[\s*(@[a-zA-Z0-9_-]+(?:\s*[;,]\s*@?[a-zA-Z0-9_-]+(?:\s*,\s*[^\]]+)?)*)\s*\]/g, (match, keys) => {
+                    return renderGroupCite(keys);
+                });
+
+                // Match \cite{key}, \citep{key}, \citet{key}
+                safeBody = safeBody.replace(/\\cite[pt]?\{([^}]+)\}/g, (match, keys) => {
+                    return renderGroupCite(keys);
+                });
+
+                // Match <d-cite key="..."></d-cite>
+                safeBody = safeBody.replace(/<d-cite\s+key=["']([^"']+)["'][^>]*>(?:<\/d-cite>)?/gi, (match, keys) => {
+                    return renderGroupCite(keys);
+                });
+
+                // Restore code blocks
+                safeBody = safeBody.replace(/%%CODE_BLOCK_(\d+)%%/g, (match, idx) => {
+                    return codeBlocks[Number(idx)];
+                });
+
+                // 4. Custom Marked Renderer for Images, Code, Callouts
+                const renderer = new marked.Renderer();
+
+                // Auto-detect & resolve image folder: blogs/images/<slug>/<image_file>
+                renderer.image = function({ href, title, text }) {
+                    let src = href || '';
+                    if (!src.startsWith('http://') && !src.startsWith('https://') && !src.startsWith('/') && !src.startsWith('data:') && !src.startsWith('blogs/')) {
+                        if (src.startsWith('images/')) {
+                            src = `blogs/images/${encodeURIComponent(postSlug)}/${src.replace(/^images\//, '')}`;
+                        } else if (src.startsWith('./')) {
+                            src = `blogs/images/${encodeURIComponent(postSlug)}/${src.replace(/^\.\//, '')}`;
+                        } else {
+                            src = `blogs/images/${encodeURIComponent(postSlug)}/${src}`;
+                        }
+                    }
+
+                    const caption = text || title || '';
+                    if (caption) {
+                        return `
+                            <figure class="art-figure">
+                                <img src="${src}" alt="${caption}" loading="lazy">
+                                <figcaption>${caption}</figcaption>
+                            </figure>
+                        `;
+                    }
+                    return `<img src="${src}" alt="${text || ''}" loading="lazy">`;
+                };
+
+                renderer.link = function({ href, title, text, tokens }) {
+                    const isExternalOrPdf = href && (href.startsWith('http') || href.endsWith('.pdf'));
+                    const targetAttr = isExternalOrPdf ? ' target="_blank" rel="noopener noreferrer"' : '';
+                    const titleAttr = title ? ` title="${title}"` : '';
+                    let inner = text;
+                    if (this.parser && tokens && tokens.length > 0) {
+                        inner = this.parser.parseInline(tokens);
+                    } else if (window.marked && window.marked.parseInline) {
+                        inner = window.marked.parseInline(text);
+                    }
+                    return `<a href="${href}"${titleAttr}${targetAttr}>${inner}</a>`;
+                };
+
+                renderer.code = function({ text, lang }) {
+                    const language = lang || 'text';
+                    const highlighted = hljs.getLanguage(language)
+                        ? hljs.highlight(text, { language }).value
+                        : hljs.highlightAuto(text).value;
+
+                    const safeCode = encodeURIComponent(text);
+
+                    return `
+                        <div class="art-code-block">
+                            <div class="art-code-header">
+                                <span>${language}</span>
+                                <button class="art-code-copy-btn" onclick="copyCode(this, decodeURIComponent('${safeCode}'))">
+                                    <i class="far fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
+                            <pre><code class="hljs language-${language}">${highlighted}</code></pre>
+                        </div>
+                    `;
+                };
+
+                renderer.blockquote = function({ text }) {
+                    const alertMatch = text.match(/^\s*\[!(NOTE|TIP|WARNING|IMPORTANT|CAUTION)\]\s*(?:<br\s*\/?>)?([\s\S]*)$/i);
+                    if (alertMatch) {
+                        const type = alertMatch[1].toLowerCase();
+                        const content = alertMatch[2];
+                        let icon = 'info-circle';
+                        if (type === 'tip') icon = 'lightbulb';
+                        if (type === 'warning' || type === 'caution') icon = 'triangle-exclamation';
+
+                        return `
+                            <div class="art-callout art-callout-${type}">
+                                <div class="art-callout-label">
+                                    <i class="fas fa-${icon}"></i> ${type.toUpperCase()}
+                                </div>
+                                <div>${content}</div>
+                            </div>
+                        `;
+                    }
+                    return `<blockquote>${text}</blockquote>`;
+                };
+
+                marked.setOptions({
+                    renderer: renderer,
+                    gfm: true,
+                    breaks: false
+                });
+
+                let parsedBody = marked.parse(safeBody);
+
+                // Restore & render LaTeX Math blocks (KaTeX with MathJax fallback)
+                // Clean up paragraph tags that Marked might wrap around display math placeholders
+                parsedBody = parsedBody.replace(/<p>\s*(%%MATH_DISPLAY_\d+%%)\s*<\/p>/g, '$1');
+
+                parsedBody = parsedBody.replace(/%%MATH_DISPLAY_(\d+)%%/g, (match, idx) => {
+                    const item = mathBlocks[Number(idx)];
+                    if (!item) return match;
+                    if (typeof katex !== 'undefined') {
+                        try {
+                            return `<div class="art-math-display">${katex.renderToString(item.tex, { displayMode: true, throwOnError: false })}</div>`;
+                        } catch (e) {
+                            console.error('KaTeX display error:', e);
+                        }
+                    }
+                    return `<div class="art-math-display">$$${item.tex}$$</div>`;
+                });
+
+                parsedBody = parsedBody.replace(/%%MATH_INLINE_(\d+)%%/g, (match, idx) => {
+                    const item = mathBlocks[Number(idx)];
+                    if (!item) return match;
+                    if (typeof katex !== 'undefined') {
+                        try {
+                            return `<span class="art-math-inline">${katex.renderToString(item.tex, { displayMode: false, throwOnError: false })}</span>`;
+                        } catch (e) {
+                            console.error('KaTeX inline error:', e);
+                        }
+                    }
+                    return `$${item.tex}$`;
+                });
+
+                // Auto-resolve raw HTML <img> tags if used
+                parsedBody = parsedBody.replace(/<img\s+([^>]*?)src=["']([^"']+)["']([^>]*)>/gi, (match, prefix, src, suffix) => {
+                    if (!src.startsWith('http') && !src.startsWith('/') && !src.startsWith('blogs/')) {
+                        const resolved = `blogs/images/${encodeURIComponent(postSlug)}/${src.replace(/^(\.\/|images\/)/, '')}`;
+                        return `<img ${prefix}src="${resolved}"${suffix}>`;
+                    }
+                    return match;
+                });
+
+                // 5. Reading Time Calculation
                 const wordCount = body.trim().split(/\s+/).filter(Boolean).length;
                 const calculatedMinutes = Math.max(1, Math.ceil(wordCount / 200));
                 const readTimeText = meta.readTime || `${calculatedMinutes} min read`;
 
-                // Render article HTML
-                const parsedBody = marked.parse(body);
-
+                // 6. Header Metadata & Pills
                 const pillsHtml = `
                     <div class="art-meta-pills">
-                        ${meta.venue ? `<span class="art-pill">${meta.venue}</span>` : '<span class="art-pill">Research Essay</span>'}
+                        ${(meta.badge || meta.venue) ? `<span class="art-pill">${meta.badge || meta.venue}</span>` : ''}
                         ${meta.draft ? `<span class="art-pill art-pill-draft"><i class="fas fa-pen-nib"></i> Draft</span>` : ''}
                         <span class="art-meta-time">
                             ${meta.date ? `<i class="far fa-calendar-alt"></i> ${meta.date} &bull; ` : ''}
@@ -667,32 +1406,129 @@
                     <h1 class="art-title">${meta.title || postSlug}</h1>
                     ${meta.subtitle ? `<p class="art-subtitle">${meta.subtitle}</p>` : ''}
                     <div class="art-author-row">
-                        <img src="../image.jpg" alt="Vishesh Kumar Singh" class="art-author-avatar">
+                        <img src="../favicon.png" alt="Vishesh Kumar Singh" class="art-author-avatar">
                         <div class="art-author-info">
                             <span class="art-author-name">Vishesh Kumar Singh</span>
-                            <span class="art-author-role">IIT Kanpur &bull; ML & Cognitive Science</span>
+                            <span class="art-author-role">IIT Kanpur</span>
                         </div>
                     </div>
                 `;
 
+                // 7. References Section Generation
+                let referencesHtml = '';
+                if (citedKeys.length > 0) {
+                    const listItems = citedKeys.map((key, idx) => {
+                        const num = idx + 1;
+                        const entry = bibMap[key] || {
+                            key,
+                            title: key,
+                            authorFull: 'Unknown Author',
+                            year: 'n.d.',
+                            venue: '',
+                            url: ''
+                        };
+
+                        const safeBib = encodeURIComponent(entry.raw || `@misc{${key},\n  title = {${entry.title}}\n}`);
+
+                        return `
+                            <li id="ref-${num}" class="art-ref-item">
+                                <span class="art-ref-num">[${num}]</span>
+                                <div class="art-ref-body">
+                                    <span class="art-ref-authors">${entry.authorFull}</span>
+                                    <span class="art-ref-year">(${entry.year}).</span>
+                                    <div class="art-ref-title">
+                                        ${entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener noreferrer">${entry.title}</a>` : entry.title}
+                                    </div>
+                                    ${entry.venue ? `<div class="art-ref-venue">${entry.venue}</div>` : ''}
+                                    <div class="art-ref-actions">
+                                        ${entry.url ? `<a href="${entry.url}" target="_blank" rel="noopener noreferrer" class="art-ref-btn"><i class="fas fa-external-link-alt"></i> Paper</a>` : ''}
+                                        <button class="art-ref-btn" onclick="copyCode(this, decodeURIComponent('${safeBib}'))"><i class="far fa-copy"></i> <span>BibTeX</span></button>
+                                        <a href="#cite-mark-${key}" class="art-ref-backlink" title="Jump back to citation" onclick="scrollToRef('cite-mark-${key}', event)">↩</a>
+                                    </div>
+                                </div>
+                            </li>
+                        `;
+                    }).join('');
+
+                    referencesHtml = `
+                        <section class="art-references" id="references">
+                            <div class="art-references-header">
+                                <h3 class="art-references-title"><i class="fas fa-book-bookmark"></i> References</h3>
+                                <span class="art-references-count">${citedKeys.length} cited work${citedKeys.length > 1 ? 's' : ''}</span>
+                            </div>
+                            <ol class="art-references-list">
+                                ${listItems}
+                            </ol>
+                        </section>
+                    `;
+                }
+
+                // 8. Citation Box (Academic preprint / TechRxiv / Blog citation)
+                const postYear = meta.date ? (meta.date.match(/\d{4}/) || [new Date().getFullYear()])[0] : new Date().getFullYear();
+                const citeSlugKey = postSlug.replace(/[^a-zA-Z0-9]/g, '');
+
+                let selfBibtex = meta.bibtex ? meta.bibtex.trim() : '';
+
+                if (!selfBibtex) {
+                    if (meta.doi) {
+                        selfBibtex = `@article{Singh${postYear}${citeSlugKey},
+  author  = {Singh, Vishesh Kumar},
+  title   = {${meta.title || postSlug}},
+  journal = {${meta.journal || 'TechRxiv'}},
+  year    = {${postYear}},
+  doi     = {${meta.doi}},
+  url     = {https://doi.org/${meta.doi}}
+}`;
+                    } else {
+                        const canonicalUrl = `${window.location.origin}${window.location.pathname}?post=${encodeURIComponent(postSlug)}`;
+                        selfBibtex = `@article{singh${postYear}${citeSlugKey},
+  title   = {${meta.title || postSlug}},
+  author  = {Singh, Vishesh Kumar},
+  journal = {Vishesh Kumar Singh's Research Blog},
+  year    = {${postYear}},
+  url     = {${canonicalUrl}}
+}`;
+                    }
+                }
+
+                const citeTitle = (meta.doi || meta.bibtex || meta.journal) ? 'How to Cite this Paper' : 'How to Cite this Article';
+
+                const citeBoxHtml = `
+                    <div class="art-post-citation">
+                        <div class="art-post-citation-header">
+                            <span><i class="fas fa-quote-left"></i> ${citeTitle}</span>
+                            <button class="art-code-copy-btn" onclick="copyCode(this, decodeURIComponent('${encodeURIComponent(selfBibtex)}'))">
+                                <i class="far fa-copy"></i> <span>Copy BibTeX</span>
+                            </button>
+                        </div>
+                        <pre><code class="language-bibtex hljs">${hljs.highlightAuto(selfBibtex).value}</code></pre>
+                    </div>
+                `;
+
+                // 9. Footer & Back Link
                 const footerHtml = `
                     <div class="art-footer-box">
                         <h4>Enjoyed this research?</h4>
                         <p>Explore more perspectives on LLMs, reinforcement learning, and cognitive architectures.</p>
-                        <a href="index.html#publications" class="art-footer-btn">
-                            <i class="fas fa-arrow-left"></i> Back to Research & Articles
+                        <a href="index.html#blogs" class="art-footer-btn">
+                            <i class="fas fa-arrow-left"></i> Back to Blogs & Articles
                         </a>
                     </div>
                 `;
 
+                // 10. Assemble and Mount
                 const container = document.getElementById('article-content');
                 container.innerHTML = `
                     ${headerHtml}
                     <div class="art-body">${parsedBody}</div>
+                    ${referencesHtml}
+                    ${citeBoxHtml}
                     ${footerHtml}
                 `;
 
-                // Typeset math equations with MathJax
+                // 11. Initialize Interactive Popovers & MathJax
+                initCitePopovers(bibMap, keyToNum);
+
                 if (window.MathJax && window.MathJax.typesetPromise) {
                     window.MathJax.typesetPromise();
                 }
@@ -704,8 +1540,8 @@
                         <i class="fas fa-exclamation-circle fa-3x" style="color: #ef4444; margin-bottom: 1rem;"></i>
                         <h2 style="font-family: 'Outfit', sans-serif; margin-bottom: 0.5rem;">Article Not Found</h2>
                         <p style="color: var(--art-muted); margin-bottom: 1.5rem;">The draft or article <code>${postSlug}.md</code> could not be loaded.</p>
-                        <a href="index.html#publications" class="art-footer-btn">
-                            <i class="fas fa-arrow-left"></i> Return to Research
+                        <a href="index.html#blogs" class="art-footer-btn">
+                            <i class="fas fa-arrow-left"></i> Return to Blogs & Articles
                         </a>
                     </div>
                 `;

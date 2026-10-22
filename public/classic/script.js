@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Friendly display names for standard slugs
             const categoryLabels = {
                 'interpretability': 'LLMs & Interpretability',
+                'neuromorphic': 'Neuromorphic AI',
                 'reinforcement-learning': 'Reinforcement Learning',
                 'benchmarks': 'Cognitive Science & AGI'
             };
@@ -148,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Hash routing for tabs ---
     if (window.location.hash) {
         let hash = window.location.hash.substring(1);
-        if (hash === 'blogs') hash = 'publications';
         const targetBtn = document.querySelector(`.nav-btn[data-target="${hash}"]`);
         if (targetBtn) {
             targetBtn.click();
