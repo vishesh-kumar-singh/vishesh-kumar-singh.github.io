@@ -4,7 +4,7 @@ subtitle: "A quest on whether life needs deep philosophy, or if we invent meanin
 description: "Why did humans invent gods and moral systems? What is consciousness, evolutionary rules, and finding peace in the simple chemistry of being alive."
 badge: "Philosophy"
 theme: "midnight"
-featured: true
+# featured: true
 featuredQuote: "Life is just a collection of unconscious cells giving you the illusion of purpose. Live because you want to, not because a god gave you a mission."
 authorNote: "Some midnight reflections on biology, moral fictions, and what it means to live without a grand cosmic blueprint."
 tags:

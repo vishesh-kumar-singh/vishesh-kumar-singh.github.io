@@ -20,6 +20,14 @@ export function getAllBlogs() {
       readTimeMinutes: parsed.readTimeMinutes,
     });
   }
+
+  // Sort articles alphabetically by their title (case-insensitive)
+  blogs.sort((a, b) => {
+    const titleA = (a.metadata.title || a.fileName || '').trim().replace(/^["'“‘\s]+/, '');
+    const titleB = (b.metadata.title || b.fileName || '').trim().replace(/^["'“‘\s]+/, '');
+    return titleA.localeCompare(titleB, undefined, { sensitivity: 'base' });
+  });
+
   return blogs;
 }
 
