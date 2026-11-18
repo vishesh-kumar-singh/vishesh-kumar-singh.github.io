@@ -521,6 +521,13 @@ function WritingsSection({ onOpenStory, onOpenUniverse }) {
 // ==========================================
 const achievements = [
   { 
+    title: "AIMO Interpretability Challenge", 
+    detail: "Awarded 1 of 3 complimentary registration slots (with full registration fee covered) by the organizers to attend NeurIPS 2026 in Paris, for exceptional technical report.", 
+    year: "2026", 
+    icon: <Sparkles className="text-amber-400 w-8 h-8" />,
+    className: "md:col-span-1 bg-gradient-to-br from-amber-500/10 to-orange-500/10 border-amber-500/20 hover:border-amber-500/50"
+  },
+  { 
     title: "AIR 786 at JEE Advanced", 
     detail: "3rd in city, among 1.9 lakh shortlisted candidates.", 
     year: "2024", 

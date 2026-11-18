@@ -70,11 +70,15 @@ a:hover {
 [data-theme="dark"] .social-links a {
     color: var(--primary-color);
     text-shadow: 0 0 5px var(--primary-color);
+    border-color: rgba(0, 255, 255, 0.3);
+    background: rgba(0, 255, 255, 0.05);
 }
 
 [data-theme="dark"] .social-links a:hover {
     color: var(--secondary-color);
     text-shadow: 0 0 10px var(--secondary-color);
+    border-color: var(--secondary-color);
+    background: rgba(255, 0, 255, 0.1);
 }
 
 /* Cyberpunk Cards */
@@ -410,19 +414,35 @@ header p {
 .social-links {
     margin-top: 1rem;
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
     justify-content: flex-start;
 }
 
 .social-links a {
-    margin: 0 10px 0 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(0, 0, 0, 0.03);
     color: var(--text-color);
     text-decoration: none;
-    font-size: 1.5rem;
-    transition: color 0.3s;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.social-links a i {
+    font-size: 1.05rem;
 }
 
 .social-links a:hover {
     color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    background: rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
 }
 
 /* Navigation Styles */

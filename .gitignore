@@ -47,3 +47,5 @@ public/classic/blogs/bibliography/*
 public/classic/blogs/images/*
 !public/classic/blogs/images/snn_memory/
 !public/classic/blogs/images/snn_memory/**
+!public/classic/blogs/images/heimdall/
+!public/classic/blogs/images/heimdall/**
