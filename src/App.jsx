@@ -8,6 +8,7 @@ import { Mail, FileText, Code2, User, ChevronRight, Brain, Cpu, Rocket, Terminal
 import BlogPage from './BlogPage.jsx';
 import { renderInlineMarkdown } from './renderInlineMarkdown.jsx';
 import BlogsUniversePage from './BlogsUniversePage.jsx';
+import PinnedFragmentsBoard from './PinnedFragmentsBoard.jsx';
 import AdminPage from './AdminPage.jsx';
 import { getAllBlogs, getFeaturedBlogs } from './blogUtils.js';
 import { getBlogCardTheme } from './blogThemes.js';
@@ -401,7 +402,7 @@ function WritingsSection({ onOpenStory, onOpenUniverse }) {
             Stories from the Heart
           </h2>
           <p className="text-slate-400 font-serif italic text-lg sm:text-xl mt-4 max-w-xl">
-            "Unfiltered reflections, late night memories, and real stories."
+            "Unfiltered reflections, late night memories, and स्याही और पन्ने."
           </p>
         </div>
 
@@ -502,7 +503,7 @@ function WritingsSection({ onOpenStory, onOpenUniverse }) {
             <Sparkles className="w-5 h-5 text-purple-400 animate-spin" style={{ animationDuration: '8s' }} />
             <span className="font-serif tracking-wide">Enter the Writings Universe</span>
             <span className="px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-xs font-mono text-purple-300">
-              {totalBlogsCount} {totalBlogsCount === 1 ? 'Story' : 'Stories'}
+              Stories & Fragments
             </span>
             <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-white group-hover:translate-x-1.5 transition-all" />
           </motion.button>
@@ -823,6 +824,14 @@ function App() {
     return false;
   });
 
+  const [universeTab, setUniverseTab] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('tab') === 'fragments' ? 'fragments' : 'stories';
+    }
+    return 'stories';
+  });
+
   useEffect(() => {
     const handlePopState = () => {
       const cleanPath = window.location.pathname.replace(/^\/+|\/+$/g, '');
@@ -830,6 +839,13 @@ function App() {
       const storyParam = params.get('story') || params.get('blog');
       const isUniverse = params.get('view') === 'blogs' || window.location.hash === '#blogs';
       const isAdmin = cleanPath === 'admin' || params.get('view') === 'admin' || params.get('admin') === 'true' || params.get('admin') === '1' || window.location.hash === '#admin';
+      const tabParam = params.get('tab');
+
+      if (tabParam === 'fragments') {
+        setUniverseTab('fragments');
+      } else if (tabParam === 'stories') {
+        setUniverseTab('stories');
+      }
 
       if (storyParam) {
         setCurrentStory(storyParam.toLowerCase());
@@ -857,8 +873,8 @@ function App() {
     const cameFromUniverse = params.get('from') === 'universe' || isUniverseOpen;
     
     if (cameFromUniverse) {
-      const newUrl = `${window.location.pathname}?view=blogs`;
-      window.history.pushState({ view: 'blogs' }, '', newUrl);
+      const newUrl = `${window.location.pathname}?view=blogs${universeTab === 'fragments' ? '&tab=fragments' : ''}`;
+      window.history.pushState({ view: 'blogs', tab: universeTab }, '', newUrl);
       setIsUniverseOpen(true);
     } else {
       window.history.pushState(null, '', window.location.pathname);
@@ -867,11 +883,12 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  const openUniverse = () => {
+  const openUniverse = (tab = 'stories') => {
+    setUniverseTab(tab);
     setIsUniverseOpen(true);
     setCurrentStory(null);
-    const newUrl = `${window.location.pathname}?view=blogs`;
-    window.history.pushState({ view: 'blogs' }, '', newUrl);
+    const newUrl = `${window.location.pathname}?view=blogs${tab === 'fragments' ? '&tab=fragments' : ''}`;
+    window.history.pushState({ view: 'blogs', tab }, '', newUrl);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
@@ -933,6 +950,7 @@ function App() {
         <BlogsUniversePage 
           onBack={closeUniverse} 
           onOpenStory={(slug) => openStory(slug, true)} 
+          initialTab={universeTab}
         />
       </>
     );
@@ -998,16 +1016,21 @@ function App() {
       {/* 2. Horizontal Timeline */}
       <ExperienceTimeline />
 
-      {/* 3. Personal Writings & Stories */}
+      {/* 3. Floating Achievements (Hall of Fame) */}
+      <FloatingAchievements />
+
+      {/* 4. Personal Writings & Stories */}
       <WritingsSection 
         onOpenStory={(slug) => openStory(slug, false)} 
         onOpenUniverse={openUniverse} 
       />
 
-      {/* 5. Floating Achievements */}
-      <FloatingAchievements />
+      {/* 4.5. Pinned Fragments & Shayari Board */}
+      <PinnedFragmentsBoard 
+        onOpenUniverse={openUniverse} 
+      />
 
-      {/* 6. Gallery Section */}
+      {/* 5. Gallery Section */}
       <GallerySection />
 
       {/* Footer */}

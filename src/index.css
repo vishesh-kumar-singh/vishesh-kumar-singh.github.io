@@ -4,6 +4,8 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
   --font-display: 'Playfair Display', Georgia, serif;
+  --font-devanagari: 'Noto Serif Devanagari', 'Rozha One', serif;
+  --font-rozha: 'Rozha One', 'Noto Serif Devanagari', serif;
   
   --color-primary-base: #0f172a;
   --color-primary-light: #1e293b;

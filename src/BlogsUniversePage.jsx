@@ -8,10 +8,19 @@ import { getAllBlogs } from './blogUtils.js';
 import { getBlogCardTheme } from './blogThemes.js';
 import { renderInlineMarkdown } from './renderInlineMarkdown.jsx';
 import { BlogBadgeIcon } from './BlogBadgeIcon.jsx';
+import FragmentsGrid from './FragmentsGrid.jsx';
+import { initialFragments } from './fragmentsData.js';
 
-export default function BlogsUniversePage({ onBack, onOpenStory }) {
+export default function BlogsUniversePage({ onBack, onOpenStory, initialTab = 'stories' }) {
+  const [activeTab, setActiveTab] = useState(initialTab || 'stories'); // 'stories' | 'fragments'
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState('All');
+
+  useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
 
   const blogs = useMemo(() => {
     return getAllBlogs();
@@ -76,15 +85,21 @@ export default function BlogsUniversePage({ onBack, onOpenStory }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-purple-300">
-            {blogs.length} {blogs.length === 1 ? 'Story' : 'Stories'} Archived
+          <div className="px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-purple-300 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+            <span>
+              {activeTab === 'stories' 
+                ? `${blogs.length} ${blogs.length === 1 ? 'Story' : 'Stories'} Archived`
+                : `${initialFragments.length} Fragments Penned`
+              }
+            </span>
           </div>
         </div>
       </header>
 
       {/* 3. Hero Section */}
       <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 pt-16 pb-32">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -100,7 +115,7 @@ export default function BlogsUniversePage({ onBack, onOpenStory }) {
             transition={{ delay: 0.1 }}
             className="text-5xl sm:text-6xl md:text-7xl font-black font-serif text-white tracking-tight mb-6"
           >
-            The Universe of Stories
+            {activeTab === 'stories' ? 'The Universe of Stories' : 'स्याही और पन्ने'}
           </motion.h1>
 
           <motion.p 
@@ -109,49 +124,92 @@ export default function BlogsUniversePage({ onBack, onOpenStory }) {
             transition={{ delay: 0.2 }}
             className="text-base sm:text-xl text-slate-400 font-serif italic leading-relaxed"
           >
-            "A personal constellation of memories, unhurried reflections, late-night phone calls, and unfiltered words."
+            {activeTab === 'stories'
+              ? '"A personal constellation of memories, unhurried reflections, late-night phone calls, and unfiltered words."'
+              : '"कुछ अधूरी बातें, आधी रात की तन्हाई, और दिल से कागज़ तक का अनकहा सफर।"'
+            }
           </motion.p>
         </div>
 
-        {/* 4. Search and Filter Bar */}
-        <div className="mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Tag Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-            {allTags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => setSelectedTag(tag)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all ${
-                  selectedTag === tag
-                    ? 'bg-rose-500/20 text-rose-200 border border-rose-500/50 shadow-[0_0_12px_rgba(244,63,94,0.3)]'
-                    : 'bg-white/5 text-slate-400 hover:text-white border border-white/10 hover:border-white/20'
-                }`}
-              >
-                {tag === 'All' ? 'All Stories' : `#${tag}`}
-              </button>
-            ))}
-          </div>
+        {/* Constellation Navigation Tabs (Memoirs vs Fragments) */}
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-16">
+          <button
+            onClick={() => setActiveTab('stories')}
+            className={`flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-mono font-medium transition-all cursor-pointer ${
+              activeTab === 'stories'
+                ? 'bg-rose-500/20 text-white border border-rose-500/50 shadow-[0_0_25px_rgba(244,63,94,0.35)]'
+                : 'bg-white/5 text-slate-400 hover:text-white border border-white/10 hover:border-white/20'
+            }`}
+          >
+            <BookOpen className="w-4 h-4 text-rose-400" />
+            <span>कहानियाँ / Memoirs</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-300 font-bold">
+              {blogs.length}
+            </span>
+          </button>
 
-          {/* Search Input */}
-          <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search stories..."
-              className="w-full pl-10 pr-9 py-2 rounded-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-purple-500/50 focus:bg-white/10 text-white placeholder-slate-500 text-xs font-mono outline-none transition-all"
-            />
-            {searchQuery && (
-              <button 
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
+          <button
+            onClick={() => setActiveTab('fragments')}
+            className={`flex items-center gap-2.5 px-6 py-3 rounded-full text-xs sm:text-sm font-mono font-medium transition-all cursor-pointer ${
+              activeTab === 'fragments'
+                ? 'bg-amber-500/20 text-amber-100 border border-amber-500/50 shadow-[0_0_25px_rgba(245,158,11,0.35)]'
+                : 'bg-white/5 text-slate-400 hover:text-white border border-white/10 hover:border-white/20'
+            }`}
+          >
+            <Feather className="w-4 h-4 text-amber-400" />
+            <span>स्याही और पन्ने (Fragments / शायरी)</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">
+              {initialFragments.length}
+            </span>
+          </button>
         </div>
+
+        {/* Tab 1: Long Stories Content */}
+        {activeTab === 'stories' && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Search and Filter Bar */}
+            <div className="mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
+              {/* Tag Filter Pills */}
+              <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                {allTags.map(tag => (
+                  <button
+                    key={tag}
+                    onClick={() => setSelectedTag(tag)}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all cursor-pointer ${
+                      selectedTag === tag
+                        ? 'bg-rose-500/20 text-rose-200 border border-rose-500/50 shadow-[0_0_12px_rgba(244,63,94,0.3)]'
+                        : 'bg-white/5 text-slate-400 hover:text-white border border-white/10 hover:border-white/20'
+                    }`}
+                  >
+                    {tag === 'All' ? 'All Stories' : `#${tag}`}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search Input */}
+              <div className="relative w-full md:w-72">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search stories..."
+                  className="w-full pl-10 pr-9 py-2 rounded-full bg-white/5 border border-white/10 hover:border-white/20 focus:border-purple-500/50 focus:bg-white/10 text-white placeholder-slate-500 text-xs font-mono outline-none transition-all"
+                />
+                {searchQuery && (
+                  <button 
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+            </div>
 
         {/* 5. Stories Grid */}
         {filteredBlogs.length === 0 ? (
@@ -254,6 +312,19 @@ export default function BlogsUniversePage({ onBack, onOpenStory }) {
             </AnimatePresence>
           </div>
         )}
+      </motion.div>
+    )}
+
+    {/* Tab 2: Fragments & Shayari Masonry Grid ("स्याही और पन्ने") */}
+    {activeTab === 'fragments' && (
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+      >
+        <FragmentsGrid />
+      </motion.div>
+    )}
 
       </main>
 
