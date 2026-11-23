@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // Friendly display names for standard slugs
             const categoryLabels = {
-                'interpretability': 'LLMs & Interpretability',
+                'llms': 'Large Language Models',
+                'interpretability': 'Interpretability',
                 'neuromorphic': 'Neuromorphic AI',
                 'reinforcement-learning': 'Reinforcement Learning',
                 'benchmarks': 'Cognitive Science & AGI'

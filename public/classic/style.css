@@ -1135,6 +1135,8 @@ footer {
     color: #6b7280;
     font-size: 0.8rem;
     margin-left: auto;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 [data-theme="dark"] .anthropic-meta-time {
@@ -1288,7 +1290,7 @@ footer {
 
 .anthropic-card-header {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
@@ -1304,6 +1306,30 @@ footer {
     background: rgba(150, 26, 21, 0.08);
     padding: 0.18rem 0.55rem;
     border-radius: 9999px;
+    white-space: nowrap;
+}
+
+.anthropic-card-venue {
+    font-size: 0.82rem;
+    color: #6b7280;
+    margin-bottom: 0.65rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+[data-theme="dark"] .anthropic-card-venue {
+    color: #9ca3af;
+}
+
+.anthropic-card-venue i {
+    font-size: 0.72rem;
+    color: var(--secondary-color);
+}
+
+[data-theme="dark"] .anthropic-card-venue i {
+    color: var(--primary-color);
 }
 
 [data-theme="dark"] .anthropic-pill-category {
