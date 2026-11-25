@@ -274,7 +274,9 @@ export default function PinnedFragmentsBoard({ onOpenUniverse }) {
           <div className={`relative z-10 ${
             featuredFragments.length === 1 
               ? 'max-w-md mx-auto py-4' 
-              : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-6 lg:gap-8 pt-4 pb-8'
+              : featuredFragments.length === 2
+                ? 'grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-8 sm:gap-6 lg:gap-8 pt-4 pb-8'
+                : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-6 lg:gap-8 pt-4 pb-8'
           }`}>
             {featuredFragments.map((fragment, idx) => (
               <PinnedFragmentCard

@@ -132,12 +132,16 @@ function FragmentCard({ fragment, index }) {
       {/* Card Footer: Metadata & Micro-interactions */}
       <div className="pt-6 mt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         {/* Location & Time Stamp */}
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
-          <MapPin className="w-3.5 h-3.5 text-slate-500" />
-          <span>{fragment.location}</span>
-          <span>•</span>
-          <Clock className="w-3.5 h-3.5 text-slate-500" />
-          <span>{fragment.time}</span>
+        <div className="flex flex-col text-xs font-mono text-slate-400">
+          <div className="flex items-center gap-1.5 text-slate-300 font-medium">
+            <MapPin className="w-3.5 h-3.5 text-rose-400/80" />
+            <span>{fragment.location}</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-slate-500 text-[11px] mt-0.5">
+            <Clock className="w-3 h-3" />
+            <span>{fragment.time}</span>
+            {fragment.date && <span>• {fragment.date}</span>}
+          </div>
         </div>
 
         {/* Action Buttons: Hearts, Copy, Share */}
