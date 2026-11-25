@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 concurrency:
   group: "pages"
@@ -46,6 +47,24 @@ jobs:
         with:
           name: github-pages-${{ github.run_attempt }}
           path: "./dist"
+
+      - name: Wait for artifact indexing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ARTIFACT_NAME="github-pages-${{ github.run_attempt }}"
+          URL="https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts?name=${ARTIFACT_NAME}"
+          for i in $(seq 1 20); do
+            COUNT=$(curl -sS -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "$URL" | node -e "const d = JSON.parse(require('fs').readFileSync(0, 'utf8')); console.log(d.total_count || 0);")
+            echo "Attempt $i: found $COUNT artifact(s) named $ARTIFACT_NAME"
+            if [ "$COUNT" -ge 1 ]; then
+              sleep 5
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Timed out waiting for artifact $ARTIFACT_NAME to appear in GitHub API"
+          exit 1
           
       - name: Deploy to GitHub Pages
         id: deployment
